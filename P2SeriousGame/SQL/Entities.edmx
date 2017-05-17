@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ForeignKeys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
+          <Property Name="RoundsId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First Name" Type="nchar" MaxLength="50" />
+          <Property Name="Last Name" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rounds">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Clicks" Type="float" />
+          <Property Name="AVG Clicks" Type="float" />
+          <Property Name="Win" Type="int" />
+          <Property Name="Loss" Type="int" />
+          <Property Name="Time Used" Type="float" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Clicks" Type="float" />
+          <Property Name="AVG Clicks" Type="float" />
+          <Property Name="Rounds" Type="int" />
+          <Property Name="Wins" Type="int" />
+          <Property Name="Losses" Type="int" />
+          <Property Name="Time Used" Type="float" />
+        </EntityType>
+        <Association Name="PersonFK">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForeignKeys">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoundsFK">
+          <End Role="Rounds" Type="Self.Rounds" Multiplicity="1" />
+          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForeignKeys">
+              <PropertyRef Name="RoundsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SessionFK">
+          <End Role="Session" Type="Self.Session" Multiplicity="1" />
+          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Session">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForeignKeys">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ForeignKeys" EntityType="Self.ForeignKeys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="PersonFK" Association="Self.PersonFK">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
+          </AssociationSet>
+          <AssociationSet Name="RoundsFK" Association="Self.RoundsFK">
+            <End Role="Rounds" EntitySet="Rounds" />
+            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
+          </AssociationSet>
+          <AssociationSet Name="SessionFK" Association="Self.SessionFK">
+            <End Role="Session" EntitySet="Session" />
+            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ForeignKeys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="SessionId" Type="Int32" Nullable="false" />
+          <Property Name="RoundsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.PersonFK" FromRole="ForeignKeys" ToRole="Person" />
+          <NavigationProperty Name="Rounds" Relationship="Self.RoundsFK" FromRole="ForeignKeys" ToRole="Rounds" />
+          <NavigationProperty Name="Session" Relationship="Self.SessionFK" FromRole="ForeignKeys" ToRole="Session" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ForeignKeys" Relationship="Self.PersonFK" FromRole="Person" ToRole="ForeignKeys" />
+        </EntityType>
+        <EntityType Name="Rounds">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Clicks" Type="Double" />
+          <Property Name="AVG_Clicks" Type="Double" />
+          <Property Name="Win" Type="Int32" />
+          <Property Name="Loss" Type="Int32" />
+          <Property Name="Time_Used" Type="Double" />
+          <NavigationProperty Name="ForeignKeys" Relationship="Self.RoundsFK" FromRole="Rounds" ToRole="ForeignKeys" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Clicks" Type="Double" />
+          <Property Name="AVG_Clicks" Type="Double" />
+          <Property Name="Rounds" Type="Int32" />
+          <Property Name="Wins" Type="Int32" />
+          <Property Name="Losses" Type="Int32" />
+          <Property Name="Time_Used" Type="Double" />
+          <NavigationProperty Name="ForeignKeys" Relationship="Self.SessionFK" FromRole="Session" ToRole="ForeignKeys" />
+        </EntityType>
+        <Association Name="PersonFK">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForeignKeys">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoundsFK">
+          <End Role="Rounds" Type="Self.Rounds" Multiplicity="1" />
+          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForeignKeys">
+              <PropertyRef Name="RoundsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SessionFK">
+          <End Role="Session" Type="Self.Session" Multiplicity="1" />
+          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Session">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForeignKeys">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ForeignKeys" EntityType="Self.ForeignKeys" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" />
+          <EntitySet Name="Session" EntityType="Self.Session" />
+          <AssociationSet Name="PersonFK" Association="Self.PersonFK">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
+          </AssociationSet>
+          <AssociationSet Name="RoundsFK" Association="Self.RoundsFK">
+            <End Role="Rounds" EntitySet="Rounds" />
+            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
+          </AssociationSet>
+          <AssociationSet Name="SessionFK" Association="Self.SessionFK">
+            <End Role="Session" EntitySet="Session" />
+            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ForeignKeys">
+            <EntityTypeMapping TypeName="Model.ForeignKeys">
+              <MappingFragment StoreEntitySet="ForeignKeys">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="RoundsId" ColumnName="RoundsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="Model.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="Model.Rounds">
+              <MappingFragment StoreEntitySet="Rounds">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
+                <ScalarProperty Name="Win" ColumnName="Win" />
+                <ScalarProperty Name="Loss" ColumnName="Loss" />
+                <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Session">
+            <EntityTypeMapping TypeName="Model.Session">
+              <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
+                <ScalarProperty Name="Rounds" ColumnName="Rounds" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="Losses" ColumnName="Losses" />
+                <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

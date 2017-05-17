@@ -1,0 +1,16 @@
+﻿DELETE FROM ForeignKeys
+WHERE Id > 0;
+
+DELETE FROM Session
+WHERE Id > 0;
+
+DELETE FROM Rounds
+WHERE Id > 0;
+
+DELETE FROM Person
+WHERE Id > 0;
+
+--DBCC CHECKIDENT (ForeignKeys, RESEED, 0);
+DBCC CHECKIDENT (Session, RESEED, 0);
+DBCC CHECKIDENT (Person, RESEED, 0);
+DBCC CHECKIDENT (Rounds, RESEED, 0);
