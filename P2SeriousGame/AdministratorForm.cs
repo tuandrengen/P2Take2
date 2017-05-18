@@ -154,23 +154,17 @@ namespace P2SeriousGame
                 adapter.Fill(PersonTable);
                 PersonTable.AsEnumerable().ToList(); // filling the list
 
+
+
+
+                // --------------------------------------
                 Console.WriteLine(PersonTable.Rows.Count);
 
                 for (int i = 0; i < PersonTable.Rows.Count; i++)
                 {
-                    Console.WriteLine(PersonTable.Rows[i]["Name"]);
+                    Console.WriteLine(PersonTable.Rows[i]["Id"]);
                 }
-                //Console.WriteLine(PersonTable.Rows[1]["Name"]);
 
-
-                /*
-                foreach (DataRow itemRow in PersonTable.Rows)
-                {
-                    foreach (var item in itemRow.ItemArray)
-                    {
-                        Console.WriteLine(item);
-                    }
-                }*/
             }
         }
 
@@ -208,14 +202,28 @@ namespace P2SeriousGame
             MessageBox.Show("");
         }
 
+        // When a letter is writing it finds the best match in the database - needs more testing...
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-        }
+            string searchString = textBox1.Text;
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-            
+            if (searchString.Length != 0)
+            {
+                string query = "SELECT * FROM Person " +
+                "WHERE Name LIKE '" + searchString + "%'";
+
+                using (connection = new SqlConnection(builder.ConnectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    DataTable personTable = new DataTable();
+                    adapter.Fill(personTable);
+
+                    listBox1.DisplayMember = "Name";
+                    listBox1.ValueMember = "Id";
+                    listBox1.DataSource = personTable;
+                }
+            }
         }
 
         private void ChangeLabelText()
