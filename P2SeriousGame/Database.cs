@@ -29,7 +29,6 @@ namespace P2SeriousGame
 
         public string testName = "Dylan the creep";
         
-
         public void ResetGameToList()
         {
             ConvertSeconds();

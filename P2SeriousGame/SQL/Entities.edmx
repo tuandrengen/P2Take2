@@ -19,8 +19,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="First Name" Type="nchar" MaxLength="50" />
-          <Property Name="Last Name" Type="nchar" MaxLength="50" />
+          <Property Name="Name" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Rounds">
           <Key>
@@ -121,8 +120,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="ForeignKeys" Relationship="Self.PersonFK" FromRole="Person" ToRole="ForeignKeys" />
         </EntityType>
         <EntityType Name="Rounds">
@@ -224,8 +222,7 @@
             <EntityTypeMapping TypeName="Model.Person">
               <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="First_Name" ColumnName="First Name" />
-                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
