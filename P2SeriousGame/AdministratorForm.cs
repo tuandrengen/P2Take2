@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,15 @@ namespace P2SeriousGame
         Formatting formatting = new Formatting(new Control());
         Panel administratorPanel = new Panel();
         GraphPanel[] graphList = new GraphPanel[4];
+        SqlConnection connection = new SqlConnection();
+
+        SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
+        {
+            DataSource = "p2-avengers.database.windows.net",
+            UserID = "tuandrengen",
+            Password = "Aouiaom17",
+            InitialCatalog = "p2-database"
+        }; // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-dotnet
 
         public AdministratorForm()
         {
@@ -98,6 +108,36 @@ namespace P2SeriousGame
         }
 
         private void AdministratorForm_Load(object sender, EventArgs e)
+        {
+            PopulateDataGrid();
+        }
+
+        private void PopulateDataGrid()
+        {
+            string query = "SELECT * FROM Person";
+
+            using (connection = new SqlConnection(builder.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+
+                DataTable testTable = new DataTable();
+                adapter.Fill(testTable);
+                this.dataGridView1.DataSource = testTable;
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //MessageBox.Show()
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
