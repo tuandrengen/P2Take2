@@ -28,7 +28,7 @@ namespace P2SeriousGame
         public List<Persons> personList = new List<Persons>();
 
         public string testName = "Dylan the creep";
-        
+
         public void ResetGameToList()
         {
             ConvertSeconds();
@@ -37,7 +37,7 @@ namespace P2SeriousGame
 
             _totalLoss += 1;
 
-            if(GameForm.hexClickedRound != 0)
+            if (GameForm.hexClickedRound != 0)
             {
                 Persons person = new Persons(testName);
                 personList.Add(person);
@@ -73,7 +73,7 @@ namespace P2SeriousGame
                 roundList.Add(round);
             }
 
-            if(_clickedTotal != 0)
+            if (_clickedTotal != 0)
             {
                 // Adds the data from the lists to the database
                 AddPersonToDatabase();
