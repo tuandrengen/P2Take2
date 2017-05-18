@@ -38,15 +38,19 @@ namespace P2SeriousGame
 
             _totalLoss += 1;
 
-            Persons person = new Persons(testFirstName, testLastName);
-            personList.Add(person);
+            if(GameForm.hexClickedRound != 0)
+            {
+                Persons person = new Persons(testFirstName, testLastName);
+                personList.Add(person);
 
-            Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
-            Console.WriteLine(roundAverage);
-            roundList.Add(round);
+                Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
+                Console.WriteLine(roundAverage);
+                roundList.Add(round);
 
-            // Resets the amount of hex clicked
-            GameForm.hexClickedRound = 0;
+                // Resets the amount of hex clicked
+                GameForm.hexClickedRound = 0;
+            }
+
             // Starts the stopwatch from 0
             stopwatchRound.Restart();
             // Increments the reset counter
