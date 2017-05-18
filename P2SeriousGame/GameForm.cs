@@ -14,7 +14,7 @@ namespace P2SeriousGame
     {
         Panel gamePanel = new Panel();
         Database SQL = new Database();
-        MapTest FirstLevel;
+        Map FirstLevel;
         IPathfinding path = new Pathfinding();
 
         Formatting formatting;
@@ -22,7 +22,7 @@ namespace P2SeriousGame
         public GameForm(int mapSize)
         {
             formatting = new Formatting(this);
-            FirstLevel = new MapTest(this, mapSize, path);
+            FirstLevel = new Map(this, mapSize, path);
             InitializeComponent();
             SQL.StartStopwatch();
         }
@@ -45,7 +45,7 @@ namespace P2SeriousGame
             CalculateButtonDimensionBasedOnScreenHeight();
 
             //Does the calculated width fit the screen width, if not then calculate height and width based on screen width
-            if ((formatting.ButtonWidth * MapTest.TotalHexagonColumns) > formatting._gameScreenWidth)
+            if ((formatting.ButtonWidth * Map.TotalHexagonColumns) > formatting._gameScreenWidth)
                 CalculateButtonDimensionBasedOnScreenWidth();
         }
 
@@ -55,7 +55,7 @@ namespace P2SeriousGame
         private void CalculateButtonDimensionBasedOnScreenHeight()
         {
             double rowHeight;
-            double hexagonRows = MapTest.TotalHexagonRows;
+            double hexagonRows = Map.TotalHexagonRows;
             const double evenRowsToHeight = 0.75;
 
             //The height to width ratio for a pointy top regulare hexagon
@@ -90,7 +90,7 @@ namespace P2SeriousGame
             double buttonWidthTemp;
 
             //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
-            buttonWidthTemp = (int)(formatting._gameScreenWidth / (MapTest.TotalHexagonColumns + 0.5));
+            buttonWidthTemp = (int)(formatting._gameScreenWidth / (Map.TotalHexagonColumns + 0.5));
 
             //We calculate the height by multiplying width to height ratio
             formatting.ButtonHeight = (int)(buttonWidthTemp * widthToHeight);
@@ -112,7 +112,7 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="button"></param>
         /// <param name="map"></param>
-        public void DrawButton(HexagonButton button, MapTest map)
+        public void DrawButton(HexagonButton button, Map map)
         {
             button.Size = new Size((int)(ConvertPointToPixel(formatting.ButtonHeight)), (int)(ConvertPointToPixel(formatting.ButtonWidth)));
             button.TabStop = false;
@@ -142,7 +142,7 @@ namespace P2SeriousGame
         public void PlaceHexagonButton(HexagonButton button)
         {
             //For at farve midten før man har klikket på skærmen.
-            if (button.XCoordinate == MapTest.TotalHexagonColumns / 2 && button.YCoordinate == MapTest.TotalHexagonRows / 2)
+            if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;
                 button.Enabled = false;
@@ -227,14 +227,14 @@ namespace P2SeriousGame
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in MapTest.hexMap)
+            foreach (HexagonButton hex in Map.hexMap)
             {
                 hex.Visited = false;
                 hex.Passable = true;
                 hex.Enabled = true;
                 PlaceHexagonButton(hex);
             }
-            MapTest.ResetMouse();
+            Map.ResetMouse();
             SQL.ResetGameToList();
         }
 

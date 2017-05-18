@@ -37,7 +37,7 @@ namespace P2SeriousGame
         public double _gameScreenHeight = Screen.PrimaryScreen.Bounds.Height * (1 - (_topHeightReserved + _bottomHeightReserved));
 
         //Centers the hexagonmap starting placement, if the hexagonmap doesnt fill out the entire gamescreen width
-        public double WidthCentering => (_gameScreenWidth - (ButtonWidth * MapTest.TotalHexagonColumns)) / 2;
+        public double WidthCentering => (_gameScreenWidth - (ButtonWidth * Map.TotalHexagonColumns)) / 2;
 
         //WidthStart and heightStart sets the starting place for the hexagonmap
         public int WidthStart => (int)((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);

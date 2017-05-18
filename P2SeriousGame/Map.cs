@@ -10,7 +10,7 @@ namespace P2SeriousGame
     /// <summary>
     /// Class to contain a grid of HexagonButtons.
     /// </summary>
-	public class MapTest
+	public class Map
     {
         private static int _totalHexagonRows = 0;
         public static int TotalHexagonRows
@@ -57,7 +57,7 @@ namespace P2SeriousGame
         /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public MapTest(GameForm game, int size, IPathfinding path)
+        public Map(GameForm game, int size, IPathfinding path)
         {
             _totalHexagonRows = size;
             _totalHexagonColumns = size;
