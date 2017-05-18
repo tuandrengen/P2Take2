@@ -91,7 +91,7 @@ namespace P2SeriousGame
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in MapTest.hexMap)
+            foreach (HexagonButton hex in Map.hexMap)
             {
                 hex.Visited = false;
                 hex.Passable = true;
@@ -99,13 +99,13 @@ namespace P2SeriousGame
                 hex.BackColor = System.Drawing.Color.LightGray;
                 PlaceHexagonButton(hex);
             }
-            MapTest.ResetMouse();
+            Map.ResetMouse();
         }
 
         public void PlaceHexagonButton(HexagonButton button)
         {
             //For at farve midten før man har klikket på skærmen.
-            if (button.XCoordinate == MapTest.TotalHexagonColumns / 2 && button.YCoordinate == MapTest.TotalHexagonRows / 2)
+            if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;
                 button.Enabled = false;

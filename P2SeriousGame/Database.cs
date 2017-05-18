@@ -27,8 +27,8 @@ namespace P2SeriousGame
         public List<Round> roundList = new List<Round>();
         public List<Persons> personList = new List<Persons>();
 
-        public string testFirstName = "Poo";
-        public string testLastName = "The rapist";
+        public string testName = "Dylan the creep";
+        
 
         public void ResetGameToList()
         {
@@ -40,11 +40,10 @@ namespace P2SeriousGame
 
             if(GameForm.hexClickedRound != 0)
             {
-                Persons person = new Persons(testFirstName, testLastName);
+                Persons person = new Persons(testName);
                 personList.Add(person);
 
                 Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
-                Console.WriteLine(roundAverage);
                 roundList.Add(round);
 
                 // Resets the amount of hex clicked
@@ -68,7 +67,7 @@ namespace P2SeriousGame
 
             if (GameForm.hexClickedRound != 0)
             {
-                Persons person = new Persons(testFirstName, testLastName);
+                Persons person = new Persons(testName);
                 personList.Add(person);
 
                 Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
@@ -135,8 +134,7 @@ namespace P2SeriousGame
                 {
                     context.Person.Add(new Person
                     {
-                        First_Name = row.firstname,
-                        Last_Name = row.lastname
+                        Name = row.Name // Error here when running
                     });
                 }
                 context.SaveChanges();

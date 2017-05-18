@@ -8,13 +8,11 @@ namespace P2SeriousGame
 {
     public class Persons
     {
-        public string firstname { get; set; }
-        public string lastname { get; set; }
+        public string Name { get; set; }
 
-        public Persons(string firstname, string lastname)
+        public Persons(string name)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            this.Name = name;
         }
     }
 }
