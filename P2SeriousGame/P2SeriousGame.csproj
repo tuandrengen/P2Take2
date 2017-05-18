@@ -109,7 +109,7 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="MapDimensionsMustBeOdd.cs" />
-    <Compile Include="MapTest.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Pathfinding.cs" />
     <Compile Include="Persons.cs" />

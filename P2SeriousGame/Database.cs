@@ -28,7 +28,6 @@ namespace P2SeriousGame
         public List<Persons> personList = new List<Persons>();
 
         public string testName = "Dylan the creep";
-        
 
         public void ResetGameToList()
         {
@@ -38,15 +37,18 @@ namespace P2SeriousGame
 
             _totalLoss += 1;
 
-            Persons person = new Persons(testName);
-            personList.Add(person);
+            if (GameForm.hexClickedRound != 0)
+            {
+                Persons person = new Persons(testName);
+                personList.Add(person);
 
-            Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
-            Console.WriteLine(roundAverage);
-            roundList.Add(round);
+                Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
+                roundList.Add(round);
 
-            // Resets the amount of hex clicked
-            GameForm.hexClickedRound = 0;
+                // Resets the amount of hex clicked
+                GameForm.hexClickedRound = 0;
+            }
+
             // Starts the stopwatch from 0
             stopwatchRound.Restart();
             // Increments the reset counter
@@ -71,7 +73,7 @@ namespace P2SeriousGame
                 roundList.Add(round);
             }
 
-            if(_clickedTotal != 0)
+            if (_clickedTotal != 0)
             {
                 // Adds the data from the lists to the database
                 AddPersonToDatabase();
