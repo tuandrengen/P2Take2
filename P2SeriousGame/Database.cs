@@ -102,7 +102,7 @@ namespace P2SeriousGame
         public void RoundVariables()
         {
             roundResult = WinOrLose();
-            roundAverage = float.Parse(AverageClick(GameForm.hexClickedRound, _secondsRound).ToString("0.000"));
+            roundAverage = float.Parse(AverageClickPerMinute(GameForm.hexClickedRound, _secondsRound).ToString("0.000"));
         }
 
         // Unique to WinOrLose
@@ -133,7 +133,7 @@ namespace P2SeriousGame
                 {
                     context.Person.Add(new Person
                     {
-                        Name = row.Name // Error here when running
+                        Name = row.Name
                     });
                 }
                 context.SaveChanges();
@@ -166,7 +166,7 @@ namespace P2SeriousGame
                 context.Session.Add(new Session
                 {
                     Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    AVG_Clicks = AverageClickPerMinute(_clickedTotal, _secondsTotal),
                     Rounds = _resetCounter + 1,
                     Wins = Pathfinding.gameTotalWins,
                     Losses = _totalLoss,
@@ -192,9 +192,9 @@ namespace P2SeriousGame
             }
         }
 
-        private float AverageClick(float hexClicked, float seconds)
+        private float AverageClickPerMinute(float hexClicked, float seconds)
         {
-            return hexClicked / seconds;
+            return hexClicked / (seconds / 60);
         }
 
         private int _resetCounter;
