@@ -18,6 +18,8 @@ namespace P2SeriousGame
         Panel administratorPanel = new Panel();
         GraphPanel[] graphList = new GraphPanel[4];
         SqlConnection connection = new SqlConnection();
+        
+        //List<Persons> Persons = new List<Persons>();
 
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
@@ -110,6 +112,8 @@ namespace P2SeriousGame
         private void AdministratorForm_Load(object sender, EventArgs e)
         {
             PopulateDataGrid();
+            CreatePersonList();
+            //PrintList();
         }
 
         private void PopulateDataGrid()
@@ -121,9 +125,76 @@ namespace P2SeriousGame
             using (SqlDataAdapter adapter = new SqlDataAdapter(command))
             {
 
-                DataTable testTable = new DataTable();
-                adapter.Fill(testTable);
-                this.dataGridView1.DataSource = testTable;
+                DataTable PersonTable = new DataTable();
+                adapter.Fill(PersonTable);
+                this.dataGridView1.DataSource = PersonTable;
+                //List<DataRow> PersonList = PersonTable.AsEnumerable().ToList();
+            }
+        }
+
+        List<DataRow> PersonList = new List<DataRow>(); // test
+
+        /*private void PrintList()
+        {
+            foreach (var item in PersonList)
+            {
+                Console.WriteLine(item.Table);
+            }
+        }*/
+
+        private void CreatePersonList()
+        {
+            string query = "SELECT * FROM Person";
+
+            using (connection = new SqlConnection(builder.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                DataTable PersonTable = new DataTable();
+                adapter.Fill(PersonTable);
+                PersonTable.AsEnumerable().ToList(); // filling the list
+
+                Console.WriteLine(PersonTable.Rows.Count);
+
+                for (int i = 0; i < PersonTable.Rows.Count; i++)
+                {
+                    Console.WriteLine(PersonTable.Rows[i]["Name"]);
+                }
+                //Console.WriteLine(PersonTable.Rows[1]["Name"]);
+
+
+                /*
+                foreach (DataRow itemRow in PersonTable.Rows)
+                {
+                    foreach (var item in itemRow.ItemArray)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }*/
+            }
+        }
+
+        private void PopulateSession()
+        {
+            string query = "SELECT a.Id, a.Clicks, a.[AVG Clicks], a.Rounds, a.Losses, a.Wins, a.[Time Used] FROM Game a " +
+                "INNER JOIN PersonGameRounds b ON a.Id = b.GameId " +
+                "WHERE b.PersonId = @PersonID";
+
+            using (connection = new SqlConnection(builder.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+
+                // Mangler personid fra et sted
+                command.Parameters.AddWithValue("@PersonId", listBox1.SelectedValue); // Vi tildeler @RecipeId værdien af Id af den valgte recipe
+
+
+                DataTable gameTable = new DataTable();
+                adapter.Fill(gameTable);
+
+                listBox1.DisplayMember = "Rounds"; // viser kun runder indtil videre...
+                listBox1.ValueMember = "Id";
+                listBox1.DataSource = gameTable;
             }
         }
 
@@ -134,12 +205,22 @@ namespace P2SeriousGame
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("");
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            
+        }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ChangeLabelText()
+        {
+            label1.Text = textBox1.Text;
         }
     }
 }
