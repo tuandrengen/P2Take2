@@ -57,15 +57,17 @@ namespace P2SeriousGame
 
             //FirstButtonInPath = FindTheRoute(_pathsToEdge, _reachableHexList);
 
-            stopWatch.Stop();
-            // Get the elapsed time as a TimeSpan value.
-            TimeSpan ts = stopWatch.Elapsed;
+			HexagonButton btn = FindTheRoute(_pathsToEdge, _reachableHexList);
 
-            // Format and display the TimeSpan value.
-            string elapsedTime = ts.TotalMilliseconds.ToString();
-            Console.WriteLine("RunTime " + elapsedTime);
+			stopWatch.Stop();
+			// Get the elapsed time as a TimeSpan value.
+			TimeSpan ts = stopWatch.Elapsed;
 
-            return FindTheRoute(_pathsToEdge, _reachableHexList);
+			// Format and display the TimeSpan value.
+			string elapsedTime = ts.TotalMilliseconds.ToString();
+			Console.WriteLine("RunTime " + elapsedTime);
+
+			return btn;
         }
 
         public static int gameTotalWins;
