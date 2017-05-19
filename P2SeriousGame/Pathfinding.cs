@@ -114,7 +114,7 @@ namespace P2SeriousGame
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You won", "Ok", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You won", "Win", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
                     game.ResetButtonClick(null, null);
@@ -125,7 +125,7 @@ namespace P2SeriousGame
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You lose", "Ok", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You lose", "Lose", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
                     game.ResetButtonClick(null, null);
