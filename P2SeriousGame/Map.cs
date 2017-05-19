@@ -15,24 +15,58 @@ namespace P2SeriousGame
         private static int _totalHexagonRows = 0;
         public static int TotalHexagonRows
         {
-            get { return _totalHexagonRows; }
+            get
+            {
+                return _totalHexagonRows;
+            }
+            set
+            {
+                if (value % 2 == 1 && value >= 5)
+                {
+                    _totalHexagonRows = value;
+                }
+                else if (value % 2 == 0 && value >= 5)
+                {
+                    throw new MapDimensionsMustBeOdd(value, "Dimension must be odd");
+                }
+                else if (value < 5)
+                {
+                    throw new MapDimensionsMustBeHigher(value, "Dimension must atleast be 5");
+                }
+            }
         }
 
         private static int _totalHexagonColumns = 0;
         public static int TotalHexagonColumns
         {
-            get { return _totalHexagonColumns; }
+            get
+            {
+                return _totalHexagonColumns;
+            }
+            private set
+            {
+                if (value % 2 == 1 && value >= 5)
+                {
+                    _totalHexagonColumns = value;
+                }
+                else if (value % 2 == 0 && value >= 5)
+                {
+                    throw new MapDimensionsMustBeOdd(value, "Dimension must be odd");
+                }
+                else if (value < 5)
+                {
+                    throw new MapDimensionsMustBeHigher(value, "Dimension must atleast be 5");
+                }
+            }
         }
 
         private HexagonButton _firstButtonInPath;
         static public HexagonButton[,] hexMap;
-
-
+        
         static public bool newGame = true;
 
         private int StartMouseXCoordinate => TotalHexagonColumns / 2;
         private int StartMouseYCoordinate => TotalHexagonRows / 2;
-
 
         private int mouseXCoordinate;
         public int MouseXCoordinate
@@ -59,8 +93,8 @@ namespace P2SeriousGame
         /// <param name="ySize"></param>
         public Map(GameForm game, int size, IPathfinding path)
         {
-            _totalHexagonRows = size;
-            _totalHexagonColumns = size;
+            TotalHexagonRows = size;
+            TotalHexagonColumns = size;
             this.path = path;
             hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(game);
@@ -103,14 +137,14 @@ namespace P2SeriousGame
             {
                 hexMap[StartMouseXCoordinate, StartMouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
                 hexMap[StartMouseXCoordinate, StartMouseYCoordinate].Enabled = true;
-                _firstButtonInPath = path.CalculateRoutes(hexMap, hexMap[StartMouseXCoordinate, StartMouseYCoordinate]);
+                _firstButtonInPath = path.FindPath(hexMap, hexMap[StartMouseXCoordinate, StartMouseYCoordinate]);
                 newGame = false;
             }
             else if (!newGame)
             {
                 hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
                 hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = true;
-                _firstButtonInPath = path.CalculateRoutes(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
+                _firstButtonInPath = path.FindPath(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
             }
             //Nye position.
             MouseXCoordinate = _firstButtonInPath.XCoordinate;
