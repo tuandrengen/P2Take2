@@ -114,23 +114,6 @@ namespace P2SeriousGame
 
         }
 
-        // Used to show test datagrid...
-        private void PopulateDataGrid()
-        {
-            string query = "SELECT * FROM Person";
-
-            using (connection = new SqlConnection(builder.ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-            {
-
-                DataTable PersonTable = new DataTable();
-                adapter.Fill(PersonTable);
-                this.dataGridView1.DataSource = PersonTable;
-                //List<DataRow> PersonList = PersonTable.AsEnumerable().ToList();
-            }
-        }
-
         private void PopulateRounds()
         {
             string query = "SELECT a.Clicks, a.[AVG Clicks], a.Loss, a.Win, a.[Time Used] FROM Rounds a " +
@@ -158,7 +141,7 @@ namespace P2SeriousGame
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            PopulateRounds();
+            //PopulateRounds();
         }
 
         // When a letter is writing it finds the best match in the database and shows the data in listboxes and datagrid...
@@ -178,12 +161,9 @@ namespace P2SeriousGame
                     DataTable personTable = new DataTable();
                     adapter.Fill(personTable);
 
-
-                    
                     listBox1.DisplayMember = "Name";
                     listBox1.ValueMember = "Id";
                     listBox1.DataSource = personTable;
-                    
                 }
             }
         }
@@ -207,10 +187,10 @@ namespace P2SeriousGame
                 listBox2.DisplayMember = "Id"; 
                 listBox2.ValueMember = "Id";
                 listBox2.DataSource = sessionTable;
-                
             }
         }
 
+        // Når en person er fundet, men man sletter søgningen, så vil personens session og runde stadig stå der...
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateSession(); // filling listbox 2
