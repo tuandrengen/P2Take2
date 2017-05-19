@@ -18,6 +18,7 @@ namespace P2SeriousGame
         Panel administratorPanel = new Panel();
         GraphPanel[] graphList = new GraphPanel[4];
         SqlConnection connection = new SqlConnection();
+        List<float> ValueList = new List<float>();
 
         // ConnectionString that makes it possible to communicate to the database
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
@@ -67,6 +68,7 @@ namespace P2SeriousGame
             panel.Controls.Add(btnCloseGame);
         }
 
+        // Not used
         private void AddSearchSession()
         {
             int screenMidPoint = administratorPanel.Width / 2;
@@ -110,7 +112,7 @@ namespace P2SeriousGame
 
         private void AdministratorForm_Load(object sender, EventArgs e)
         {
-
+            //drawGraph();
 
         }
 
@@ -124,9 +126,11 @@ namespace P2SeriousGame
             using (SqlCommand command = new SqlCommand(query, connection))
             using (SqlDataAdapter adapter = new SqlDataAdapter(command))
             {
-                DataTable PersonTable = new DataTable();
-                adapter.Fill(PersonTable);
-                this.dataGridView1.DataSource = PersonTable;
+                DataTable roundsTable = new DataTable();
+                adapter.Fill(roundsTable);
+                this.dataGridView1.DataSource = roundsTable;
+                
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
 
                 /*
                 // --------------------------------------
@@ -137,6 +141,14 @@ namespace P2SeriousGame
                     *Console.WriteLine(PersonTable.Rows[i]["Id"]);
                 } */
             }
+        }
+
+        private List<float> GetValueList()
+        {
+            List<float> list = new List<float>();
+
+
+            return list;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -195,6 +207,7 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
+            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 2, 10, SeriesChartType.FastLine);
         }
     }
 }
