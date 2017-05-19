@@ -8,6 +8,6 @@ namespace P2SeriousGame
 {
     public interface IPathfinding
     {
-        HexagonButton CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex);
+       HexagonButton FindPath(HexagonButton[,] hexMap, HexagonButton startingHex);
     }
 }

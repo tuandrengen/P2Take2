@@ -11,8 +11,9 @@ namespace P2SeriousGame
         Control control;
 
         public Formatting(Control control)
-        {
+        {            
             this.control = control;
+                
         }
 
         public int ButtonWidth;
@@ -48,15 +49,14 @@ namespace P2SeriousGame
 
         public void BtnRightFormat(Button btn, string BtnText, Color color)
         {
-            btn.Size = new Size(100, 25);
+            btn.Size = new Size(150, 60);
             btn.TabStop = false;
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = color;
-            btn.Location = new Point(control.Bounds.Right - btn.Width - SmallBtnSpacing, control.Bounds.Top + BtnCount * SmallBtnSpacing);
+            btn.Location = new Point(control.Bounds.Right - btn.Width - SmallBtnSpacing, control.Bounds.Top + BtnCount * btn.Height);
             btn.Text = BtnText;
             btn.TextAlign = ContentAlignment.MiddleCenter;
-            BtnCount++;
         }
 
         public void BtnCenterFormat(Button btn, string BtnText, Color color)
@@ -66,7 +66,7 @@ namespace P2SeriousGame
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = color;
-            btn.Location = new Point(this.Bounds.Right / 2 - btn.Width / 2, this.Bounds.Top + BtnCount * LargeBtnSpacing);
+            btn.Location = new Point(control.Bounds.Right / 2 - btn.Width / 2, control.Bounds.Top + BtnCount * LargeBtnSpacing);
             btn.Text = BtnText;
             btn.TextAlign = ContentAlignment.MiddleCenter;
             BtnCount++;
@@ -79,28 +79,10 @@ namespace P2SeriousGame
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = color;
-            btn.Location = new Point(SmallBtnSpacing, this.Bounds.Top + BtnCount * SmallBtnSpacing);
+            btn.Location = new Point(SmallBtnSpacing, control.Bounds.Top + BtnCount * SmallBtnSpacing);
             btn.Text = BtnText;
             btn.TextAlign = ContentAlignment.MiddleCenter;
             BtnCount++;
-        }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // Formatting
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Formatting";
-            this.Load += new System.EventHandler(this.Formatting_Load);
-            this.ResumeLayout(false);
-
-        }
-
-        private void Formatting_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

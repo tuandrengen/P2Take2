@@ -28,7 +28,6 @@ namespace P2SeriousGame
         public List<Persons> personList = new List<Persons>();
 
         public string testName = "Dylan the creep";
-        
 
         public void ResetGameToList()
         {
@@ -38,15 +37,15 @@ namespace P2SeriousGame
 
             _totalLoss += 1;
 
-            Persons person = new Persons(testName);
-            personList.Add(person);
+            if (GameForm.hexClickedRound != 0)
+            {
+                Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
+                roundList.Add(round);
 
-            Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
-            Console.WriteLine(roundAverage);
-            roundList.Add(round);
+                // Resets the amount of hex clicked
+                GameForm.hexClickedRound = 0;
+            }
 
-            // Resets the amount of hex clicked
-            GameForm.hexClickedRound = 0;
             // Starts the stopwatch from 0
             stopwatchRound.Restart();
             // Increments the reset counter
@@ -71,7 +70,7 @@ namespace P2SeriousGame
                 roundList.Add(round);
             }
 
-            if(_clickedTotal != 0)
+            if (_clickedTotal != 0)
             {
                 // Adds the data from the lists to the database
                 AddPersonToDatabase();
@@ -100,7 +99,7 @@ namespace P2SeriousGame
         public void RoundVariables()
         {
             roundResult = WinOrLose();
-            roundAverage = float.Parse(AverageClick(GameForm.hexClickedRound, _secondsRound).ToString("0.000"));
+            roundAverage = float.Parse(AverageClickPerMinute(GameForm.hexClickedRound, _secondsRound).ToString("n2"));
         }
 
         // Unique to WinOrLose
@@ -131,7 +130,7 @@ namespace P2SeriousGame
                 {
                     context.Person.Add(new Person
                     {
-                        Name = row.Name // Error here when running
+                        Name = row.Name
                     });
                 }
                 context.SaveChanges();
@@ -164,7 +163,7 @@ namespace P2SeriousGame
                 context.Session.Add(new Session
                 {
                     Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    AVG_Clicks = AverageClickPerMinute(_clickedTotal, _secondsTotal),
                     Rounds = _resetCounter + 1,
                     Wins = Pathfinding.gameTotalWins,
                     Losses = _totalLoss,
@@ -190,9 +189,9 @@ namespace P2SeriousGame
             }
         }
 
-        private float AverageClick(float hexClicked, float seconds)
+        private float AverageClickPerMinute(float hexClicked, float seconds)
         {
-            return hexClicked / seconds;
+            return hexClicked / (seconds / 60);
         }
 
         private int _resetCounter;
