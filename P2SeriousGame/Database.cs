@@ -39,9 +39,6 @@ namespace P2SeriousGame
 
             if (GameForm.hexClickedRound != 0)
             {
-                Persons person = new Persons(testName);
-                personList.Add(person);
-
                 Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
                 roundList.Add(round);
 
@@ -102,7 +99,7 @@ namespace P2SeriousGame
         public void RoundVariables()
         {
             roundResult = WinOrLose();
-            roundAverage = float.Parse(AverageClickPerMinute(GameForm.hexClickedRound, _secondsRound).ToString("0.000"));
+            roundAverage = float.Parse(AverageClickPerMinute(GameForm.hexClickedRound, _secondsRound).ToString("n2"));
         }
 
         // Unique to WinOrLose

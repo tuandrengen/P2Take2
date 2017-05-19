@@ -18,9 +18,8 @@ namespace P2SeriousGame
         Panel administratorPanel = new Panel();
         GraphPanel[] graphList = new GraphPanel[4];
         SqlConnection connection = new SqlConnection();
-        
-        //List<Persons> Persons = new List<Persons>();
 
+        // ConnectionString that makes it possible to communicate to the database
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
             DataSource = "p2-avengers.database.windows.net",
@@ -111,11 +110,11 @@ namespace P2SeriousGame
 
         private void AdministratorForm_Load(object sender, EventArgs e)
         {
-            PopulateDataGrid();
-            CreatePersonList();
-            //PrintList();
+
+
         }
 
+        // Used to show test datagrid...
         private void PopulateDataGrid()
         {
             string query = "SELECT * FROM Person";
@@ -132,19 +131,11 @@ namespace P2SeriousGame
             }
         }
 
-        List<DataRow> PersonList = new List<DataRow>(); // test
-
-        /*private void PrintList()
+        private void PopulateRounds()
         {
-            foreach (var item in PersonList)
-            {
-                Console.WriteLine(item.Table);
-            }
-        }*/
-
-        private void CreatePersonList()
-        {
-            string query = "SELECT * FROM Person";
+            string query = "SELECT a.Clicks, a.[AVG Clicks], a.Loss, a.Win, a.[Time Used] FROM Rounds a " +
+                "INNER JOIN ForeignKeys b ON a.Id = b.RoundsId " +
+                "WHERE b.PersonId = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -152,75 +143,78 @@ namespace P2SeriousGame
             {
                 DataTable PersonTable = new DataTable();
                 adapter.Fill(PersonTable);
-                PersonTable.AsEnumerable().ToList(); // filling the list
+                this.dataGridView1.DataSource = PersonTable;
 
+                /*
+                // --------------------------------------
                 Console.WriteLine(PersonTable.Rows.Count);
 
                 for (int i = 0; i < PersonTable.Rows.Count; i++)
                 {
-                    Console.WriteLine(PersonTable.Rows[i]["Name"]);
-                }
-                //Console.WriteLine(PersonTable.Rows[1]["Name"]);
+                    *Console.WriteLine(PersonTable.Rows[i]["Id"]);
+                } */
+            }
+        }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            PopulateRounds();
+        }
 
-                /*
-                foreach (DataRow itemRow in PersonTable.Rows)
+        // When a letter is writing it finds the best match in the database and shows the data in listboxes and datagrid...
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string searchString = textBox1.Text;
+
+            if (searchString.Length != 0) // Vidst ikke nødvendig, da hver indtastning er en ny omgang i metoden...
+            {
+                string query = "SELECT * FROM Person " +
+                "WHERE Name LIKE '" + searchString + "%'";
+
+                using (connection = new SqlConnection(builder.ConnectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    foreach (var item in itemRow.ItemArray)
-                    {
-                        Console.WriteLine(item);
-                    }
-                }*/
+                    DataTable personTable = new DataTable();
+                    adapter.Fill(personTable);
+
+
+                    
+                    listBox1.DisplayMember = "Name";
+                    listBox1.ValueMember = "Id";
+                    listBox1.DataSource = personTable;
+                    
+                }
             }
         }
 
         private void PopulateSession()
         {
-            string query = "SELECT a.Id, a.Clicks, a.[AVG Clicks], a.Rounds, a.Losses, a.Wins, a.[Time Used] FROM Game a " +
-                "INNER JOIN PersonGameRounds b ON a.Id = b.GameId " +
-                "WHERE b.PersonId = @PersonID";
+            string query = "SELECT a.Id FROM Session a " +
+                "INNER JOIN ForeignKeys b ON a.Id = b.SessionId " +
+                "WHERE b.PersonId = @PersonId";
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             using (SqlDataAdapter adapter = new SqlDataAdapter(command))
             {
 
-                // Mangler personid fra et sted
-                command.Parameters.AddWithValue("@PersonId", listBox1.SelectedValue); // Vi tildeler @RecipeId værdien af Id af den valgte recipe
+                command.Parameters.AddWithValue("@PersonId", listBox1.SelectedValue);
 
+                DataTable sessionTable = new DataTable();
+                adapter.Fill(sessionTable);
 
-                DataTable gameTable = new DataTable();
-                adapter.Fill(gameTable);
-
-                listBox1.DisplayMember = "Rounds"; // viser kun runder indtil videre...
-                listBox1.ValueMember = "Id";
-                listBox1.DataSource = gameTable;
+                listBox2.DisplayMember = "Id"; 
+                listBox2.ValueMember = "Id";
+                listBox2.DataSource = sessionTable;
+                
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //MessageBox.Show()
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("");
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void ChangeLabelText()
-        {
-            label1.Text = textBox1.Text;
+            PopulateSession(); // filling listbox 2
+            PopulateRounds(); // filling datagrid
         }
     }
 }
