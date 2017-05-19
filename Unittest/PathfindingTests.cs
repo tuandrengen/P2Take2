@@ -26,7 +26,7 @@ namespace UnitTests
             List<HexagonButton> reachableHexList = new List<HexagonButton>();
             List<HexagonButton> edgeTiles = new List<HexagonButton>();
             GameForm window = new GameForm(x);
-            IPathfinding pathfindning = new Pathfinding();
+            IPathfinding pathfindning = new Pathfinding(window);
             Map map = new Map(window, x, pathfindning);
             BreadthFirst bfs = new BreadthFirst(queue, pathsToEdge, reachableHexList);
             int addValue = (x / 4) - 1;
@@ -76,7 +76,7 @@ namespace UnitTests
             List<HexagonButton> pathsToEdge = new List<HexagonButton>();
             List<HexagonButton> reachableHexList = new List<HexagonButton>();
             GameForm window = new GameForm(x);
-            IPathfinding pathfindning = new Pathfinding();
+            IPathfinding pathfindning = new Pathfinding(window);
             Map map = new Map(window, x, pathfindning);
             HexagonButton[,] notStaticHexMap = Map.hexMap;
             BreadthFirst bfs = new BreadthFirst(queue, pathsToEdge, reachableHexList);
@@ -153,7 +153,7 @@ namespace UnitTests
         public void FindPath_FindsMouseButtonsNextHexTile_FindTileNextToMouse(int x, int y)
         {
             GameForm window = new GameForm(x);
-            IPathfinding pathfindning = new Pathfinding();
+            IPathfinding pathfindning = new Pathfinding(window);
             Map map = new Map(window, x, pathfindning);
 
             HexagonButton nextTile = pathfindning.FindPath(Map.hexMap, Map.hexMap[x / 2, y / 2]);

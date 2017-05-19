@@ -12,7 +12,7 @@ namespace Unittest
         [TestCase(5, 5)]
         [TestCase(11, 11)]
         [TestCase(15, 15)]
-        public void GameForm_ButtonPainter_RightPolygon(int x, int y)
+        public void ButtonPainter_MathClassWorks_RightPolygon(int x, int y)
         {
             HexagonButton hexagonButton = new HexagonButton(x, y, false);
             GameForm window = new GameForm(x);
@@ -29,5 +29,22 @@ namespace Unittest
             Assert.AreEqual(hexagonButton.Region, region);
             Assert.AreEqual(expectedPoints, buttonPath.PathPoints);
         }
+
+        [TestCase(9)]
+        [TestCase(11)]
+        [TestCase(13)]
+        public void ResetButtonClick_None_ChangesValuesRight(int size)
+        {
+            MouseButtons mBtn = new MouseButtons();
+            MouseEventArgs mArgs = new MouseEventArgs(mBtn, 0, 0, 0, 0);
+            HexagonButton hex = new HexagonButton(1, 1, false);
+            GameForm window = new GameForm(size);
+            window.ResetButtonClick(hex, mArgs);
+
+            Assert.AreEqual(false, hex.Visited);
+            Assert.AreEqual(true, hex.Passable);
+            Assert.AreEqual(true, hex.Enabled);
+        }
+
     }
 }

@@ -58,8 +58,8 @@ namespace Unittest
         [TestCase(11, 11)]
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
         {
-            IPathfinding ipathfinding = new Pathfinding();
             GameForm tester = new GameForm(x);
+            IPathfinding ipathfinding = new Pathfinding(tester);
             Map map = new Map(tester, x, ipathfinding);
             MouseButtons a = new MouseButtons();
             MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
@@ -110,8 +110,9 @@ namespace Unittest
         [TestCase(5, 5, 4, 4)]
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForAGivenTile(int x, int y, int buttomX, int buttomY)
         {
-            IPathfinding ipathfinding = new Pathfinding();
             GameForm tester = new GameForm(x);
+            IPathfinding ipathfinding = new Pathfinding(tester);
+
             Map map = new Map(tester, x, ipathfinding);
 
             if (!Map.hexMap[buttomX, buttomY].IsEdgeTile)
@@ -124,7 +125,7 @@ namespace Unittest
         public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
         {
             GameForm window = new GameForm(x);
-            IPathfinding ipathfinding = new Pathfinding();
+            IPathfinding ipathfinding = new Pathfinding(window);
             Map map = new Map(window, x, ipathfinding);
             map.CreateMap(window);
             for (int i = 0; i < x; i++)
@@ -134,6 +135,10 @@ namespace Unittest
                     if (i == 0 || i == x - 1 || j == 0 || j == y - 1)
                     {
                         Assert.AreEqual(true, Map.hexMap[i, j].IsEdgeTile);
+                    }
+                    else
+                    {
+                        Assert.AreEqual(false, Map.hexMap[i, j].IsEdgeTile);
                     }
 
                     Assert.AreEqual(i, Map.hexMap[i, j].XCoordinate);
@@ -151,8 +156,8 @@ namespace Unittest
         [TestCase(21, 21)]
         public void MapTest_PositiveOddValues_ConstructedRight(int x, int y)
         {
-            IPathfinding ipathfinding = new Pathfinding();
             GameForm window = new GameForm(x);
+            IPathfinding ipathfinding = new Pathfinding(window);
             Map map = new Map(window, x, ipathfinding);
             Assert.AreEqual(x, Map.TotalHexagonColumns);
             Assert.AreEqual(y, Map.TotalHexagonRows);
@@ -166,8 +171,8 @@ namespace Unittest
         [TestCase(21, 21)]
         public void MousePositioner_CalculateRoutesWorks_ColorsAndDisablesRightFollowsRightPath(int x, int y)
         {
-            IPathfinding pathfinding = new Pathfinding();
             GameForm window = new GameForm(x);
+            IPathfinding pathfinding = new Pathfinding(window);
             MouseButtons a = new MouseButtons();
             MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
             Map map = new Map(window, x, pathfinding);
@@ -204,6 +209,15 @@ namespace Unittest
                     LastY = map.MouseYCoordinate;
                 }
             }
+
+
+        }
+
+        [Test]
+        public void ResetMouse_None_SetCorrectValue()
+        {
+            Map.ResetMouse();
+            Assert.AreEqual(true, Map.newGame);
         }
 
     }
