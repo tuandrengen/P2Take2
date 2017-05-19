@@ -17,7 +17,7 @@ namespace P2SeriousGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form mainMenu = new MainMenu(25);
+            Form mainMenu = new MainMenu(15);
 
             Application.Run(mainMenu);
         }

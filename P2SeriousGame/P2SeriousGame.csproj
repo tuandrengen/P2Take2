@@ -104,6 +104,7 @@
     <Compile Include="IDatabase.cs" />
     <Compile Include="IPathfinding.cs" />
     <Compile Include="IStatistic.cs" />
+    <Compile Include="LostTheGameException.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>

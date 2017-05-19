@@ -44,7 +44,16 @@ namespace P2SeriousGame
                 BreadthFirst breadthFirst = new BreadthFirst(_queue, _pathsToEdge, _reachableHexList);
                 breadthFirst.CalculateRoutes(hexMap, startingHex);
                 List<HexagonButton> routes = breadthFirst.FindTheRoutes();
-                FirstButtonInPath = ChooseRouteByRand(routes).First();
+                try
+                {
+                    FirstButtonInPath = ChooseRouteByRand(routes).First();
+                }
+                catch(LostTheGameException e)
+                {
+                    Map.ResetMouse();
+                    YouLose();
+                }
+                
             }
             catch (GameWonException e)
             {
@@ -65,13 +74,19 @@ namespace P2SeriousGame
 
 			HexagonButton edgeHex = routes.ElementAt(routeToChoose);
 			HexagonButton currentHex = edgeHex;
-
-			do
-			{
-				routeByRand.Add(currentHex);
-				currentHex.BackColor = System.Drawing.Color.FromArgb(50, 205, 50);
-				currentHex = currentHex.parent;
-			} while (currentHex.parent != null);
+            if ((currentHex.parent != null))
+            {
+                do
+                {
+                    routeByRand.Add(currentHex);
+                    currentHex.BackColor = System.Drawing.Color.FromArgb(50, 205, 50);
+                    currentHex = currentHex.parent;
+                } while (currentHex.parent != null);
+            }
+            else
+            {
+                throw new LostTheGameException("You lost the game");
+            }
 
 			routeByRand.Reverse();
 			
@@ -99,12 +114,23 @@ namespace P2SeriousGame
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show("DICK", " You won", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You won", "Ok", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
                     game.ResetButtonClick(null, null);
                 }
             }
         }
-	}
+        public void YouLose()
+        {
+            using (Form form = new Form())
+            {
+                DialogResult dr = MessageBox.Show(" You lose", "Ok", MessageBoxButtons.OK);
+                if (dr == DialogResult.OK)
+                {
+                    game.ResetButtonClick(null, null);
+                }
+            }
+        }
+    }
 }
