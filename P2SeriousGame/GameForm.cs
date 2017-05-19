@@ -15,13 +15,14 @@ namespace P2SeriousGame
         Panel gamePanel = new Panel();
         Database SQL = new Database();
         Map FirstLevel;
-        IPathfinding path = new Pathfinding();
+        IPathfinding path;
 
         Formatting formatting;
 
         public GameForm(int mapSize)
         {
             formatting = new Formatting(this);
+            path = new Pathfinding(this);
             FirstLevel = new Map(this, mapSize, path);
             InitializeComponent();
             SQL.StartStopwatch();
@@ -225,7 +226,7 @@ namespace P2SeriousGame
             Close();
         }
 
-        private void ResetButtonClick(object sender, MouseEventArgs e)
+        public void ResetButtonClick(object sender, MouseEventArgs e)
         {
             foreach (HexagonButton hex in Map.hexMap)
             {

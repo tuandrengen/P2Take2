@@ -91,6 +91,7 @@
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameWonException.cs" />
     <Compile Include="GraphPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

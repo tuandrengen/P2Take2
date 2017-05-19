@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace P2SeriousGame
 {
@@ -22,6 +23,13 @@ namespace P2SeriousGame
         public static int gameTotalWins;
         public static bool gameRoundWin;
 
+        GameForm game;
+
+        public Pathfinding(GameForm game)
+        {
+            this.game = game;
+        }
+
         public HexagonButton FindPath(HexagonButton[,] hexMap, HexagonButton startingHex)
         {
             ResetAllButtons(hexMap);
@@ -31,10 +39,18 @@ namespace P2SeriousGame
 
         private void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
         {
-            BreadthFirst breadthFirst = new BreadthFirst(_queue, _pathsToEdge, _reachableHexList);
-            breadthFirst.CalculateRoutes(hexMap, startingHex);
-            List<HexagonButton> routes = breadthFirst.FindTheRoutes();
-            FirstButtonInPath = ChooseRouteByRand(routes).First();
+            try
+            {
+                BreadthFirst breadthFirst = new BreadthFirst(_queue, _pathsToEdge, _reachableHexList);
+                breadthFirst.CalculateRoutes(hexMap, startingHex);
+                List<HexagonButton> routes = breadthFirst.FindTheRoutes();
+                FirstButtonInPath = ChooseRouteByRand(routes).First();
+            }
+            catch (GameWonException e)
+            {
+                Map.ResetMouse();
+                YouWin();
+            }
         }   
 
         /// <summary>
@@ -78,5 +94,17 @@ namespace P2SeriousGame
 				}
 			}
 		}
+
+        public void YouWin()
+        {
+            using (Form form = new Form())
+            {
+                DialogResult dr = MessageBox.Show("DICK", " You won", MessageBoxButtons.OK);
+                if (dr == DialogResult.OK)
+                {
+                    game.ResetButtonClick(null, null);
+                }
+            }
+        }
 	}
 }

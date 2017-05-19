@@ -54,9 +54,10 @@ namespace P2SeriousGame
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = color;
-            btn.Location = new Point(control.Bounds.Right - btn.Width - SmallBtnSpacing, control.Bounds.Top + BtnCount * btn.Height);
+            btn.Location = new Point(control.Bounds.Right - btn.Width - SmallBtnSpacing, control.Bounds.Top + (BtnCount * btn.Height));
             btn.Text = BtnText;
             btn.TextAlign = ContentAlignment.MiddleCenter;
+            BtnCount++;
         }
 
         public void BtnCenterFormat(Button btn, string BtnText, Color color)

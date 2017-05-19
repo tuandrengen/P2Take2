@@ -14,9 +14,9 @@ namespace Unittest
         [TestCase(15, 15)]
         public void GameForm_ButtonPainter_RightPolygon(int x, int y)
         {
-            IPathfinding ipathfinding = new Pathfinding();
             HexagonButton hexagonButton = new HexagonButton(x, y, false);
             GameForm window = new GameForm(x);
+            IPathfinding ipathfinding = new Pathfinding(window);
             System.Drawing.Drawing2D.GraphicsPath buttonPath;
             PointF[] expectedPoints = P2SeriousGame.Math.GetPoints(x, y);
             Map map = new Map(window, x, ipathfinding);

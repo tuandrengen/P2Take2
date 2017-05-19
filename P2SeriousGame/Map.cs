@@ -145,6 +145,10 @@ namespace P2SeriousGame
                 hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
                 hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = true;
                 _firstButtonInPath = path.FindPath(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
+                if (newGame)
+                {
+                    _firstButtonInPath = hexMap[StartMouseXCoordinate, StartMouseYCoordinate];
+                }
             }
             //Nye position.
             MouseXCoordinate = _firstButtonInPath.XCoordinate;

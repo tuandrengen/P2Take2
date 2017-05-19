@@ -74,7 +74,7 @@ namespace P2SeriousGame
                 //You Won :) 
                 Pathfinding.gameTotalWins += 1;
                 Pathfinding.gameRoundWin = true;
-                throw new NotImplementedException();
+                throw new GameWonException("You won the game");
             }
             //List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
             //return bestRouteByRand.First();
