@@ -17,6 +17,7 @@ namespace P2SeriousGame
         Formatting formatting = new Formatting(new Control());
         Panel administratorPanel = new Panel();
         GraphPanel[] graphList = new GraphPanel[4];
+		public int graphCount = 0;
         SqlConnection connection = new SqlConnection();
         List<float> ValueList = new List<float>();
 
@@ -47,13 +48,13 @@ namespace P2SeriousGame
             CloseMenuButton(administratorPanel);
         }
 
-        private double InitializeGraph(List<float> valueList, int graphNumber)
+        private double InitializeGraph(List<float> valueList)
         {
-            GraphPanel graph = graphList[graphNumber];
+            GraphPanel graph = graphList[graphCount - 1];
             graph.AddSeriesToGraph(valueList);
 
             graph.Size = new Size(300, 400);
-            graph.Location = new Point((administratorPanel.Right / 4 - graph.Width / 2) * graphNumber, this.Bounds.Top + 180);
+            graph.Location = new Point((administratorPanel.Right / 4 - graph.Width / 2) * graphCount, this.Bounds.Top + 180);
 
             administratorPanel.Controls.Add(graph);
 
@@ -87,7 +88,7 @@ namespace P2SeriousGame
 
         public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
         {
-            graphList[graphList.Length] = new GraphPanel
+			GraphPanel newGraph = new GraphPanel
             {
                 XAxisTitle = xAxisTitle,
                 YAxisTitle = yAxisTitle,
@@ -97,16 +98,18 @@ namespace P2SeriousGame
                 YAxisMax = yAxisMax,
                 ChartType = chartType,
             };
-            GraphPanel newGraph = graphList[graphList.Length];
+
+			graphList[graphCount] = newGraph;
+			graphCount++;
 
             newGraph.UpdateChartLook();
-            InitializeGraph(valueList, graphList.Length);
+            InitializeGraph(valueList);
         }
 
         public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
         {
-            double yMaxDouble = valueList.Max() * 1.05;
-            int yMax = Int32.Parse(yMaxDouble.ToString());
+            double yMaxDouble = valueList.Max() + 1 * 1.05;
+			int yMax = Convert.ToInt32(yMaxDouble);
             drawGraph(valueList, xAxisTitle, yAxisTitle, graphTitle, xAxisInterval, yAxisMin, yMax, chartType);
         }
 
@@ -207,7 +210,7 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
-            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 2, 10, SeriesChartType.FastLine);
+            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 2, 0, SeriesChartType.FastLine);
         }
     }
 }
