@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using P2SeriousGame;
 using P2SeriousGame.SQL;
+using System.Data.SqlClient;
 
 namespace P2SeriousGame
 {
     class Database
     {
+        // not sure if used
         public Database() { }
 
         private long _elapsedSec;
@@ -28,6 +30,44 @@ namespace P2SeriousGame
         public List<Persons> personList = new List<Persons>();
 
         public string testName = "Dylan the creep";
+
+        // Også defineret i administatorform...
+        SqlConnection connection = new SqlConnection();
+        SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
+        {
+            DataSource = "p2-avengers.database.windows.net",
+            UserID = "tuandrengen",
+            Password = "Aouiaom17",
+            InitialCatalog = "p2-database"
+        };
+        private int _nextID;
+        public int nextID
+        {
+            get
+            {
+                return _nextID;
+            }
+            set
+            {
+                _nextID = GetNextID();
+            }
+        }
+  
+
+        public int GetNextID()
+        {
+            string query = "SELECT * FROM Person";
+
+            using (connection = new SqlConnection(builder.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                DataTable personTable = new DataTable();
+                adapter.Fill(personTable);
+                
+                return personTable.Rows.Count + 1;
+            }
+        }
 
         public void ResetGameToList()
         {
@@ -133,6 +173,12 @@ namespace P2SeriousGame
                         Name = row.Name
                     });
                 }
+                context.ForeignKeys.Add(new ForeignKeys
+                    {
+                        PersonId = nextID,
+                        SessionId = nextID,
+                        RoundsId = nextID
+                    });
                 context.SaveChanges();
             }
         }
@@ -173,6 +219,7 @@ namespace P2SeriousGame
             }
         }
 
+        // not used
         public void PrintData()
         {
             using (var context = new Entities())
