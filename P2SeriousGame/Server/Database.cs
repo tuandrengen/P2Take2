@@ -35,7 +35,7 @@ namespace P2SeriousGame
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
-                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound);
+                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
                 
                 /// Increments the reset counter.
@@ -59,7 +59,7 @@ namespace P2SeriousGame
                 AddToTotal();
                 RoundVariables();
 
-                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound);
+                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
             }
 
@@ -181,7 +181,9 @@ namespace P2SeriousGame
                         AVG_Clicks = row.ClicksPerMinute,
                         Win = row.Win,
                         Loss = row.Loss,
-                        Time_Used = row.TimeUsed
+                        Time_Used = row.TimeUsed,
+                        
+
                     });
                 }
                 context.SaveChanges();
