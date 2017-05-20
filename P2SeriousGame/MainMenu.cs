@@ -38,9 +38,21 @@ namespace P2SeriousGame
             menuPanel.BackColor = Color.LightSteelBlue;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
+            UsernameBox(menuPanel);
             StartGameButton(menuPanel);
             StartAdministratorMenuButton(menuPanel);
             CloseMenuButton(menuPanel);
+        }
+
+        private void UsernameBox(Panel panel)
+        {
+            Label userNameLbl = new Label();
+            userNameLbl.Text = "Brugernavn:";
+            TextBox nameBox = new TextBox();
+            nameBox.Size = new Size(300, 50);
+            panel.Controls.Add(userNameLbl);
+            panel.Controls.Add(nameBox);
+
         }
 
         private void StartGameButton(Panel panel)
