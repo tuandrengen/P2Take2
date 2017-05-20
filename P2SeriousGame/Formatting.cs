@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace P2SeriousGame
 {
-    public class Formatting : Form
+    public class Formatting
     {
         #region constant vars
 
