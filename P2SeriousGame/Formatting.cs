@@ -8,7 +8,7 @@ namespace P2SeriousGame
     {
         #region constant vars
 
-        Control control;
+        public Control control;
 
         public Formatting(Control control)
         {            
@@ -67,7 +67,7 @@ namespace P2SeriousGame
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = color;
-            btn.Location = new Point(control.Bounds.Right / 2 - btn.Width / 2, control.Bounds.Top + BtnCount * LargeBtnSpacing);
+            btn.Location = new Point(control.Bounds.Right / 2 - btn.Width / 2, control.Bounds.Top + (BtnCount * LargeBtnSpacing));
             btn.Text = BtnText;
             btn.TextAlign = ContentAlignment.MiddleCenter;
             BtnCount++;
@@ -80,7 +80,7 @@ namespace P2SeriousGame
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = color;
-            btn.Location = new Point(SmallBtnSpacing, control.Bounds.Top + BtnCount * SmallBtnSpacing);
+            btn.Location = new Point(SmallBtnSpacing, control.Bounds.Top + (BtnCount * SmallBtnSpacing));
             btn.Text = BtnText;
             btn.TextAlign = ContentAlignment.MiddleCenter;
             BtnCount++;
