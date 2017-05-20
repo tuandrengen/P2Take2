@@ -28,9 +28,6 @@ namespace P2SeriousGame
 
         //Should personlist be a list? we only add 1 at a time...
         public List<Round> roundList = new List<Round>();
-        public List<Persons> personList = new List<Persons>();
-
-        public string testName = "Dylan the creep";
 
         // Også defineret i administatorform...
         SqlConnection connection = new SqlConnection();
@@ -41,7 +38,6 @@ namespace P2SeriousGame
             Password = "Aouiaom17",
             InitialCatalog = "p2-database"
         };
-
 
         /*private int _nextID;
         public int nextID
@@ -84,8 +80,6 @@ namespace P2SeriousGame
             AddToTotal();
             RoundVariables();
 
-            _totalLoss += 1;
-
             if (GameForm.hexClickedRound != 0)
             {
                 Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
@@ -109,9 +103,6 @@ namespace P2SeriousGame
             ConvertSeconds();
             AddToTotal();
             RoundVariables();
-
-            Persons person = new Persons(testName);
-            personList.Add(person);
 
             if (GameForm.hexClickedRound != 0)
             {
@@ -167,6 +158,7 @@ namespace P2SeriousGame
             {
                 _roundLoss = 1;
                 _roundWin = 0;
+                _totalLoss++;
                 return 0;
             }
         }
@@ -175,19 +167,18 @@ namespace P2SeriousGame
         {
             using (var context = new Entities())
             {
-                foreach (var row in personList)
+
+                context.Person.Add(new Person
                 {
-                    context.Person.Add(new Person
-                    {
-                        Name = row.Name
-                    });
-                }
+                    Name = MainMenu.nameBox.Text
+                });
+
                 context.ForeignKeys.Add(new ForeignKeys
-                    {
-                        PersonId = GetNextID(),
-                        SessionId = GetNextID(),
-                        RoundsId = GetNextID()
-                    });
+                {
+                    PersonId = GetNextID(),
+                    SessionId = GetNextID(),
+                    RoundsId = GetNextID()
+                });
                 context.SaveChanges();
             }
         }

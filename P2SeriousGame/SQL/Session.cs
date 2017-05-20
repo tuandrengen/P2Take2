@@ -14,12 +14,6 @@ namespace P2SeriousGame.SQL
     
     public partial class Session
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Session()
-        {
-            this.ForeignKeys = new HashSet<ForeignKeys>();
-        }
-    
         public int Id { get; set; }
         public Nullable<double> Clicks { get; set; }
         public Nullable<double> AVG_Clicks { get; set; }
@@ -27,8 +21,5 @@ namespace P2SeriousGame.SQL
         public Nullable<int> Wins { get; set; }
         public Nullable<int> Losses { get; set; }
         public Nullable<double> Time_Used { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForeignKeys> ForeignKeys { get; set; }
     }
 }

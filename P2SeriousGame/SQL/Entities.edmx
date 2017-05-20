@@ -44,59 +44,11 @@
           <Property Name="Losses" Type="int" />
           <Property Name="Time Used" Type="float" />
         </EntityType>
-        <Association Name="PersonFK">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ForeignKeys">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RoundsFK">
-          <End Role="Rounds" Type="Self.Rounds" Multiplicity="1" />
-          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rounds">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ForeignKeys">
-              <PropertyRef Name="RoundsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SessionFK">
-          <End Role="Session" Type="Self.Session" Multiplicity="1" />
-          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Session">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ForeignKeys">
-              <PropertyRef Name="SessionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="ForeignKeys" EntityType="Self.ForeignKeys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="PersonFK" Association="Self.PersonFK">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
-          </AssociationSet>
-          <AssociationSet Name="RoundsFK" Association="Self.RoundsFK">
-            <End Role="Rounds" EntitySet="Rounds" />
-            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
-          </AssociationSet>
-          <AssociationSet Name="SessionFK" Association="Self.SessionFK">
-            <End Role="Session" EntitySet="Session" />
-            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -111,9 +63,6 @@
           <Property Name="PersonId" Type="Int32" Nullable="false" />
           <Property Name="SessionId" Type="Int32" Nullable="false" />
           <Property Name="RoundsId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="Self.PersonFK" FromRole="ForeignKeys" ToRole="Person" />
-          <NavigationProperty Name="Rounds" Relationship="Self.RoundsFK" FromRole="ForeignKeys" ToRole="Rounds" />
-          <NavigationProperty Name="Session" Relationship="Self.SessionFK" FromRole="ForeignKeys" ToRole="Session" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -121,7 +70,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="ForeignKeys" Relationship="Self.PersonFK" FromRole="Person" ToRole="ForeignKeys" />
         </EntityType>
         <EntityType Name="Rounds">
           <Key>
@@ -133,7 +81,6 @@
           <Property Name="Win" Type="Int32" />
           <Property Name="Loss" Type="Int32" />
           <Property Name="Time_Used" Type="Double" />
-          <NavigationProperty Name="ForeignKeys" Relationship="Self.RoundsFK" FromRole="Rounds" ToRole="ForeignKeys" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -146,61 +93,12 @@
           <Property Name="Wins" Type="Int32" />
           <Property Name="Losses" Type="Int32" />
           <Property Name="Time_Used" Type="Double" />
-          <NavigationProperty Name="ForeignKeys" Relationship="Self.SessionFK" FromRole="Session" ToRole="ForeignKeys" />
         </EntityType>
-        <Association Name="PersonFK">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ForeignKeys">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RoundsFK">
-          <End Role="Rounds" Type="Self.Rounds" Multiplicity="1" />
-          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rounds">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ForeignKeys">
-              <PropertyRef Name="RoundsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SessionFK">
-          <End Role="Session" Type="Self.Session" Multiplicity="1" />
-          <End Role="ForeignKeys" Type="Self.ForeignKeys" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Session">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ForeignKeys">
-              <PropertyRef Name="SessionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ForeignKeys" EntityType="Self.ForeignKeys" />
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" />
           <EntitySet Name="Session" EntityType="Self.Session" />
-          <AssociationSet Name="PersonFK" Association="Self.PersonFK">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
-          </AssociationSet>
-          <AssociationSet Name="RoundsFK" Association="Self.RoundsFK">
-            <End Role="Rounds" EntitySet="Rounds" />
-            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
-          </AssociationSet>
-          <AssociationSet Name="SessionFK" Association="Self.SessionFK">
-            <End Role="Session" EntitySet="Session" />
-            <End Role="ForeignKeys" EntitySet="ForeignKeys" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>

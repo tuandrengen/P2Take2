@@ -21,6 +21,7 @@ namespace P2SeriousGame
         public HexagonButton FirstButtonInPath;
 
         public static int gameTotalWins;
+        public static int gameTotalLosses;
         public static bool gameRoundWin;
 
         GameForm game;
@@ -49,12 +50,12 @@ namespace P2SeriousGame
             catch (GameWonException e)
             {
                 Map.ResetMouse();
-                YouWin();
+                WinNotification();
             }
             catch (LostTheGameException e)
             {
                 Map.ResetMouse();
-                YouLose();
+                LoseNotification();
             }
         }   
 
@@ -106,7 +107,7 @@ namespace P2SeriousGame
 			}
 		}
 
-        public void YouWin()
+        public void WinNotification()
         {
             using (Form form = new Form())
             {
@@ -119,7 +120,7 @@ namespace P2SeriousGame
             }
         }
 
-        public void YouLose()
+        public void LoseNotification()
         {
             using (Form form = new Form())
             {
@@ -128,6 +129,7 @@ namespace P2SeriousGame
                 {
                     gameRoundWin = false;
                     game.ResetByWinningOrLosing();
+
                 }
             }
         }

@@ -4,14 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fc2af32ef63f410d9d3ba9d6869c42f8" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.ForeignKeys" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Person" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Rounds" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
-        <AssociationConnector Association="Model.PersonFK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.RoundsFK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.SessionFK" ManuallyRouted="false" />
+      <Diagram DiagramId="8eaffb2573c540b4bb4156c07e53a92a" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ForeignKeys" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Person" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Rounds" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

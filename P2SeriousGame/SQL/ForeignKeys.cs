@@ -18,9 +18,5 @@ namespace P2SeriousGame.SQL
         public int PersonId { get; set; }
         public int SessionId { get; set; }
         public int RoundsId { get; set; }
-    
-        public virtual Person Person { get; set; }
-        public virtual Rounds Rounds { get; set; }
-        public virtual Session Session { get; set; }
     }
 }
