@@ -236,6 +236,19 @@ namespace P2SeriousGame
                 PlaceHexagonButton(hex);
             }
             Map.ResetMouse();
+            SQL.ResetGameToListFromReset();
+        }
+
+        public void ResetByWinningOrLosing()
+        {
+            foreach (HexagonButton hex in Map.hexMap)
+            {
+                hex.Visited = false;
+                hex.Passable = true;
+                hex.Enabled = true;
+                PlaceHexagonButton(hex);
+            }
+            Map.ResetMouse();
             SQL.ResetGameToList();
         }
 

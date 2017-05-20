@@ -114,21 +114,24 @@ namespace P2SeriousGame
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You won", "Win", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You won", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
-                    game.ResetButtonClick(null, null);
+                    game.ResetByWinningOrLosing();
+                    gameRoundWin = true;
                 }
             }
         }
+
         public void YouLose()
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You lose", "Lose", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You lose", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
-                    game.ResetButtonClick(null, null);
+                    game.ResetByWinningOrLosing();
+                    gameRoundWin = false;
                 }
             }
         }

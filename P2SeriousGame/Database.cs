@@ -13,7 +13,7 @@ using P2SeriousGame.SQL;
 
 namespace P2SeriousGame
 {
-    class Database
+    public class Database
     {
         public Database() { }
 
@@ -28,6 +28,12 @@ namespace P2SeriousGame
         public List<Persons> personList = new List<Persons>();
 
         public string testName = "Dylan the creep";
+
+        public void ResetGameToListFromReset()
+        {
+            Pathfinding.gameRoundWin = false;
+            ResetGameToList();
+        }
 
         public void ResetGameToList()
         {
@@ -61,11 +67,11 @@ namespace P2SeriousGame
             AddToTotal();
             RoundVariables();
 
+            Persons person = new Persons(testName);
+            personList.Add(person);
+
             if (GameForm.hexClickedRound != 0)
             {
-                Persons person = new Persons(testName);
-                personList.Add(person);
-
                 Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
                 roundList.Add(round);
             }
