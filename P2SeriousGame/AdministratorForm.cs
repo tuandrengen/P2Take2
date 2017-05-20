@@ -211,7 +211,7 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
-            //drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 2, 0, SeriesChartType.FastLine);
+            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 1, 0, SeriesChartType.FastLine);
         }
     }
 }
