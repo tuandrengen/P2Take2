@@ -13,7 +13,7 @@ using P2SeriousGame.SQL;
 
 namespace P2SeriousGame
 {
-    class Database
+    public class Database
     {
         public Database() { }
 
@@ -47,7 +47,7 @@ namespace P2SeriousGame
             }
 
             // Starts the stopwatch from 0
-            stopwatchRound.Restart();
+            stopwatchRound.Restart(); 
             // Increments the reset counter
             ResetCounter();
         }
@@ -103,8 +103,31 @@ namespace P2SeriousGame
         }
 
         // Unique to WinOrLose
-        private int _roundWin;
-        private int _roundLoss;
+        private int _roundWin = 0;
+        private int _roundLoss = 0;
+        public int RoundWin
+        {
+            get
+            {
+                return _roundWin;
+            }
+            set
+            {
+                _roundWin = value;
+            }
+        }
+        public int RoundLoss
+        {
+            get
+            {
+                return _roundLoss;
+            }
+            set
+            {
+                _roundLoss = value;
+            }
+        }
+
 
         public int WinOrLose()
         {
