@@ -113,8 +113,8 @@ namespace P2SeriousGame
                 DialogResult dr = MessageBox.Show(" You won", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
-                    game.ResetByWinningOrLosing();
                     gameRoundWin = true;
+                    game.ResetByWinningOrLosing();
                 }
             }
         }
@@ -126,8 +126,8 @@ namespace P2SeriousGame
                 DialogResult dr = MessageBox.Show(" You lose", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
-                    game.ResetByWinningOrLosing();
                     gameRoundWin = false;
+                    game.ResetByWinningOrLosing();
                 }
             }
         }
