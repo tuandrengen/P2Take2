@@ -25,8 +25,7 @@ namespace P2SeriousGame
         private float _clickedTotal;
 
         private static int _totalLoss;
-
-        //Should personlist be a list? we only add 1 at a time...
+        
         public List<Round> roundList = new List<Round>();
 
         // Også defineret i administatorform...
@@ -38,20 +37,6 @@ namespace P2SeriousGame
             Password = "Aouiaom17",
             InitialCatalog = "p2-database"
         };
-
-        /*private int _nextID;
-        public int nextID
-        {
-            get
-            {
-                return _nextID;
-            }
-            set
-            {
-                _nextID = GetNextID();
-            }
-        }
-        */
 
         public int GetNextID()
         {
@@ -68,24 +53,39 @@ namespace P2SeriousGame
             }
         }
 
+        /*
+        This method gets activated whenever the resetbutton is clicked.
+        So the gameRoundWin is set to false before calling ResetGameToList();
+        */
         public void ResetGameToListFromReset()
         {
             Pathfinding.gameRoundWin = false;
             ResetGameToList();
         }
 
+        /*
+        This method is either called whenever the round has finished
+        or from ResetGameToListFromReset().
+        */
         public void ResetGameToList()
         {
             ConvertSeconds();
             AddToTotal();
             RoundVariables();
 
+            /*
+            If nothing no clicks has happened is this round it is 
+            possible to restart the round with no penalty.
+            If there's clicks has happened this round the round will be added to the roundlist().
+            */
             if (GameForm.hexClickedRound != 0)
             {
                 Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
                 roundList.Add(round);
-
-                // Resets the amount of hex clicked
+                /*
+                Resets the amount of hex clicked, so it's ready to 
+                count the number of clicks in the next round
+                */
                 GameForm.hexClickedRound = 0;
             }
 
