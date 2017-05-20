@@ -134,7 +134,10 @@ namespace P2SeriousGame
                 this.dataGridView1.DataSource = roundsTable;
                 
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
-
+                foreach (var item in ValueList)
+                {
+                    Console.WriteLine(item);
+                }
                 
                 // --------------------------------------
                 //Console.WriteLine(PersonTable.Rows.Count);
