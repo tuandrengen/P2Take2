@@ -49,7 +49,7 @@ namespace P2SeriousGame
                 DataTable personTable = new DataTable();
                 adapter.Fill(personTable);
                 Console.WriteLine(personTable.Rows.Count);
-                return personTable.Rows.Count + 1;
+                return personTable.Rows.Count;
             }
         }
 
@@ -162,7 +162,7 @@ namespace P2SeriousGame
                 return 0;
             }
         }
-
+        
         public void AddPersonToDatabase()
         {
             using (var context = new Entities())
@@ -175,9 +175,9 @@ namespace P2SeriousGame
 
                 context.ForeignKeys.Add(new ForeignKeys
                 {
-                    PersonId = GetNextID(),
-                    SessionId = GetNextID(),
-                    RoundsId = GetNextID()
+                    PersonId = GetNextID() + 1,
+                    SessionId = GetNextID() + 1,
+                    RoundsId = GetNextID() + 1
                 });
                 context.SaveChanges();
             }
@@ -198,6 +198,12 @@ namespace P2SeriousGame
                         Time_Used = row.TimeUsed
                     });
                 }
+                context.ForeignKeys.Add(new ForeignKeys
+                {
+                    PersonId = GetNextID(),
+                    SessionId = GetNextID(),
+                    RoundsId = GetNextID() + 1
+                });
                 context.SaveChanges();
             }
         }
