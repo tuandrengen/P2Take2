@@ -26,6 +26,7 @@ namespace P2SeriousGame
 
         private static int _totalLoss;
 
+        //Should personlist be a list? we only add 1 at a time...
         public List<Round> roundList = new List<Round>();
         public List<Persons> personList = new List<Persons>();
 
@@ -40,7 +41,9 @@ namespace P2SeriousGame
             Password = "Aouiaom17",
             InitialCatalog = "p2-database"
         };
-        private int _nextID;
+
+
+        /*private int _nextID;
         public int nextID
         {
             get
@@ -52,7 +55,7 @@ namespace P2SeriousGame
                 _nextID = GetNextID();
             }
         }
-  
+        */
 
         public int GetNextID()
         {
@@ -64,7 +67,7 @@ namespace P2SeriousGame
             {
                 DataTable personTable = new DataTable();
                 adapter.Fill(personTable);
-                
+                Console.WriteLine(personTable.Rows.Count);
                 return personTable.Rows.Count + 1;
             }
         }
@@ -175,9 +178,9 @@ namespace P2SeriousGame
                 }
                 context.ForeignKeys.Add(new ForeignKeys
                     {
-                        PersonId = nextID,
-                        SessionId = nextID,
-                        RoundsId = nextID
+                        PersonId = GetNextID(),
+                        SessionId = GetNextID(),
+                        RoundsId = GetNextID()
                     });
                 context.SaveChanges();
             }
