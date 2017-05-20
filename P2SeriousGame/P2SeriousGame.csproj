@@ -82,9 +82,8 @@
     <Compile Include="BreadthFirst.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="EndOfMapException.cs" />
-    <Compile Include="Formatting.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ForeignKeys.cs" />
+    <Compile Include="Formatting.cs" />
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
     </Compile>

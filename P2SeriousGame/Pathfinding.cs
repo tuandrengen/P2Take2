@@ -44,21 +44,17 @@ namespace P2SeriousGame
                 BreadthFirst breadthFirst = new BreadthFirst(_queue, _pathsToEdge, _reachableHexList);
                 breadthFirst.CalculateRoutes(hexMap, startingHex);
                 List<HexagonButton> routes = breadthFirst.FindTheRoutes();
-                try
-                {
-                    FirstButtonInPath = ChooseRouteByRand(routes).First();
-                }
-                catch(LostTheGameException e)
-                {
-                    Map.ResetMouse();
-                    YouLose();
-                }
-                
+                FirstButtonInPath = ChooseRouteByRand(routes).First();                
             }
             catch (GameWonException e)
             {
                 Map.ResetMouse();
                 YouWin();
+            }
+            catch (LostTheGameException e)
+            {
+                Map.ResetMouse();
+                YouLose();
             }
         }   
 

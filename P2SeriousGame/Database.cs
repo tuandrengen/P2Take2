@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using P2SeriousGame;
 using P2SeriousGame.SQL;
+using System.Data.SqlClient;
 
 namespace P2SeriousGame
 {
     public class Database
     {
+        // not sure if used
         public Database() { }
 
         private long _elapsedSec;
@@ -24,10 +26,51 @@ namespace P2SeriousGame
 
         private static int _totalLoss;
 
+        //Should personlist be a list? we only add 1 at a time...
         public List<Round> roundList = new List<Round>();
         public List<Persons> personList = new List<Persons>();
 
         public string testName = "Dylan the creep";
+
+        // Også defineret i administatorform...
+        SqlConnection connection = new SqlConnection();
+        SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
+        {
+            DataSource = "p2-avengers.database.windows.net",
+            UserID = "tuandrengen",
+            Password = "Aouiaom17",
+            InitialCatalog = "p2-database"
+        };
+
+
+        /*private int _nextID;
+        public int nextID
+        {
+            get
+            {
+                return _nextID;
+            }
+            set
+            {
+                _nextID = GetNextID();
+            }
+        }
+        */
+
+        public int GetNextID()
+        {
+            string query = "SELECT * FROM Person";
+
+            using (connection = new SqlConnection(builder.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                DataTable personTable = new DataTable();
+                adapter.Fill(personTable);
+                Console.WriteLine(personTable.Rows.Count);
+                return personTable.Rows.Count + 1;
+            }
+        }
 
         public void ResetGameToListFromReset()
         {
@@ -139,6 +182,12 @@ namespace P2SeriousGame
                         Name = row.Name
                     });
                 }
+                context.ForeignKeys.Add(new ForeignKeys
+                    {
+                        PersonId = GetNextID(),
+                        SessionId = GetNextID(),
+                        RoundsId = GetNextID()
+                    });
                 context.SaveChanges();
             }
         }
@@ -179,21 +228,6 @@ namespace P2SeriousGame
             }
         }
 
-        public void PrintData()
-        {
-            using (var context = new Entities())
-            {
-                foreach (var item in context.Rounds)
-                {
-                    Console.WriteLine(item.Id + " " + item);
-                    Console.WriteLine(item.Clicks);
-                    Console.WriteLine(item.AVG_Clicks);
-                    Console.WriteLine(item.Win);
-                    Console.WriteLine(item.Loss);
-                    Console.WriteLine(item.Time_Used);
-                }
-            }
-        }
 
         private float AverageClickPerMinute(float hexClicked, float seconds)
         {
