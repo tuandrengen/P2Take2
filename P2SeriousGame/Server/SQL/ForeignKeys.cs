@@ -7,18 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriousGame.SQL
+namespace P2SeriousGame.Server.SQL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Rounds
+    public partial class ForeignKeys
     {
         public int Id { get; set; }
-        public Nullable<double> Clicks { get; set; }
-        public Nullable<double> AVG_Clicks { get; set; }
-        public Nullable<int> Win { get; set; }
-        public Nullable<int> Loss { get; set; }
-        public Nullable<double> Time_Used { get; set; }
+        public int PersonId { get; set; }
+        public int SessionId { get; set; }
+        public int RoundsId { get; set; }
     }
 }

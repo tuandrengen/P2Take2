@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
     public class BreadthFirst
     {
+        public List<HexagonButton> _queue = new List<HexagonButton>();
+        public List<HexagonButton> _reachableEdgeTiles = new List<HexagonButton>();
+        public List<HexagonButton> _reachableHexList = new List<HexagonButton>();
+
         public BreadthFirst(List<HexagonButton> queue, List<HexagonButton> pathsToEdge, List<HexagonButton> reachableHexList)
         {
             this._queue = queue;
@@ -15,10 +16,6 @@ namespace P2SeriousGame
             this._reachableHexList = reachableHexList;
         }
         
-        public List<HexagonButton> _queue = new List<HexagonButton>();
-        public List<HexagonButton> _reachableEdgeTiles = new List<HexagonButton>();
-        public List<HexagonButton> _reachableHexList = new List<HexagonButton>();
-
         /// <summary>
         /// Takes a HexagonButton grid, and the posistion to start from.
         /// </summary>
@@ -59,29 +56,30 @@ namespace P2SeriousGame
         {
             var bestRoutes = new List<HexagonButton>();
 
-            //If at least one route can be found, there's is a route to an edge
+            /// If at least one route can be found, there's is a route to an edge
             if (_reachableEdgeTiles.Count > 0)
             {
                 bestRoutes = FindShortestRoutes();
             }
-            //If there's no routes to the edge, but there's still other reachable hexes, the mouse is trapped, but not enclosed yet
+            /// If there's no routes to the edge, but there's still other reachable hexes, 
+            /// the mouse is trapped, but not enclosed yet.
             else if (_reachableHexList.Count > 0)
             {
                 bestRoutes = FindLongestRoutes();
             }
             else
             {
-                //You Won :) 
+                /// You won the game! 
                 Pathfinding.gameTotalWins += 1;
                 Pathfinding.gameRoundWin = true;
                 throw new GameWonException("You won the game");
             }
-            //List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
-            //return bestRouteByRand.First();
+            ///List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
+            ///return bestRouteByRand.First();
             return bestRoutes;
         }
         
-        //Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
+        /// Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
         public List<HexagonButton> FindLongestRoutes()
         {
             var longestRoutes = new List<HexagonButton>();
@@ -103,7 +101,6 @@ namespace P2SeriousGame
             return longestRoutes;
         }
 
-
         /// <summary>
         /// Compares the different routes, and returns the shortest.
         /// </summary>
@@ -111,7 +108,7 @@ namespace P2SeriousGame
         /// <returns></returns>
 		public List<HexagonButton> FindShortestRoutes()
         {
-            //Input parametren er edgehexes.
+            /// Input parametren er edgehexes.
             var shortestRoutes = new List<HexagonButton>();
             foreach (HexagonButton hex in _reachableEdgeTiles)
             {

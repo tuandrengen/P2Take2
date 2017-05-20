@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriousGame.SQL
+namespace P2SeriousGame.Server.SQL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Session
+    public partial class Rounds
     {
         public int Id { get; set; }
         public Nullable<double> Clicks { get; set; }
         public Nullable<double> AVG_Clicks { get; set; }
-        public Nullable<int> Rounds { get; set; }
-        public Nullable<int> Wins { get; set; }
-        public Nullable<int> Losses { get; set; }
+        public Nullable<int> Win { get; set; }
+        public Nullable<int> Loss { get; set; }
         public Nullable<double> Time_Used { get; set; }
     }
 }
