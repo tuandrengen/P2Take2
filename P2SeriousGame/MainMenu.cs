@@ -50,6 +50,7 @@ namespace P2SeriousGame
             userNameLbl.Text = "Brugernavn:";
             TextBox nameBox = new TextBox();
             nameBox.Size = new Size(300, 50);
+            nameBox.Text = "Skriv navn Her";
             panel.Controls.Add(userNameLbl);
             panel.Controls.Add(nameBox);
 
