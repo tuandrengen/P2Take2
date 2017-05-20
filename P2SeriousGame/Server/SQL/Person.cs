@@ -7,16 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriousGame.SQL
+namespace P2SeriousGame.Server.SQL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ForeignKeys
+    public partial class Person
     {
         public int Id { get; set; }
-        public int PersonId { get; set; }
-        public int SessionId { get; set; }
-        public int RoundsId { get; set; }
+        public string Name { get; set; }
     }
 }

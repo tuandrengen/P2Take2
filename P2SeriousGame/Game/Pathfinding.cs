@@ -107,11 +107,14 @@ namespace P2SeriousGame
 			}
 		}
 
+        /// <summary>
+        /// Opens a new window with the message that you won the game.
+        /// </summary>
         public void WinNotification()
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You won", "Round notification", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You won the round.", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
                     gameRoundWin = true;
@@ -120,11 +123,14 @@ namespace P2SeriousGame
             }
         }
 
+        /// <summary>
+        /// Opens a new window with the message that you have lost the game.
+        /// </summary>
         public void LoseNotification()
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You lose", "Round notification", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You lose the round.", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
                     gameRoundWin = false;

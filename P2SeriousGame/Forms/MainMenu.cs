@@ -134,7 +134,7 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="xCoordinate"></param>
         /// <param name="yCoordinate"></param>
-        /// <returns></returns>
+        /// <returns name="width"></returns>
         private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
         {
             int width = formatting.WidthStart;
@@ -151,7 +151,7 @@ namespace P2SeriousGame
         /// Converts a coordinate into a position in a hexgrid.
         /// </summary>
         /// <param name="yCoordinate"></param>
-        /// <returns></returns>
+        /// <returns name="height"></returns>
 		private int CalculateButtonHeightOffset(int yCoordinate)
         {
             int height = formatting._heightStart;
