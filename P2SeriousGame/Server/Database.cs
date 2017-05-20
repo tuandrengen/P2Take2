@@ -80,7 +80,7 @@ namespace P2SeriousGame
         /// Right after the variable gets converted from a long to a float,
         /// ready for the database.
         /// </summary>
-        public void ConvertSeconds()
+        private void ConvertSeconds()
         {
             _elapsedSec = ElapsedSeconds();
             _secondsRound = unchecked(_elapsedSec);
@@ -109,7 +109,7 @@ namespace P2SeriousGame
         /// This information is used to make a new instance of Round in ResetGameToList(),
         /// and ExitGameToDatabase().
         /// </summary>
-        public void RoundVariables()
+        private void RoundVariables()
         {
             _roundResult = WinOrLose();
             _roundAverage = float.Parse(AverageClickPerMinute(GameForm.hexClickedRound, _secondsRound).ToString("n2"));
@@ -233,12 +233,12 @@ namespace P2SeriousGame
             stopwatchRound.Start();
         }
 
-        public long ElapsedSeconds()
+        private long ElapsedSeconds()
         {
             return stopwatchRound.ElapsedMilliseconds / 1000;
         }
 
-        // Også defineret i administatorform...
+        /// Også defineret i administatorform...
         SqlConnection connection = new SqlConnection();
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
