@@ -9,27 +9,34 @@ namespace Unittest
     [TestFixture]
     public class DatabaseTests
     {
-        [TestCase(true)]
-        [TestCase(false)]
-        public void WinOrLoss_None_SetsRightValues(bool won)
+        [Test]
+        public void ExitGameToDatabase_BetingelseMangler_RightOutputToDatabase()
         {
-            Database database = new Database();
-            Pathfinding.gameRoundWin = won;
-            database.WinOrLose();
-            if (won)
-            {
-                Assert.AreEqual(0, database.RoundLoss);
-                Assert.AreEqual(1, database.RoundWin);
-                Assert.AreEqual(1, database.WinOrLose());
-            }
-            else if(!won)
-            {
-                Assert.AreEqual(1, database.RoundLoss);
-                Assert.AreEqual(0, database.RoundWin);
-                Assert.AreEqual(0, database.WinOrLose());
-            }
+
         }
 
+        [Test]
+        public void ResetGameToList_Betingelse_Forventning()
+        {
 
+        }
+
+        [Test]
+        public void ResetGameToListFromReset_Betingelse_Forventning()
+        {
+
+        }
+
+        [Test]
+        public void StartStopwatch_Betingelse_Forventning()
+        {
+
+        }
+
+        [Test]
+        public void GetNextID_Betingelse_Forventning()
+        {
+
+        }
     }
 }

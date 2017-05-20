@@ -27,7 +27,7 @@ namespace P2SeriousGame
         /// </summary>
         public void ResetGameToList()
         {
-            /// If nothing no clicks has happened is this round it is 
+            /// If no clicks has happened is this round it is 
             /// possible to restart the round with no penalty.
             /// If there's clicks has happened this round the round will be added to the roundlist().
             if (GameForm.hexClickedRound != 0)
