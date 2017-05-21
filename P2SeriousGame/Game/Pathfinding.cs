@@ -52,12 +52,12 @@ namespace P2SeriousGame
             catch (GameWonException e)
             {
                 Map.ResetMouse();
-                WinNotification();
+                game.WinNotification();
             }
             catch (LostTheGameException e)
             {
                 Map.ResetMouse();
-                LoseNotification();
+                game.LoseNotification();
             }
         }   
 
@@ -109,37 +109,6 @@ namespace P2SeriousGame
 			}
 		}
 
-        /// <summary>
-        /// Opens a new window with the message that you won the game.
-        /// </summary>
-        public void WinNotification()
-        {
-            using (Form form = new Form())
-            {
-                DialogResult dr = MessageBox.Show(" You won the round.", "Round notification", MessageBoxButtons.OK);
-                if (dr == DialogResult.OK)
-                {
-                    gameRoundWin = true;
-                    game.ResetByWinningOrLosing();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Opens a new window with the message that you have lost the game.
-        /// </summary>
-        public void LoseNotification()
-        {
-            using (Form form = new Form())
-            {
-                DialogResult dr = MessageBox.Show(" You lose the round.", "Round notification", MessageBoxButtons.OK);
-                if (dr == DialogResult.OK)
-                {
-                    gameRoundWin = false;
-                    game.ResetByWinningOrLosing();
-
-                }
-            }
-        }
+      
     }
 }
