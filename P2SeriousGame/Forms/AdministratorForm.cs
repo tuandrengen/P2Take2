@@ -157,6 +157,21 @@ namespace P2SeriousGame
                 this.dataGridView1.DataSource = roundsTable;
                 
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
+                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+                drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+
+                // not good yet gives nothing
+                /*
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
+                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
+                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+                */
+
+
                 foreach (var item in ValueList)
                 {
                     Console.WriteLine(item);
@@ -212,7 +227,7 @@ namespace P2SeriousGame
 
         private void PopulateSession()
         {
-            string query = "SELECT s.Id FROM [Session] s " +
+            string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
                 "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
@@ -221,6 +236,8 @@ namespace P2SeriousGame
             {
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
+                this.dataGridView2.DataSource = sessionTable;
+
 
                 listBox2.DisplayMember = "Id"; 
                 listBox2.ValueMember = "Id";
@@ -233,7 +250,7 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
-            drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+            
         }
     }
 }
