@@ -60,8 +60,6 @@ namespace P2SeriousGame
 
             graph.Size = new Size(300, 400);
 			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * (graphCount - 1) + margin;
-			Console.WriteLine($"Width: {administratorPanel.Width}");
-			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
 
 			//(administratorPanel.Right / 5 - graph.Width / 2) * graphCount
 
@@ -179,20 +177,6 @@ namespace P2SeriousGame
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
                 */
-
-
-                foreach (var item in ValueList)
-                {
-                    Console.WriteLine(item);
-                }
-                
-                // --------------------------------------
-                //Console.WriteLine(PersonTable.Rows.Count);
-                /*
-                for (int i = 0; i < PersonTable.Rows.Count; i++)
-                {
-                    *Console.WriteLine(PersonTable.Rows[i]["Id"]);
-                } */
             }
         }
 
