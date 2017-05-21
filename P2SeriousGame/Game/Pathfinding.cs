@@ -31,6 +31,12 @@ namespace P2SeriousGame
             this.game = game;
         }
 
+		/// <summary>
+		/// Finds the shortest route to the edge of the map. If there are more routes at the same length, a route will randomly be chosen.
+		/// </summary>
+		/// <param name="hexMap">The map that the search will be performed on</param>
+		/// <param name="startingHex">The field that the search should be performed from</param>
+		/// <returns></returns>
         public HexagonButton FindPath(HexagonButton[,] hexMap, HexagonButton startingHex)
         {
             ResetAllButtons(hexMap);

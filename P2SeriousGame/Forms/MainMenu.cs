@@ -113,10 +113,8 @@ namespace P2SeriousGame
 
         /// <summary>
         /// This is the event called in StartGameButton().
-        /// Switches
+        /// In charge of the MenuWindow changes to GameWindow.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SwitchToGame(object sender, MouseEventArgs e)
         {
             Hide();
@@ -125,6 +123,10 @@ namespace P2SeriousGame
             Show();
         }
 
+        /// <summary>
+        /// This is the event called in StartAdministratorMenuButton().
+        /// In charge of the MenuWindow changes to AdministratorWindow.
+        /// </summary>
         private void SwitchToAdministration(object sender, MouseEventArgs e)
         {
             Hide();
@@ -133,68 +135,59 @@ namespace P2SeriousGame
             Show();
         }
 
+        /// <summary>
+        /// This is the event called in CloseMenuButton().
+        /// In charge of closing down the game.
+        /// </summary>
         public void ExitButtonClick(object sender, MouseEventArgs e)
         {
             Close();
         }
 
-        private void ResetButtonClick(object sender, MouseEventArgs e)
-        {
-            foreach (HexagonButton hex in Map.hexMap)
-            {
-                hex.Visited = false;
-                hex.Passable = true;
-                hex.Enabled = true;
-                hex.BackColor = System.Drawing.Color.LightGray;
-                PlaceHexagonButton(hex);
-            }
-            Map.ResetMouse();
-        }
+        //public void PlaceHexagonButton(HexagonButton button)
+        //{
+        //    //For at farve midten før man har klikket på skærmen.
+        //    if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
+        //    {
+        //        button.BackColor = System.Drawing.Color.Aqua;
+        //        button.Enabled = false;
+        //    }
 
-        public void PlaceHexagonButton(HexagonButton button)
-        {
-            //For at farve midten før man har klikket på skærmen.
-            if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
-            {
-                button.BackColor = System.Drawing.Color.Aqua;
-                button.Enabled = false;
-            }
+        //    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
+        //    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
+        //}
 
-            button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
-            button.Top = CalculateButtonHeightOffset(button.YCoordinate);
-        }
+        ///// <summary>
+        ///// Converts a coordinate into a position in a hexgrid.
+        ///// </summary>
+        ///// <param name="xCoordinate"></param>
+        ///// <param name="yCoordinate"></param>
+        ///// <returns name="width"></returns>
+        //private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
+        //{
+        //    int width = formatting.WidthStart;
+        //    width += (xCoordinate * formatting.ButtonWidth);
+        //    //Gives every second button an offset to make the grid
+        //    if (yCoordinate % 2 == 1)
+        //    {
+        //        width += formatting.ButtonWidth / 2;
+        //    }
+        //    return width;
+        //}
 
-        /// <summary>
-        /// Converts a coordinate into a position in a hexgrid.
-        /// </summary>
-        /// <param name="xCoordinate"></param>
-        /// <param name="yCoordinate"></param>
-        /// <returns name="width"></returns>
-        private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
-        {
-            int width = formatting.WidthStart;
-            width += (xCoordinate * formatting.ButtonWidth);
-            //Gives every second button an offset to make the grid
-            if (yCoordinate % 2 == 1)
-            {
-                width += formatting.ButtonWidth / 2;
-            }
-            return width;
-        }
+  //      /// <summary>
+  //      /// Converts a coordinate into a position in a hexgrid.
+  //      /// </summary>
+  //      /// <param name="yCoordinate"></param>
+  //      /// <returns name="height"></returns>
+		//private int CalculateButtonHeightOffset(int yCoordinate)
+  //      {
+  //          int height = formatting._heightStart;
 
-        /// <summary>
-        /// Converts a coordinate into a position in a hexgrid.
-        /// </summary>
-        /// <param name="yCoordinate"></param>
-        /// <returns name="height"></returns>
-		private int CalculateButtonHeightOffset(int yCoordinate)
-        {
-            int height = formatting._heightStart;
+  //          height += (yCoordinate * formatting.ButtonHeightOffset);
 
-            height += (yCoordinate * formatting.ButtonHeightOffset);
-
-            return height;
-        }
+  //          return height;
+  //      }
 
     }
 }
