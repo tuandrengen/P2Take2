@@ -4,9 +4,6 @@ using P2SeriousGame;
 
 namespace Unittest
 {
-    //Finde ud af hvad bfs.FindShortestRoutes() retunerer. Svar: den returnere de mulige edgetiles hvortil der er kortest afstand.
-    //Finde ud af hvad bfs.FindLongestRoutes() retunerer. Svar: den returnere de mulige edgetiles hvortil der er længst afstand.
-
     [TestFixture]
     public class PathfindingTests
     {
@@ -46,11 +43,11 @@ namespace Unittest
             }
             foreach (HexagonButton hex in initializer.bfs.FindLongestRoutes())
             {
-                //Tjecks that the route found are not longer than any of map dimension
+                //Checks that the route found are not longer than any of map dimension
                 Assert.IsTrue(hex.CostToStart < x || hex.CostToStart < y);
             }
 
-            //Tjecks if all hex got same cost.
+            //Checks if all hex got same cost.
             foreach (HexagonButton hex in initializer.bfs.FindLongestRoutes())
             {
                 if (tempCost == 0)
