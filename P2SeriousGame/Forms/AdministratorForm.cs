@@ -56,8 +56,16 @@ namespace P2SeriousGame
             GraphPanel graph = graphList[graphCount - 1];
             graph.AddSeriesToGraph(valueList);
 
+			int margin = 50;
+
             graph.Size = new Size(300, 400);
-            graph.Location = new Point((administratorPanel.Right / 5 - graph.Width / 2) * graphCount, this.Bounds.Top + 300);
+			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * (graphCount - 1) + margin;
+			Console.WriteLine($"Width: {administratorPanel.Width}");
+			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
+
+			//(administratorPanel.Right / 5 - graph.Width / 2) * graphCount
+
+			graph.Location = new Point(alreadyOccupiedWidth, this.Bounds.Top + 300);
 
             administratorPanel.Controls.Add(graph);
 
@@ -252,5 +260,10 @@ namespace P2SeriousGame
             PopulateRounds(); // filling datagrid
             
         }
-    }
+
+		private void AdministratorForm_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
