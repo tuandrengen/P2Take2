@@ -189,17 +189,13 @@ namespace P2SeriousGame
 
         private void PopulateSession()
         {
-            string query = "SELECT a.Id FROM Session a " +
-                "INNER JOIN ForeignKeys b ON a.Id = b.SessionId " +
-                "WHERE b.PersonId = @PersonId";
+            string query = "SELECT s.Id FROM [Session] s " +
+                "WHERE  fk.Id = r.SessionID ";
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             using (SqlDataAdapter adapter = new SqlDataAdapter(command))
             {
-
-                command.Parameters.AddWithValue("@PersonId", listBox1.SelectedValue);
-
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
 
