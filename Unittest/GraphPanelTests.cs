@@ -8,7 +8,7 @@ using System.Drawing;
 namespace Unittest
 {
     [TestFixture]
-    public class IStatisticTests
+    public class GraphPanelTests
     {
         public void DrawGraph_CorrectInput_DrawsTheRightGraph()
         {
