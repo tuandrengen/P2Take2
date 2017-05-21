@@ -126,7 +126,7 @@ namespace P2SeriousGame
 
         private void PopulateRounds()
         {
-            string query = "SELECT r.[AVG Clicks], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
+            string query = "SELECT r.[Round Number], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
                 "INNER JOIN ForeignKeys fk ON fk.RoundsId = r.RoundID " +
                 "WHERE fk.PersonId = " + listBox1.SelectedValue;
 
@@ -138,7 +138,7 @@ namespace P2SeriousGame
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
                 
-                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 foreach (var item in ValueList)
                 {
                     Console.WriteLine(item);
