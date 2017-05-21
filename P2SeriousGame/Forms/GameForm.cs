@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace P2SeriousGame
@@ -39,19 +33,19 @@ namespace P2SeriousGame
         }
 
         /// <summary>
-        /// 
+        /// Finds button dimensions after screen height or width.
         /// </summary>
         public void CalculateButtonDimension()
         {
             CalculateButtonDimensionBasedOnScreenHeight();
 
-            //Does the calculated width fit the screen width, if not then calculate height and width based on screen width
+            //Does the calculated width fit the screen width, if not then calculate height and width based on screen width.
             if ((formatting.ButtonWidth * Map.TotalHexagonColumns) > formatting._gameScreenWidth)
                 CalculateButtonDimensionBasedOnScreenWidth();
         }
 
         /// <summary>
-        /// 
+        /// Calculates the button size based on scren heigth.
         /// </summary>
         private void CalculateButtonDimensionBasedOnScreenHeight()
         {
@@ -59,10 +53,10 @@ namespace P2SeriousGame
             double hexagonRows = Map.TotalHexagonRows;
             const double evenRowsToHeight = 0.75;
 
-            //The height to width ratio for a pointy top regulare hexagon
+            //The height to width ratio for a pointy top regulare hexagon.
             double heightToWidth = System.Math.Sqrt(3) / 2;
 
-            //These series of if-else calculates the height of one button, determined by the number of rows and the screen height
+            //These series of if-else calculates the height of one button, determined by the number of rows and the screen height.
             if (hexagonRows == 1)
                 formatting.ButtonHeight = (int)(formatting._gameScreenHeight / hexagonRows);
             else if (hexagonRows % 2 == 0)
@@ -76,29 +70,30 @@ namespace P2SeriousGame
                 formatting.ButtonHeight = (int)(formatting._gameScreenHeight / rowHeight);
             }
 
-            //We calculate the width by multiplying height to width ratio
+            //We calculate the width by multiplying height to width ratio.
             formatting.ButtonWidth = (int)((formatting.ButtonHeight * heightToWidth));
         }
 
         /// <summary>
-        /// 
+        /// Calculates the button size based on scren width.
         /// </summary>
         private void CalculateButtonDimensionBasedOnScreenWidth()
         {
-            //The width to height ratio for a pointy top regulare hexagon
+            //The width to height ratio for a pointy top regulare hexagon.
             double widthToHeight = System.Math.Sqrt(3) * ((double)2 / 3);
 
             double buttonWidthTemp;
 
-            //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
+            //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset).
             buttonWidthTemp = (int)(formatting._gameScreenWidth / (Map.TotalHexagonColumns + 0.5));
 
             //We calculate the height by multiplying width to height ratio
             formatting.ButtonHeight = (int)(buttonWidthTemp * widthToHeight);
 
-            //Now we do not need the buttonWidthTemp with precision, so we typecast the double to an int
+            //Now we do not need the buttonWidthTemp with precision, so we typecast the double to an int.
             formatting.ButtonWidth = (int)buttonWidthTemp;
         }
+
 
         public void DrawWindow(object sender, EventArgs e)
         {
@@ -122,22 +117,25 @@ namespace P2SeriousGame
             button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
-            button.MouseClick += HexClickedColor;
+            button.MouseClick += HexClickedCounter;
             button.MouseClick += map.MousePositioner;
             gamePanel.Controls.Add(button);
         }
 
         public static float hexClickedRound;
 
-        public void HexClickedColor(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Increments hexClickedRound for counting the amount of clicks the player did this game session.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void HexClickedCounter(object sender, MouseEventArgs e)
         {
-            HexagonButton sender_Button = sender as HexagonButton;
-            //sender_Button.BackColor = Color.FromArgb(255, 105, 180);
             hexClickedRound += 1;
         }
 
         /// <summary>
-        /// Places HexagonButtons in GameWindow based on the coordinates assigned in the button.
+        /// Places HexagonButtons in GameForm based on the coordinates assigned in the button.
         /// </summary>
         /// <param name="button"></param>
         public void PlaceHexagonButton(HexagonButton button)
@@ -180,6 +178,7 @@ namespace P2SeriousGame
             ResetButton.MouseClick += ResetButtonClick;
             panel.Controls.Add(ResetButton);
         }
+
         private void AddExitButton(Panel panel)
         {
             Button ExitButton = new Button();
@@ -199,7 +198,7 @@ namespace P2SeriousGame
         {
             int width = formatting.WidthStart;
             width += (xCoordinate * formatting.ButtonWidth);
-            //Gives every second button an offset to make the grid
+            //Gives every second button an offset to make the grid.
             if (yCoordinate % 2 == 1)
             {
                 width += formatting.ButtonWidth / 2;
@@ -221,25 +220,36 @@ namespace P2SeriousGame
             return height;
         }
 
-        public void ExitButtonClick(object sender, MouseEventArgs e)
-        {
-            Close();
-        }
+        //public void ExitButtonClick(object sender, MouseEventArgs e)
+        //{
+        //    Close();
+        //}
 
+        
+        /// <summary>
+        /// MouseClickEvent for resetting the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in Map.hexMap)
-            {
-                hex.Visited = false;
-                hex.Passable = true;
-                hex.Enabled = true;
-                PlaceHexagonButton(hex);
-            }
-            Map.ResetMouse();
+            ResetHex();
             SQL.ResetGameToListFromReset();
         }
 
+        /// <summary>
+        /// Reset the game if the player wins or loses.
+        /// </summary>
         public void ResetByWinningOrLosing()
+        {
+            ResetHex();
+            SQL.ResetGameToList();
+        }
+
+        /// <summary>
+        /// Resets the Game.
+        /// </summary>
+        private void ResetHex()
         {
             foreach (HexagonButton hex in Map.hexMap)
             {
@@ -249,15 +259,19 @@ namespace P2SeriousGame
                 PlaceHexagonButton(hex);
             }
             Map.ResetMouse();
-            SQL.ResetGameToList();
         }
 
-        //We assume that there is 72 points per inch and 96 pixels per inch
+        //We assume that there is 72 points per inch and 96 pixels per inch.
         private double ConvertPointToPixel(double point)
         {
             return point * 96 / 72;
         }
 
+        /// <summary>
+        /// MouseClickEvent for closing the GameForm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnToMainMenu(object sender, MouseEventArgs e)
         {
             SQL.ExitGameToDatabase();

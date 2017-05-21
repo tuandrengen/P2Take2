@@ -20,6 +20,8 @@ namespace P2SeriousGame
         }
 
         public List<Round> roundList = new List<Round>();
+        private int _resetCounter;
+        private int _roundNumber;
 
         /// <summary>
         /// This method is either called whenever the round has finished
@@ -32,14 +34,16 @@ namespace P2SeriousGame
             /// If there's clicks has happened this round the round will be added to the roundlist().
             if (GameForm.hexClickedRound != 0)
             {
+                _roundNumber++;
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
-                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound);
+
+                Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
-                
+
                 /// Increments the reset counter.
-                ResetCounter();
+                _resetCounter++;
             }
             /// Resets the amount of hex clicked, so it's ready to 
             /// count the number of clicks in the next round.
@@ -55,14 +59,18 @@ namespace P2SeriousGame
 
             if (GameForm.hexClickedRound != 0)
             {
+                _roundNumber++;
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
 
-                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound);
+                Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
             }
 
+            /// If the game gets finished without any entries 
+            /// there's no reason to save the data.
+            /// Hence the if-statement.
             if (_clickedTotal != 0)
             {
                 /// These three methods are in charge of distributing the data to the database.
@@ -157,9 +165,9 @@ namespace P2SeriousGame
 
                 context.ForeignKeys.Add(new ForeignKeys
                 {
-                    PersonId = GetNextID(),
-                    SessionId = GetNextID(),
-                    RoundsId = GetNextID()
+                    PersonId = GetNextID() + 1,
+                    SessionId = GetNextID() + 1,
+                    RoundsId = GetNextID() + 1
                 });
                 context.SaveChanges();
             }
@@ -177,11 +185,13 @@ namespace P2SeriousGame
                 {
                     context.Rounds.Add(new Rounds
                     {
+                        Round_Number = _resetCounter,
                         Clicks = row.NumberOfClicks,
                         AVG_Clicks = row.ClicksPerMinute,
                         Win = row.Win,
                         Loss = row.Loss,
-                        Time_Used = row.TimeUsed
+                        Time_Used = row.TimeUsed,
+                        RoundID = row.RoundID
                     });
                 }
                 context.SaveChanges();
@@ -219,13 +229,6 @@ namespace P2SeriousGame
             return hexClicked / (seconds / 60);
         }
 
-        private int _resetCounter;
-
-        private void ResetCounter()
-        {
-            _resetCounter += 1;
-        }
-
         Stopwatch stopwatchRound = new Stopwatch();
 
         public void StartStopwatch()
@@ -233,13 +236,22 @@ namespace P2SeriousGame
             stopwatchRound.Start();
         }
 
+        /// <summary>
+        /// Calculates the amount of milliseconds the stopwatch has run,
+        /// and converts it into seconds by dividing it by 1000.
+        /// </summary>
+        /// <returns> Amount fo seconds estimated. </returns>
         private long ElapsedSeconds()
         {
             return stopwatchRound.ElapsedMilliseconds / 1000;
         }
 
-        /// Også defineret i administatorform...
         SqlConnection connection = new SqlConnection();
+
+        /// <summary>
+        /// In this method we're using an SqlConnectionStringBuilder to build
+        /// a connectionstring. This connectionstring is going to be used in GetNextID().
+        /// </summary>
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
             DataSource = "p2-avengers.database.windows.net",
@@ -248,6 +260,12 @@ namespace P2SeriousGame
             InitialCatalog = "p2-database"
         };
 
+        /// <summary>
+        /// We're using this method to call the data in the tables from the database.
+        /// It uses a query and a connectionstring to execute this task,
+        /// and returns the amount of rows in the given table.
+        /// </summary>
+        /// <returns> The amount of rows in the given table plus one </returns>
         public int GetNextID()
         {
             string query = "SELECT * FROM Person";
@@ -259,7 +277,7 @@ namespace P2SeriousGame
                 DataTable personTable = new DataTable();
                 adapter.Fill(personTable);
                 Console.WriteLine(personTable.Rows.Count);
-                return personTable.Rows.Count + 1;
+                return personTable.Rows.Count;
             }
         }
     }

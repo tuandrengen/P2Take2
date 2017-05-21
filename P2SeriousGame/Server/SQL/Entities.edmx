@@ -26,6 +26,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoundID" Type="int" Nullable="false" />
+          <Property Name="Round Number" Type="int" Nullable="false" />
           <Property Name="Clicks" Type="float" />
           <Property Name="AVG Clicks" Type="float" />
           <Property Name="Win" Type="int" />
@@ -76,6 +78,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoundID" Type="Int32" Nullable="false" />
+          <Property Name="Round_Number" Type="Int32" Nullable="false" />
           <Property Name="Clicks" Type="Double" />
           <Property Name="AVG_Clicks" Type="Double" />
           <Property Name="Win" Type="Int32" />
@@ -128,6 +132,8 @@
             <EntityTypeMapping TypeName="Model.Rounds">
               <MappingFragment StoreEntitySet="Rounds">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoundID" ColumnName="RoundID" />
+                <ScalarProperty Name="Round_Number" ColumnName="Round Number" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
                 <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
                 <ScalarProperty Name="Win" ColumnName="Win" />

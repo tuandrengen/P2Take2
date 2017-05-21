@@ -9,18 +9,24 @@ namespace P2SeriousGame
         public List<HexagonButton> _reachableEdgeTiles = new List<HexagonButton>();
         public List<HexagonButton> _reachableHexList = new List<HexagonButton>();
 
+		/// <summary>
+		/// Performs a breadth first search
+		/// </summary>
+		/// <param name="queue">The instance of the queue</param>
+		/// <param name="pathsToEdge">The list of hexagon buttons on the edge that can be reached</param>
+		/// <param name="reachableHexList"></param>
         public BreadthFirst(List<HexagonButton> queue, List<HexagonButton> pathsToEdge, List<HexagonButton> reachableHexList)
         {
-            this._queue = queue;
-            this._reachableEdgeTiles = pathsToEdge;
-            this._reachableHexList = reachableHexList;
+            _queue = queue;
+            _reachableEdgeTiles = pathsToEdge;
+            _reachableHexList = reachableHexList;
         }
-        
-        /// <summary>
-        /// Takes a HexagonButton grid, and the posistion to start from.
-        /// </summary>
-        /// <param name="hexMap"></param>
-        /// <param name="startingHex"></param>
+
+		/// <summary>
+		/// Takes a HexagonButton grid, and the posistion to start from.
+		/// </summary>
+		/// <param name="hexMap">The map that the search will be performed on</param>
+		/// <param name="startingHex">The field that the search should be performed from</param>
 		public void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
         {
             _reachableEdgeTiles.Clear();
@@ -52,6 +58,10 @@ namespace P2SeriousGame
             }
         }
 
+		/// <summary>
+		/// Find the shortest route to the edge, if the edge can be reached. Finds the route to the furthest hex if the edge cannot be reached.
+		/// </summary>
+		/// <returns>Finds the route</returns>
         public List<HexagonButton> FindTheRoutes()
         {
             var bestRoutes = new List<HexagonButton>();
@@ -78,9 +88,12 @@ namespace P2SeriousGame
             ///return bestRouteByRand.First();
             return bestRoutes;
         }
-        
-        /// Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
-        public List<HexagonButton> FindLongestRoutes()
+
+		/// <summary>
+		/// Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
+		/// </summary>
+		/// <returns>All hexes that can be reached</returns>
+		public List<HexagonButton> FindLongestRoutes()
         {
             var longestRoutes = new List<HexagonButton>();
             
@@ -104,8 +117,7 @@ namespace P2SeriousGame
         /// <summary>
         /// Compares the different routes, and returns the shortest.
         /// </summary>
-        /// <param name="edgeHexList"></param>
-        /// <returns></returns>
+        /// <returns>The shortest routes, and all of equal shortest distance if there are more than one</returns>
 		public List<HexagonButton> FindShortestRoutes()
         {
             /// Input parametren er edgehexes.
