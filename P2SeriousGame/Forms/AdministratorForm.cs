@@ -35,16 +35,22 @@ namespace P2SeriousGame
             WindowState = FormWindowState.Maximized;
         }
 
+        /// <summary>
+        /// Sets the size of the administratorPanel, and adds CloseMenuButton.
+        /// </summary>
         private void InitializePanels()
         {
             this.Controls.Add(administratorPanel);
             administratorPanel.Width = formatting.ScreenWidth;
             administratorPanel.Height = formatting.ScreenHeight;
-
-            //AddSearchSession();
             CloseMenuButton(administratorPanel);
         }
 
+        /// <summary>
+        /// Creates a graph form a List<float>, and addse it to administratorPanel.
+        /// </summary>
+        /// <param name="valueList"></param>
+        /// <returns></returns>
         private double InitializeGraph(List<float> valueList)
         {
             GraphPanel graph = graphList[graphCount - 1];
@@ -58,6 +64,10 @@ namespace P2SeriousGame
             return (valueList.Max() * 1.05);
         }
 
+        /// <summary>
+        /// Creates and adds CloseMenuButton to administratorPanel.
+        /// </summary>
+        /// <param name="panel"></param>
         private void CloseMenuButton(Panel panel)
         {
             Button btnCloseGame = new Button();
@@ -66,23 +76,27 @@ namespace P2SeriousGame
             panel.Controls.Add(btnCloseGame);
         }
 
-        // Not used
-        private void AddSearchSession()
-        {
-            int screenMidPoint = administratorPanel.Width / 2;
-
-            NumericUpDown sessionInput = new NumericUpDown();
-            sessionInput.AutoSize = false;
-            sessionInput.Size = new Size(150, 100);
-            sessionInput.Location = new Point(screenMidPoint - (250 / 2), Bounds.Top + 20);
-            administratorPanel.Controls.Add(sessionInput);
-        }
-
+        /// <summary>
+        /// Close form click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnToMainMenu(object sender, MouseEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="valueList"></param>
+        /// <param name="xAxisTitle"></param>
+        /// <param name="yAxisTitle"></param>
+        /// <param name="graphTitle"></param>
+        /// <param name="xAxisInterval"></param>
+        /// <param name="yAxisMin"></param>
+        /// <param name="yAxisMax"></param>
+        /// <param name="chartType"></param>
         public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
         {
 			GraphPanel newGraph = new GraphPanel
@@ -108,12 +122,6 @@ namespace P2SeriousGame
             double yMaxDouble = valueList.Max() + 1 * 1.05;
 			int yMax = Convert.ToInt32(yMaxDouble);
             drawGraph(valueList, xAxisTitle, yAxisTitle, graphTitle, xAxisInterval, yAxisMin, yMax, chartType);
-        }
-
-        private void AdministratorForm_Load(object sender, EventArgs e)
-        {
-            //drawGraph();
-
         }
 
         private void PopulateRounds()
