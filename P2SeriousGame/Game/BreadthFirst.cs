@@ -135,8 +135,7 @@ namespace P2SeriousGame
                 }
                 else if (shortestRoutes.First().CostToStart == hex.CostToStart)
                     shortestRoutes.Add(hex);
-            }
-                     
+            }    
             return shortestRoutes;
         }
 

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E8D79EBE-0AF3-4CEA-B2BA-2663F4375D18}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>P2SeriousGame</RootNamespace>
     <AssemblyName>P2SeriousGame</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -125,15 +125,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Server\SQL\Entities.cs">
+    <Compile Include="Server\SQL\Entities.Designer.cs">
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Server\SQL\Entities1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Server\SQL\Entities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Server\SQL\ForeignKeys.cs">
       <DependentUpon>Entities.tt</DependentUpon>
@@ -214,7 +214,7 @@
     <Content Include="Server\SQL\Entities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
+      <LastGenOutput>Entities1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
