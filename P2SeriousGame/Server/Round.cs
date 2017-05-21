@@ -2,6 +2,7 @@
 {
     public class Round
     {
+        public int RoundNumber { get; set; }
         public float NumberOfClicks { get; set; }
         public float ClicksPerMinute { get; set; }
         public int Win { get; set; }
@@ -9,15 +10,15 @@
         public float TimeUsed { get; set; }
         public int RoundID { get; set; }
 
-        public Round(float clicks, float clicksAVG, int win, float timeUsed, int roundID)
+        public Round(int roundNumber, float clicks, float clicksAVG, int win, float timeUsed, int roundID)
         {
+            this.RoundNumber = roundNumber;
             this.NumberOfClicks = clicks;
             this.ClicksPerMinute = clicksAVG;
             WinOrLoss(win);
             this.TimeUsed = timeUsed;
             this.RoundID = roundID;
         }
-
 
         public void WinOrLoss(int win)
         {
@@ -32,23 +33,5 @@
                 Loss = 1;
             }
         }
-
-        public override string ToString()
-        {
-            return NumberOfClicks + " " + ClicksPerMinute + " " + Win + " " + Loss + " " + TimeUsed + ".";
-        }
-
-        //private DateTime[] timeBetweenClicks = new DateTime[50];
-        //public DateTime[] TimeBetweenClicks
-        //{
-        //    get
-        //    {
-        //        return timeBetweenClicks;
-        //    }
-        //    set
-        //    {
-        //        timeBetweenClicks = value;
-        //    }
-        //}
     }
 }
