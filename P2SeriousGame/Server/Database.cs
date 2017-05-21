@@ -35,6 +35,7 @@ namespace P2SeriousGame
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
+
                 Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
                 
@@ -63,6 +64,9 @@ namespace P2SeriousGame
                 roundList.Add(round);
             }
 
+            /// If the game gets finished without any entries 
+            /// there's no reason to save the data.
+            /// Hence the if-statement.
             if (_clickedTotal != 0)
             {
                 /// These three methods are in charge of distributing the data to the database.
@@ -234,13 +238,22 @@ namespace P2SeriousGame
             stopwatchRound.Start();
         }
 
+        /// <summary>
+        /// Calculates the amount of milliseconds the stopwatch has run,
+        /// and converts it into seconds by dividing it by 1000.
+        /// </summary>
+        /// <returns> Amount fo seconds estimated. </returns>
         private long ElapsedSeconds()
         {
             return stopwatchRound.ElapsedMilliseconds / 1000;
         }
 
-        /// Også defineret i administatorform...
         SqlConnection connection = new SqlConnection();
+
+        /// <summary>
+        /// In this method we're using an SqlConnectionStringBuilder to build
+        /// a connectionstring. This connectionstring is going to be used in GetNextID().
+        /// </summary>
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
             DataSource = "p2-avengers.database.windows.net",
@@ -249,6 +262,12 @@ namespace P2SeriousGame
             InitialCatalog = "p2-database"
         };
 
+        /// <summary>
+        /// We're using this method to call the data in the tables from the database.
+        /// It uses a query and a connectionstring to execute this task,
+        /// and returns the amount of rows in the given table plus one.
+        /// </summary>
+        /// <returns> The amount of rows in the given table plus one </returns>
         public int GetNextID()
         {
             string query = "SELECT * FROM Person";
@@ -260,6 +279,7 @@ namespace P2SeriousGame
                 DataTable personTable = new DataTable();
                 adapter.Fill(personTable);
                 Console.WriteLine(personTable.Rows.Count);
+
                 return personTable.Rows.Count + 1;
             }
         }
