@@ -265,7 +265,7 @@ namespace P2SeriousGame
         /// <summary>
         /// We're using this method to call the data in the tables from the database.
         /// It uses a query and a connectionstring to execute this task,
-        /// and returns the amount of rows in the given table plus one.
+        /// and returns the amount of rows in the given table.
         /// </summary>
         /// <returns> The amount of rows in the given table plus one </returns>
         public int GetNextID()
