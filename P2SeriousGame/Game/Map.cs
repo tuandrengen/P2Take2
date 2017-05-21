@@ -126,8 +126,8 @@ namespace P2SeriousGame
         /// <param name="e"></param>
         public void MousePositioner(object sender, MouseEventArgs e)
         {
-            //Når der bliver klikket bliver tidligere punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
-            //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
+            // When a HexagonButton is clicked the current mouse position is painted gray.
+            // Then calculate the pathing for the mouse.
             if (newGame)
             {
                 hexMap[StartMouseXCoordinate, StartMouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
@@ -140,12 +140,12 @@ namespace P2SeriousGame
                 hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
                 hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = true;
                 _firstButtonInPath = path.FindPath(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
-                if (newGame)
+                if (newGame) // if the game is reset make sure the pathing is reset too.
                 {
                     _firstButtonInPath = hexMap[StartMouseXCoordinate, StartMouseYCoordinate];
                 }
             }
-            /// New position.
+            // Move the mouse to the next step in its path and paint it Aqua.
             MouseXCoordinate = _firstButtonInPath.XCoordinate;
             MouseYCoordinate = _firstButtonInPath.YCoordinate;
             hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.Aqua;

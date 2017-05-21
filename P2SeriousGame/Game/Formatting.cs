@@ -46,7 +46,13 @@ namespace P2SeriousGame
 
         public int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
         #endregion
-
+        
+        /// <summary>
+        /// Places and formats a button in the right side of the screen.
+        /// </summary>
+        /// <param name="btn"></param>
+        /// <param name="BtnText"></param>
+        /// <param name="color"></param>
         public void BtnRightFormat(Button btn, string BtnText, Color color)
         {
             btn.Size = new Size(150, 60);
@@ -60,6 +66,12 @@ namespace P2SeriousGame
             BtnCount++;
         }
 
+        /// <summary>
+        /// Places and formats a button in the center of the screen.
+        /// </summary>
+        /// <param name="btn"></param>
+        /// <param name="BtnText"></param>
+        /// <param name="color"></param>
         public void BtnCenterFormat(Button btn, string BtnText, Color color)
         {
             btn.Size = new Size(300, 100);
@@ -73,6 +85,12 @@ namespace P2SeriousGame
             BtnCount++;
         }
 
+        /// <summary>
+        /// Places and formats a button in the left side of the screen.
+        /// </summary>
+        /// <param name="btn"></param>
+        /// <param name="BtnText"></param>
+        /// <param name="color"></param>
         public void BtnLeftFormat(Button btn, string BtnText, Color color)
         {
             btn.Size = new Size(200, 75);
