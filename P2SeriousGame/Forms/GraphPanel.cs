@@ -79,7 +79,6 @@ namespace P2SeriousGame
             int index = 0;
             foreach (float value in roundList)
             {
-                Console.WriteLine(value);
                 float xValue = index;
                 float yValue = value;
                 series.Points.AddXY(xValue, yValue);
