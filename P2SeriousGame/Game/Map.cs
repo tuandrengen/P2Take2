@@ -7,6 +7,23 @@ namespace P2SeriousGame
     /// </summary>
 	public class Map
     {
+        //
+        /// <summary>
+        /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="xSize"></param>
+        /// <param name="ySize"></param>
+        public Map(GameForm game, int size, IPathfinding path)
+        {
+            TotalHexagonRows = size;
+            TotalHexagonColumns = size;
+            this.path = path;
+            hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
+            CreateMap(game);
+            FindNeighbours();
+        }
+
         private static int _totalHexagonRows = 0;
         public static int TotalHexagonRows
         {
@@ -79,23 +96,6 @@ namespace P2SeriousGame
         }
 
         IPathfinding path;
-
-        //
-        /// <summary>
-        /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
-        /// </summary>
-        /// <param name="handler"></param>
-        /// <param name="xSize"></param>
-        /// <param name="ySize"></param>
-        public Map(GameForm game, int size, IPathfinding path)
-        {
-            TotalHexagonRows = size;
-            TotalHexagonColumns = size;
-            this.path = path;
-            hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
-            CreateMap(game);
-            FindNeighbours();
-        }
 
         /// <summary>
         /// Initialises the HexagonButton grid. Flags edge buttons.

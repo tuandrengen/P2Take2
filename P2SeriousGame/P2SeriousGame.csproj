@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\MustBePositiveException.cs" />
     <Compile Include="Forms\AdministratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
