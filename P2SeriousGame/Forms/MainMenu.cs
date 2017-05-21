@@ -30,6 +30,10 @@ namespace P2SeriousGame
             InitializeMenues();
         }
 
+        /// <summary>
+        /// Creates the LightSteelBlue window, so it fits every screen, and adds UsernameBox,
+        /// StartGameButton, StartAdministratorMenuButton, and CloseMenuButton.
+        /// </summary>
         private void MenuPanel()
         {
             this.Controls.Add(menuPanel);
@@ -46,17 +50,30 @@ namespace P2SeriousGame
 
         public static TextBox nameBox;
 
+        /// <summary>
+        /// This method gets called in MenuPanel.
+        /// This box is made from a Label and a Textbox.
+        /// The player replaces 'Please insert your name here..' with their name.
+        /// Whenever the player presses play the name
+        /// </summary>
+        /// <param name="panel"></param>
         private void UsernameBox(Panel panel)
         {
             Label userNameLbl = new Label();
-            userNameLbl.Text = "Brugernavn:";
+            userNameLbl.Text = "Username:";
             nameBox = new TextBox();
             nameBox.Size = new Size(300, 50);
-            nameBox.Text = "Skriv navn her";
+            nameBox.Text = "Please insert your name here..";
             panel.Controls.Add(userNameLbl);
             panel.Controls.Add(nameBox);
         }
 
+        /// <summary>
+        /// Creates the 'Start Game' button.
+        /// An event has been added for whenever the button gets clicked 
+        /// the current window switches to GameWindow.
+        /// </summary>
+        /// <param name="panel"></param>
         private void StartGameButton(Panel panel)
         {
             Button btnStartGame = new Button();
@@ -65,6 +82,12 @@ namespace P2SeriousGame
             panel.Controls.Add(btnStartGame);
         }
 
+        /// <summary>
+        /// Creates the 'Administrator' button.
+        /// An event has been added for whenever the button gets clicked
+        /// the current window switches to AdministratorWindow.
+        /// </summary>
+        /// <param name="panel"></param>
         private void StartAdministratorMenuButton(Panel panel)
         {
             Button btnStartAdministrator = new Button();
@@ -73,6 +96,12 @@ namespace P2SeriousGame
             panel.Controls.Add(btnStartAdministrator);
         }
 
+        /// <summary>
+        /// Creates the 'Exit Game' button.
+        /// An event has been added for whenever the button gets clicked
+        /// the current terminates and thus ends the game.
+        /// </summary>
+        /// <param name="panel"></param>
         private void CloseMenuButton(Panel panel)
         {
             Button btnCloseGame = new Button();
@@ -82,6 +111,12 @@ namespace P2SeriousGame
             panel.Controls.Add(btnCloseGame);
         }
 
+        /// <summary>
+        /// This is the event called in StartGameButton().
+        /// Switches
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SwitchToGame(object sender, MouseEventArgs e)
         {
             Hide();

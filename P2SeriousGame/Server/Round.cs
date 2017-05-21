@@ -13,15 +13,15 @@ namespace P2SeriousGame
         public int Win { get; set; }
         public int Loss { get; set; }
         public float TimeUsed { get; set; }
-        public int SessionID { get; set; }
+        public int RoundID { get; set; }
 
-        public Round(float clicks, float clicksAVG, int win, float timeUsed, int sessionID)
+        public Round(float clicks, float clicksAVG, int win, float timeUsed, int roundID)
         {
             this.NumberOfClicks = clicks;
             this.ClicksPerMinute = clicksAVG;
             WinOrLoss(win);
             this.TimeUsed = timeUsed;
-            this.SessionID = sessionID;
+            this.RoundID = roundID;
         }
 
 
