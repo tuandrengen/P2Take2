@@ -161,51 +161,5 @@ namespace P2SeriousGame
         {
             Close();
         }
-
-        //public void PlaceHexagonButton(HexagonButton button)
-        //{
-        //    //For at farve midten før man har klikket på skærmen.
-        //    if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
-        //    {
-        //        button.BackColor = System.Drawing.Color.Aqua;
-        //        button.Enabled = false;
-        //    }
-
-        //    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
-        //    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
-        //}
-
-        ///// <summary>
-        ///// Converts a coordinate into a position in a hexgrid.
-        ///// </summary>
-        ///// <param name="xCoordinate"></param>
-        ///// <param name="yCoordinate"></param>
-        ///// <returns name="width"></returns>
-        //private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
-        //{
-        //    int width = formatting.WidthStart;
-        //    width += (xCoordinate * formatting.ButtonWidth);
-        //    //Gives every second button an offset to make the grid
-        //    if (yCoordinate % 2 == 1)
-        //    {
-        //        width += formatting.ButtonWidth / 2;
-        //    }
-        //    return width;
-        //}
-
-        //      /// <summary>
-        //      /// Converts a coordinate into a position in a hexgrid.
-        //      /// </summary>
-        //      /// <param name="yCoordinate"></param>
-        //      /// <returns name="height"></returns>
-        //private int CalculateButtonHeightOffset(int yCoordinate)
-        //      {
-        //          int height = formatting._heightStart;
-
-        //          height += (yCoordinate * formatting.ButtonHeightOffset);
-
-        //          return height;
-        //      }
-
     }
 }
