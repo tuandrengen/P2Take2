@@ -33,7 +33,7 @@ namespace P2SeriousGame
         }
 
         /// <summary>
-        /// 
+        /// Finds button dimensions after screen height or width d
         /// </summary>
         public void CalculateButtonDimension()
         {
@@ -45,7 +45,7 @@ namespace P2SeriousGame
         }
 
         /// <summary>
-        /// 
+        /// Calculates the button size based on scren heigth
         /// </summary>
         private void CalculateButtonDimensionBasedOnScreenHeight()
         {
@@ -75,7 +75,7 @@ namespace P2SeriousGame
         }
 
         /// <summary>
-        /// 
+        /// Calculates the button size based on scren width
         /// </summary>
         private void CalculateButtonDimensionBasedOnScreenWidth()
         {
@@ -93,6 +93,7 @@ namespace P2SeriousGame
             //Now we do not need the buttonWidthTemp with precision, so we typecast the double to an int
             formatting.ButtonWidth = (int)buttonWidthTemp;
         }
+
 
         public void DrawWindow(object sender, EventArgs e)
         {
@@ -116,14 +117,15 @@ namespace P2SeriousGame
             button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
-            button.MouseClick += HexClickedColor;
+            button.MouseClick += HexClickedCounter;
             button.MouseClick += map.MousePositioner;
             gamePanel.Controls.Add(button);
         }
 
         public static float hexClickedRound;
 
-        public void HexClickedColor(object sender, MouseEventArgs e)
+
+        public void HexClickedCounter(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             //sender_Button.BackColor = Color.FromArgb(255, 105, 180);
