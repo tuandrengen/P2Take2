@@ -57,11 +57,11 @@ namespace P2SeriousGame
             graph.AddSeriesToGraph(valueList);
 
             graph.Size = new Size(300, 400);
-            graph.Location = new Point((administratorPanel.Right / 4 - graph.Width / 2) * graphCount, this.Bounds.Top + 180);
+            graph.Location = new Point((administratorPanel.Right / 5 - graph.Width / 2) * graphCount, this.Bounds.Top + 300);
 
             administratorPanel.Controls.Add(graph);
 
-            return (valueList.Max() * 1.05);
+            return (GetMaxValue(valueList) * 1.05);
         }
 
         /// <summary>
@@ -119,9 +119,27 @@ namespace P2SeriousGame
 
         public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
         {
-            double yMaxDouble = valueList.Max() + 1 * 1.05;
+            double yMaxDouble = GetMaxValue(valueList) + 1 * 1.05;
 			int yMax = Convert.ToInt32(yMaxDouble);
             drawGraph(valueList, xAxisTitle, yAxisTitle, graphTitle, xAxisInterval, yAxisMin, yMax, chartType);
+        }
+
+        /// <summary>
+        /// Finds the max value in the list.
+        /// </summary>
+        /// <param name="valueList"></param>
+        /// <returns></returns>
+        private float GetMaxValue(List<float> valueList)
+        {
+            float maxValue = 0;
+            foreach (var item in valueList)
+            {
+                if (item > maxValue)
+                {
+                    maxValue = item;
+                }
+            }
+            return maxValue;
         }
 
         private void PopulateRounds()
