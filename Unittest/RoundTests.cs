@@ -43,7 +43,6 @@ namespace Unittest
             Assert.AreEqual(roundID, fullRound.RoundID);
             Assert.AreEqual(clicks, fullRound.NumberOfClicks);
             Assert.AreEqual(clicksAVG, fullRound.ClicksPerMinute);
-            Assert.AreEqual(win, fullRound.Win);
             Assert.AreEqual(timeUsed, fullRound.TimeUsed);
         }
     }

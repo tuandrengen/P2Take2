@@ -87,6 +87,8 @@ namespace Unittest
                 //therefore -1 after call to get right amount of buttons.
                 format.BtnRightFormat(btn, btnText, color);
                 int numberOfButtons = format.BtnCount - 1;
+
+                //calculates expected locationpoint.
                 Point expectedPoint = new Point(format.control.Bounds.Right - btn.Width - 30, format.control.Bounds.Top + (numberOfButtons * btn.Height));
 
                 Assert.AreEqual(expectedSize, btn.Size);
@@ -120,6 +122,7 @@ namespace Unittest
                 format.BtnCenterFormat(btn, btnText, color);
                 int numberOfButtons = format.BtnCount - 1;
 
+                //calculates expected locationpoint.
                 Point expectedPoint = new Point((format.control.Bounds.Right / 2) - (btn.Width / 2), format.control.Bounds.Top + (numberOfButtons * 60));
 
                 Assert.AreEqual(expectedSize, btn.Size);
@@ -154,6 +157,8 @@ namespace Unittest
                 //therefore -1 after call to get right amount of buttons.
                 format.BtnLeftFormat(btn, btnText, color);
                 int numberOfButtons = format.BtnCount - 1;
+
+                //calculates expected locationpoint.
                 Point expectedPoint = new Point(30, format.control.Bounds.Top + (numberOfButtons * 30));
 
                 Assert.AreEqual(expectedSize, btn.Size);
@@ -165,7 +170,6 @@ namespace Unittest
                 Assert.AreEqual(btnText, btn.Text);
                 Assert.AreEqual(ContentAlignment.MiddleCenter, btn.TextAlign);
                 Assert.AreEqual(numberOfButtons + 1, format.BtnCount);
-                
             }
         }
     }
