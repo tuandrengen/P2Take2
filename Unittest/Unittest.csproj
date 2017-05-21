@@ -40,12 +40,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseTests.cs" />
     <Compile Include="FormattingTests.cs" />
     <Compile Include="GameFormTester.cs" />
     <Compile Include="HexagonButtonTester.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="GraphPanelTests.cs" />
     <Compile Include="MapTester.cs" />
     <Compile Include="MathTester.cs" />
     <Compile Include="PathfindingTests.cs" />
