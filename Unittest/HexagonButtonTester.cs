@@ -11,11 +11,13 @@ namespace Unittest
         Initializer initializer = new Initializer();
 
         //Burde man gører sådan, at man ikke kan sætte koordinaterne en negativværdi.
-        [TestCase(-1, -1, false)]
         [TestCase(0, 0, true)]
+        [TestCase(0, 0, false)]
         [TestCase(1, 1, true)]
+        [TestCase(1, 1, false)]
         [TestCase(10, 10, true)]
-        //[ExpectedException(typeof(Exception))]
+        [TestCase(10, 10, false)]
+
         public void HexagonButton_PositiveValues_ConstructedRight(int x, int y, bool edge)
         {
             HexagonButton n = new HexagonButton(x, y, edge);
@@ -24,8 +26,25 @@ namespace Unittest
             Assert.AreEqual(edge, n.IsEdgeTile);
         }
 
-        //Burde ikke kunne lave en buttom med negative koordinater
-        [TestCase(-1, -3)]
+        [TestCase(-1, -1, false)]
+        [TestCase(-1, -1, true)]
+        [TestCase(-10, -10, false)]
+        public void HexagonButton_NegativeValues_ThrowsException(int x, int y, bool edge)
+        {
+            bool threwException = false;
+
+            try
+            {
+                HexagonButton n = new HexagonButton(x, y, edge);
+            }
+            catch (MustBePositiveException)
+            {
+                threwException = true;
+            }
+
+            Assert.IsTrue(threwException);
+        }
+
         [TestCase(0, 0)]
         [TestCase(3, 1)]
         [TestCase(10, 10)]
@@ -33,7 +52,9 @@ namespace Unittest
         {
             HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
             initializer.InitializeMouseEventArgs();
+
             hex.HexClicked(hex, initializer.mouseArg);
+
             Assert.AreEqual(false, hex.Enabled);
             Assert.AreEqual(false, hex.Passable);
         }

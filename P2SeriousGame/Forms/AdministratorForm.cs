@@ -163,7 +163,8 @@ namespace P2SeriousGame
                 DataTable roundsTable = new DataTable();
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
-                
+
+				graphCount = 0;
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
 

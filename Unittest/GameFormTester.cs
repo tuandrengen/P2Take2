@@ -9,10 +9,11 @@ namespace Unittest
     public class GameFormTester
     {
         Initializer initializer = new Initializer();
+
         [TestCase(5, 5)]
         [TestCase(11, 11)]
         [TestCase(15, 15)]
-        public void ButtonPainter_MathClassWorks_RightPolygon(int x, int y)
+        public void ButtonPainter_ValidMapSize_CreatesCorrectHexagon(int x, int y)
         {
             initializer.InitializeMap(x);
             HexagonButton hexagonButton = new HexagonButton(x, y, false);
@@ -32,7 +33,7 @@ namespace Unittest
         [TestCase(9)]
         [TestCase(11)]
         [TestCase(13)]
-        public void ResetButtonClick_None_ChangesValuesRight(int size)
+        public void ResetButtonClick_ValidMapSize_ResetsButtonCorrectly(int size)
         {
             initializer.InitializeMouseEventArgs();
             HexagonButton hex = new HexagonButton(1, 1, false);
