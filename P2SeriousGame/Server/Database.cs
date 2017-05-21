@@ -20,6 +20,8 @@ namespace P2SeriousGame
         }
 
         public List<Round> roundList = new List<Round>();
+        private int _resetCounter;
+        private int _roundNumber;
 
         /// <summary>
         /// This method is either called whenever the round has finished
@@ -32,15 +34,16 @@ namespace P2SeriousGame
             /// If there's clicks has happened this round the round will be added to the roundlist().
             if (GameForm.hexClickedRound != 0)
             {
+                _roundNumber++;
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
 
-                Round round = new Round(_resetCounter, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
+                Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
-                
+
                 /// Increments the reset counter.
-                ResetCounter();
+                _resetCounter++;
             }
             /// Resets the amount of hex clicked, so it's ready to 
             /// count the number of clicks in the next round.
@@ -56,11 +59,12 @@ namespace P2SeriousGame
 
             if (GameForm.hexClickedRound != 0)
             {
+                _roundNumber++;
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
 
-                Round round = new Round(_resetCounter, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
+                Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
                 roundList.Add(round);
             }
 
@@ -223,13 +227,6 @@ namespace P2SeriousGame
         private float AverageClickPerMinute(float hexClicked, float seconds)
         {
             return hexClicked / (seconds / 60);
-        }
-
-        private int _resetCounter;
-
-        private void ResetCounter()
-        {
-            _resetCounter += 1;
         }
 
         Stopwatch stopwatchRound = new Stopwatch();
