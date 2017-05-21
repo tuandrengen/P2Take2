@@ -60,6 +60,8 @@ namespace P2SeriousGame
 
             graph.Size = new Size(300, 400);
 			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * (graphCount - 1) + margin;
+			Console.WriteLine($"Width: {administratorPanel.Width}");
+			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
 
 			//(administratorPanel.Right / 5 - graph.Width / 2) * graphCount
 
@@ -67,7 +69,7 @@ namespace P2SeriousGame
 
             administratorPanel.Controls.Add(graph);
 
-            return (GetMaxValue(valueList) * 1.05);
+            return (GetMaxValue(valueList) * 1.7);
         }
 
         /// <summary>
@@ -125,7 +127,7 @@ namespace P2SeriousGame
 
         public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
         {
-            double yMaxDouble = GetMaxValue(valueList) + 1 * 1.05;
+            double yMaxDouble = GetMaxValue(valueList) + 1 * 1.7;
 			int yMax = Convert.ToInt32(yMaxDouble);
             drawGraph(valueList, xAxisTitle, yAxisTitle, graphTitle, xAxisInterval, yAxisMin, yMax, chartType);
         }
@@ -148,6 +150,9 @@ namespace P2SeriousGame
             return maxValue;
         }
 
+        /// <summary>
+        /// Populates the chosen listbox with data from the Rounds table and adds graphs accordingly
+        /// </summary>
         private void PopulateRounds()
         {
             string query = "SELECT r.[Round Number], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
@@ -177,16 +182,8 @@ namespace P2SeriousGame
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
                 */
+
             }
-        }
-
-        //...
-        private List<float> GetValueList()
-        {
-            List<float> list = new List<float>();
-
-
-            return list;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -195,11 +192,16 @@ namespace P2SeriousGame
         }
 
         // When a letter is writing it finds the best match in the database and shows the data in listboxes and datagrid...
+        /// <summary>
+        /// When there is input it will search the database and if succesfull, then the person will be found.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             string searchString = textBox1.Text;
 
-            if (searchString.Length != 0) // Vidst ikke nødvendig, da hver indtastning er en ny omgang i metoden...
+            if (searchString.Length != 0)
             {
                 string query = "SELECT * FROM Person " +
                 "WHERE Name LIKE '" + searchString + "%'";
@@ -215,9 +217,18 @@ namespace P2SeriousGame
                     listBox1.ValueMember = "Id";
                     listBox1.DataSource = personTable;
                 }
+                PopulateSession(); // filling datagrid 2
+                PopulateRounds(); // filling datagrid 1
+            }
+            else
+            {
+                listBox1.DataSource = null;
+                dataGridView1.DataSource = null;
+                dataGridView2.DataSource = null;
             }
         }
 
+        
         private void PopulateSession()
         {
             string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
@@ -230,19 +241,13 @@ namespace P2SeriousGame
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
                 this.dataGridView2.DataSource = sessionTable;
-
-
-                listBox2.DisplayMember = "Id"; 
-                listBox2.ValueMember = "Id";
-                listBox2.DataSource = sessionTable;
             }
         }
 
         // Når en person er fundet, men man sletter søgningen, så vil personens session og runde stadig stå der...
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PopulateSession(); // filling listbox 2
-            PopulateRounds(); // filling datagrid
+
             
         }
 
