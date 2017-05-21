@@ -32,6 +32,7 @@ namespace P2SeriousGame
         }
 
         private static int _totalHexagonColumns = 0;
+
         public static int TotalHexagonColumns
         {
             get

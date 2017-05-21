@@ -15,7 +15,7 @@ namespace Unittest
         [TestCase(10, 10)]
         public void GetPoints_NumericValues_RightPointsCreated(int height, int width)
         {
-
+            //Calculates expected points.
             float expX = width / 2;
             float expSide = height / 2;
             float expY = 0;
@@ -30,7 +30,9 @@ namespace Unittest
                 new PointF(expX - expR, expY + expSide + expH),
                 new PointF(expX - expR, expY + expH)
             };
+
             PointF[] actualPoints = P2SeriousGame.Math.GetPoints(height, width);
+            
             Assert.AreEqual(expectedPoints, actualPoints);
         }
 

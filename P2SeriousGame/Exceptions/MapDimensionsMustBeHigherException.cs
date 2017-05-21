@@ -7,22 +7,15 @@ namespace P2SeriousGame
     {
         public int value;
 
-        public MapDimensionsMustBeHigherException()
-        {
-        }
+        public MapDimensionsMustBeHigherException() { }
 
-        public MapDimensionsMustBeHigherException(string message) : base(message)
-        {
-        }
+        public MapDimensionsMustBeHigherException(string message) : base(message) { }
 
-        public MapDimensionsMustBeHigherException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+        public MapDimensionsMustBeHigherException(string message, Exception innerException) : base(message, innerException) { }
 
         public MapDimensionsMustBeHigherException(int value, string v) : base(v)
         {
             this.value = value;
-            
         }
     }
 }

@@ -219,6 +219,12 @@ namespace P2SeriousGame
 
             return height;
         }
+
+        //public void ExitButtonClick(object sender, MouseEventArgs e)
+        //{
+        //    Close();
+        //}
+
         
         /// <summary>
         /// MouseClickEvent for resetting the game.

@@ -20,6 +20,7 @@ namespace P2SeriousGame
         }
 
         public List<Round> roundList = new List<Round>();
+        private int _roundNumber;
 
         /// <summary>
         /// This method is either called whenever the round has finished
@@ -32,13 +33,22 @@ namespace P2SeriousGame
             /// If there's clicks has happened this round the round will be added to the roundlist().
             if (GameForm.hexClickedRound != 0)
             {
+                _roundNumber++;
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
 
-                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
-                roundList.Add(round);
-                
+                if (GetNextID() != 0)
+                {
+                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
+                    roundList.Add(round);
+                }
+                else
+                {
+                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
+                    roundList.Add(round);
+                }
+
                 /// Increments the reset counter.
                 ResetCounter();
             }
@@ -56,12 +66,22 @@ namespace P2SeriousGame
 
             if (GameForm.hexClickedRound != 0)
             {
+                _roundNumber++;
                 ConvertSeconds();
                 AddToTotal();
                 RoundVariables();
 
-                Round round = new Round(GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
-                roundList.Add(round);
+                if (GetNextID() != 0)
+                {
+                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
+                    roundList.Add(round);
+                }
+                else
+                {
+                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
+                    roundList.Add(round);
+                }
+                
             }
 
             /// If the game gets finished without any entries 
@@ -181,6 +201,7 @@ namespace P2SeriousGame
                 {
                     context.Rounds.Add(new Rounds
                     {
+                        Round_Number = row.RoundNumber,
                         Clicks = row.NumberOfClicks,
                         AVG_Clicks = row.ClicksPerMinute,
                         Win = row.Win,
@@ -204,7 +225,7 @@ namespace P2SeriousGame
                 {
                     Clicks = _clickedTotal,
                     AVG_Clicks = AverageClickPerMinute(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter,
+                    Rounds = _roundNumber,
                     Wins = Pathfinding.gameTotalWins,
                     Losses = _totalLoss,
                     Time_Used = _secondsTotal
@@ -224,18 +245,18 @@ namespace P2SeriousGame
             return hexClicked / (seconds / 60);
         }
 
-        private int _resetCounter;
-
-        private void ResetCounter()
-        {
-            _resetCounter += 1;
-        }
-
         Stopwatch stopwatchRound = new Stopwatch();
 
         public void StartStopwatch()
         {
             stopwatchRound.Start();
+        }
+
+        private int _resetCounter;
+
+        private void ResetCounter()
+        {
+            _resetCounter++;
         }
 
         /// <summary>

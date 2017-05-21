@@ -57,11 +57,11 @@ namespace P2SeriousGame
             graph.AddSeriesToGraph(valueList);
 
             graph.Size = new Size(300, 400);
-            graph.Location = new Point((administratorPanel.Right / 4 - graph.Width / 2) * graphCount, this.Bounds.Top + 180);
+            graph.Location = new Point((administratorPanel.Right / 5 - graph.Width / 2) * graphCount, this.Bounds.Top + 300);
 
             administratorPanel.Controls.Add(graph);
 
-            return (valueList.Max() * 1.05);
+            return (GetMaxValue(valueList) * 1.05);
         }
 
         /// <summary>
@@ -119,16 +119,34 @@ namespace P2SeriousGame
 
         public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
         {
-            double yMaxDouble = valueList.Max() + 1 * 1.05;
+            double yMaxDouble = GetMaxValue(valueList) + 1 * 1.05;
 			int yMax = Convert.ToInt32(yMaxDouble);
             drawGraph(valueList, xAxisTitle, yAxisTitle, graphTitle, xAxisInterval, yAxisMin, yMax, chartType);
         }
 
+        /// <summary>
+        /// Finds the max value in the list.
+        /// </summary>
+        /// <param name="valueList"></param>
+        /// <returns></returns>
+        private float GetMaxValue(List<float> valueList)
+        {
+            float maxValue = 0;
+            foreach (var item in valueList)
+            {
+                if (item > maxValue)
+                {
+                    maxValue = item;
+                }
+            }
+            return maxValue;
+        }
+
         private void PopulateRounds()
         {
-            string query = "SELECT a.Clicks, a.[AVG Clicks], a.Loss, a.Win, a.[Time Used] FROM Rounds a " +
-                "INNER JOIN ForeignKeys b ON a.Id = b.RoundsId " +
-                "WHERE b.PersonId = " + listBox1.SelectedValue;
+            string query = "SELECT r.[Round Number], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
+                "INNER JOIN ForeignKeys fk ON fk.RoundsId = r.RoundID " +
+                "WHERE fk.PersonId = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -138,7 +156,7 @@ namespace P2SeriousGame
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
                 
-                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 foreach (var item in ValueList)
                 {
                     Console.WriteLine(item);
@@ -195,7 +213,7 @@ namespace P2SeriousGame
         private void PopulateSession()
         {
             string query = "SELECT s.Id FROM [Session] s " +
-                "WHERE  fk.Id = r.SessionID ";
+                "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
