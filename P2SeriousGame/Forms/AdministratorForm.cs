@@ -63,9 +63,6 @@ namespace P2SeriousGame
             graph.Size = new Size(300, 400);
 			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount - 1) % 2) + margin;
 			int height = graphCount > 1 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
-			Console.WriteLine($"Width: {administratorPanel.Width}");
-			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
-			Console.WriteLine($"Positiony: {height}");
 
 			graph.Location = new Point(alreadyOccupiedWidth, height);
 
