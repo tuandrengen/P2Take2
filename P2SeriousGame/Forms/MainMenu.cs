@@ -50,6 +50,7 @@ namespace P2SeriousGame
 
         public static TextBox nameBox;
 
+        const string defaultNameboxText = "Please insert your name here..";
         /// <summary>
         /// This method gets called in MenuPanel.
         /// This box is made from a Label and a Textbox.
@@ -63,7 +64,7 @@ namespace P2SeriousGame
             userNameLbl.Text = "Username:";
             nameBox = new TextBox();
             nameBox.Size = new Size(300, 50);
-            nameBox.Text = "Please insert your name here..";
+            nameBox.Text = defaultNameboxText;
             panel.Controls.Add(userNameLbl);
             panel.Controls.Add(nameBox);
         }
@@ -117,11 +118,28 @@ namespace P2SeriousGame
         /// </summary>
         private void SwitchToGame(object sender, MouseEventArgs e)
         {
-            Hide();
-            Form gameWindow = new GameForm(mapSize);
-            gameWindow.ShowDialog();
-            Show();
+            if (string.Compare(nameBox.Text.ToString(), defaultNameboxText) == 0)
+            {
+                NoNameInsertedNotification();
+            }
+            else
+            {
+                Hide();
+                Form gameWindow = new GameForm(mapSize);
+                gameWindow.ShowDialog();
+                Show();
+            }
+
         }
+
+        private void NoNameInsertedNotification()
+        {
+            using (Form form = new Form())
+            {
+                DialogResult dr = MessageBox.Show(" No Name Is Inserted", "", MessageBoxButtons.OK);
+            }
+        }
+
 
         /// <summary>
         /// This is the event called in StartAdministratorMenuButton().
@@ -175,19 +193,19 @@ namespace P2SeriousGame
         //    return width;
         //}
 
-  //      /// <summary>
-  //      /// Converts a coordinate into a position in a hexgrid.
-  //      /// </summary>
-  //      /// <param name="yCoordinate"></param>
-  //      /// <returns name="height"></returns>
-		//private int CalculateButtonHeightOffset(int yCoordinate)
-  //      {
-  //          int height = formatting._heightStart;
+        //      /// <summary>
+        //      /// Converts a coordinate into a position in a hexgrid.
+        //      /// </summary>
+        //      /// <param name="yCoordinate"></param>
+        //      /// <returns name="height"></returns>
+        //private int CalculateButtonHeightOffset(int yCoordinate)
+        //      {
+        //          int height = formatting._heightStart;
 
-  //          height += (yCoordinate * formatting.ButtonHeightOffset);
+        //          height += (yCoordinate * formatting.ButtonHeightOffset);
 
-  //          return height;
-  //      }
+        //          return height;
+        //      }
 
     }
 }
