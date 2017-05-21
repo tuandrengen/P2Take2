@@ -126,9 +126,9 @@ namespace P2SeriousGame
 
         private void PopulateRounds()
         {
-            string query = "SELECT a.Clicks, a.[AVG Clicks], a.Loss, a.Win, a.[Time Used] FROM Rounds a " +
-                "INNER JOIN ForeignKeys b ON a.Id = b.RoundsId " +
-                "WHERE b.PersonId = " + listBox1.SelectedValue;
+            string query = "SELECT r.[AVG Clicks], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
+                "INNER JOIN ForeignKeys fk ON fk.RoundsId = r.RoundID " +
+                "WHERE fk.PersonId = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -195,7 +195,7 @@ namespace P2SeriousGame
         private void PopulateSession()
         {
             string query = "SELECT s.Id FROM [Session] s " +
-                "WHERE  fk.Id = r.SessionID ";
+                "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
