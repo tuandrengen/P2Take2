@@ -233,7 +233,7 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
-            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 1, 0, SeriesChartType.FastLine);
+            drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
         }
     }
 }
