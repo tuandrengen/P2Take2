@@ -78,7 +78,6 @@ namespace P2SeriousGame
                 do
                 {
                     routeByRand.Add(currentHex);
-                    currentHex.BackColor = System.Drawing.Color.FromArgb(50, 205, 50);
                     currentHex = currentHex.parent;
                 } while (currentHex.parent != null);
             }
