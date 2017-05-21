@@ -138,7 +138,7 @@ namespace P2SeriousGame
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
                 
-                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 foreach (var item in ValueList)
                 {
                     Console.WriteLine(item);
