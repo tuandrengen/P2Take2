@@ -7,14 +7,15 @@ using System;
 namespace Unittest
 {
     [TestFixture]
-    public class MapTester : Initializer
+    public class MapTester
     {
+        Initializer initializer = new Initializer();
         [TestCase(11, 11)]
         [TestCase(13, 13)]
         [TestCase(21, 21)]
         public void MapTest_PositiveOddValue_HexmapRightSize(int x, int y)
         {
-            InitializeMap(x);
+            initializer.InitializeMap(x);
             Assert.AreEqual(x, Map.hexMap.GetLength(0));
             Assert.AreEqual(y, Map.hexMap.GetLength(1));
         }
@@ -26,7 +27,7 @@ namespace Unittest
         {
             try
             {
-                InitializeMap(x);
+                initializer.InitializeMap(x);
             }
             catch (MapDimensionsMustBeHigherException e)
             {
@@ -40,7 +41,7 @@ namespace Unittest
         {
             try
             {
-                InitializeMap(x);
+                initializer.InitializeMap(x);
             }
             catch (MapDimensionsMustBeOddException e)
             {
@@ -52,26 +53,26 @@ namespace Unittest
         [TestCase(13,13)]
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
         {
-            InitializeMap(x);
-            InitializeMouseEventArgs();
+            initializer.InitializeMap(x);
+            initializer.InitializeMouseEventArgs();
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int numberOfTilesOnRute = (x / 2);
             
 
             for (int i = 0; i <= numberOfTilesOnRute; i++)
             {
-                map.MousePositioner(onlyForParameter, mouseArg);
+                initializer.map.MousePositioner(onlyForParameter, initializer.mouseArg);
 
-                if (!Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
+                if (!Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].IsEdgeTile)
                 {
                     //Non-edgetile do always have 6 neighbours.
-                    Assert.AreEqual(6, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count);
+                    Assert.AreEqual(6, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].neighbourList.Count);
                 }
-                else if (Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
+                else if (Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].IsEdgeTile)
                 {
                     //Åbenbart har alle edgetiles 0 neighbours.
                     //Det er fordi, at vi bare sætter neightbours til 0 for edgetiles, da vi ikke skal gå videre når vi når en edgetile og det er derfor ikke nødvendigt at udregne antal naboer.
-                    Assert.AreEqual(0, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count);
+                    Assert.AreEqual(0, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].neighbourList.Count);
                     
                     //The different amount of neighbours a edgetile can have.
                     //int n = Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count;
@@ -105,7 +106,7 @@ namespace Unittest
         [TestCase(5, 5, 4, 4)]
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForNonEdgeTile(int x, int y, int buttomX, int buttomY)
         {
-            InitializeMap(x);
+            initializer.InitializeMap(x);
 
             if (!Map.hexMap[buttomX, buttomY].IsEdgeTile)
             {
@@ -118,7 +119,7 @@ namespace Unittest
         public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
         {
 
-            InitializeMap(x);
+            initializer.InitializeMap(x);
             //Double for-loop is used to run throw all coordinates on a 2-Dimensional map.
             //varible i represents x-coordinate, and j represents y-coordinate.
             for (int i = 0; i < x; i++)
@@ -146,7 +147,7 @@ namespace Unittest
         [TestCase(21, 21)]
         public void MapTest_PositiveOddValues_ConstructedRight(int x, int y)
         {
-            InitializeMap(x);
+            initializer.InitializeMap(x);
             Assert.AreEqual(x, Map.TotalHexagonColumns);
             Assert.AreEqual(y, Map.TotalHexagonRows);
             //Tjeks if number of cells in array in each direction (x,y) is correct.
@@ -160,8 +161,8 @@ namespace Unittest
         [TestCase(21, 21)]
         public void MousePositioner_CalculateRoutesWorks_ColorsAndDisablesRightFollowsRightPath(int x, int y)
         {
-            InitializeMap(x);
-            InitializeMouseEventArgs();
+            initializer.InitializeMap(x);
+            initializer.InitializeMouseEventArgs();
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int LastX;
             int LastY;
@@ -170,28 +171,28 @@ namespace Unittest
             int numberOfTilesOnRute = (x / 2) - 1;
             Map.newGame = true;
 
-            map.MousePositioner(onlyForParameter, mouseArg);
+            initializer.map.MousePositioner(onlyForParameter, initializer.mouseArg);
             Assert.AreEqual(false, Map.newGame);
             Assert.AreEqual(Color.LightGray, Map.hexMap[startX, startY].BackColor);
             Assert.AreEqual(true, Map.hexMap[startX, startY].Enabled);
-            Assert.AreEqual(Color.Aqua, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
-            Assert.AreEqual(false, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
+            Assert.AreEqual(Color.Aqua, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].BackColor);
+            Assert.AreEqual(false, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].Enabled);
             //Saves the current mouseposition before it gets overriden in the next call. 
             //They are going to be used to tjeck if the current mouseposition will be colored grey and enabled after next call.
             //Because MouseX and MouseY are equal the coordinates of the first hex in the path. 
             //In that way we kinda test that the mouse will move along the path. 
-            LastX = map.MouseXCoordinate;
-            LastY = map.MouseYCoordinate;
+            LastX = initializer.map.MouseXCoordinate;
+            LastY = initializer.map.MouseYCoordinate;
 
             for (int i = 0; i < numberOfTilesOnRute; i++)
             {
-                map.MousePositioner(onlyForParameter, mouseArg);
+                initializer.map.MousePositioner(onlyForParameter, initializer.mouseArg);
                 Assert.AreEqual(Color.LightGray, Map.hexMap[LastX, LastY].BackColor);
                 Assert.AreEqual(true, Map.hexMap[LastX, LastY].Enabled);
-                Assert.AreEqual(Color.Aqua, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
-                Assert.AreEqual(false, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
-                LastX = map.MouseXCoordinate;
-                LastY = map.MouseYCoordinate;
+                Assert.AreEqual(Color.Aqua, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].BackColor);
+                Assert.AreEqual(false, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].Enabled);
+                LastX = initializer.map.MouseXCoordinate;
+                LastY = initializer.map.MouseYCoordinate;
             }
         }
 

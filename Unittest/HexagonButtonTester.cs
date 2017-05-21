@@ -8,6 +8,8 @@ namespace Unittest
     [TestFixture]
     public class HexagonButtonTester
     {
+
+        Initializer initializer = new Initializer();
         //Burde man gører sådan, at man ikke kan sætte koordinaterne en negativværdi.
         [TestCase(-1, -1, false)]
         [TestCase(0, 0, true)]
@@ -30,9 +32,8 @@ namespace Unittest
         public void HexClicked_PositiveValues_ValuesChangedRight(int buttomX, int buttomY)
         {
             HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
-            MouseButtons a = new MouseButtons();
-            MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
-            hex.HexClicked(hex, b);
+            initializer.InitializeMouseEventArgs();
+            hex.HexClicked(hex, initializer.mouseArg);
             Assert.AreEqual(false, hex.Enabled);
             Assert.AreEqual(false, hex.Passable);
         }

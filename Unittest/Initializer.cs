@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using P2SeriousGame;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Unittest
 {
@@ -17,6 +18,12 @@ namespace Unittest
         public BreadthFirst bfs;
         public MouseButtons mouseBtn;
         public MouseEventArgs mouseArg;
+
+        public Formatting format;
+        public Button btn;
+        public string btnText;
+        public Color color;
+        public Size expectedSize;
 
         //Initializers
         public void InitializeMap(int x)
@@ -37,6 +44,16 @@ namespace Unittest
         {
             mouseBtn = new MouseButtons();
             mouseArg = new MouseEventArgs(mouseBtn, 0, 0, 0, 0);
+        }
+
+        public void InitializeToFormatting(int x, int sizeX, int sizeY)
+        {
+            window = new GameForm(x);
+            format = new Formatting(window);
+            btn = new Button();
+            btnText = "Empty";
+            color = Color.Red;
+            expectedSize = new Size(sizeX, sizeY);
         }
     }
 }
