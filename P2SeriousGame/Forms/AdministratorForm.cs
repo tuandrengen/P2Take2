@@ -155,13 +155,13 @@ namespace P2SeriousGame
         }
 
         //...
-        //private List<float> GetValueList()
-        //{
-        //    List<float> list = new List<float>();
+        private List<float> GetValueList()
+        {
+            List<float> list = new List<float>();
 
 
-        //    return list;
-        //}
+            return list;
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
