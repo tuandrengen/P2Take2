@@ -8,17 +8,18 @@ namespace Unittest
     //Finde ud af hvad bfs.FindLongestRoutes() retunerer. Svar: den returnere de mulige edgetiles hvortil der er længst afstand.
 
     [TestFixture]
-    public class PathfindingTests : Initializer
+    public class PathfindingTests
     {
-            
+
+        Initializer initializer = new Initializer();
         [TestCase(11, 11)]
         [TestCase(13, 13)]
         [TestCase(15, 15)]
         [TestCase(17, 17)]
         public void CalculateRoutes_HexMapWithEdges_FindsLongestRoutes(int x, int y)
         {
-            InitializeMap(x);
-            InitializeBFS();
+            initializer.InitializeMap(x);
+            initializer.InitializeBFS();
             List<HexagonButton> edgeTiles = new List<HexagonButton>();
 
             int addValue = (x / 4) - 1;
@@ -35,22 +36,22 @@ namespace Unittest
                     edgeTiles.Add(hexagonButton);
                 }
             }
-            bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
+            initializer.bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
 
             //Makes sure, that FindTheRoutes wont find any of the dissabled edgetiles.
-            Assert.AreNotEqual(edgeTiles, bfs.FindTheRoutes());
-            foreach (HexagonButton hex in bfs.FindLongestRoutes())
+            Assert.AreNotEqual(edgeTiles, initializer.bfs.FindTheRoutes());
+            foreach (HexagonButton hex in initializer.bfs.FindLongestRoutes())
             {
                 Assert.AreEqual(fromMiddleToTileNextToEdge, hex.CostToStart);
             }
-            foreach (HexagonButton hex in bfs.FindLongestRoutes())
+            foreach (HexagonButton hex in initializer.bfs.FindLongestRoutes())
             {
                 //Tjecks that the route found are not longer than any of map dimension
                 Assert.IsTrue(hex.CostToStart < x || hex.CostToStart < y);
             }
 
             //Tjecks if all hex got same cost.
-            foreach (HexagonButton hex in bfs.FindLongestRoutes())
+            foreach (HexagonButton hex in initializer.bfs.FindLongestRoutes())
             {
                 if (tempCost == 0)
                 {
@@ -67,12 +68,12 @@ namespace Unittest
         [TestCase(17, 17)]
         public void FindShortestRoutes_HexMapWithEdges_FindsRightEndTiles(int x, int y)
         {
-            InitializeMap(x);
-            InitializeBFS();
-            bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
+            initializer.InitializeMap(x);
+            initializer.InitializeBFS();
+            initializer.bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
             
             //Check if each route has the lowest and the same cost.
-            foreach (HexagonButton hex in bfs.FindShortestRoutes())
+            foreach (HexagonButton hex in initializer.bfs.FindShortestRoutes())
             {
                 Assert.AreEqual(x / 2, hex.CostToStart);
             }
@@ -84,13 +85,13 @@ namespace Unittest
         [TestCase(17, 17)]
         public void FindShortestRoutes_HexMapWithEdges_FindsRightAmountOfEndTiles(int x, int y)
         {
-            InitializeMap(x);
-            InitializeBFS();
+            initializer.InitializeMap(x);
+            initializer.InitializeBFS();
 
-            bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
+            initializer.bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
 
             //Check if each endtile if found from startpoint.
-            Assert.AreEqual(x + 5, bfs.FindShortestRoutes().Count);
+            Assert.AreEqual(x + 5, initializer.bfs.FindShortestRoutes().Count);
             //x + 5 different edgetiles the mouse can go to from startpoint.
         }
 
@@ -102,7 +103,7 @@ namespace Unittest
         [TestCase(4, 4, false, 10)]
         public void CheckParents_ChainOfHex_FindsCurrentAmountOfParents(int x, int y, bool edge, int length)
         {
-            InitializeBFS();
+            initializer.InitializeBFS();
 
             List<HexagonButton> hexes = new List<HexagonButton>();
             
@@ -112,7 +113,7 @@ namespace Unittest
                 HexagonButton hex = new HexagonButton(x, y, edge);
                 hexes.Add(hex);
                 hexes[0].parent = null;
-                Assert.AreEqual(length, bfs.CheckParent(hexes[0]));
+                Assert.AreEqual(length, initializer.bfs.CheckParent(hexes[0]));
             }
 
             //Create hexes.
@@ -140,13 +141,13 @@ namespace Unittest
             {
                 if (i == length - 1)
                 {
-                    Assert.AreEqual(0, bfs.CheckParent(hexes[i]));
+                    Assert.AreEqual(0, initializer.bfs.CheckParent(hexes[i]));
                 }
                 else
                 {
                     //length-i-1, -i because the length should be 1 less each time.
                     //Minus 1 because the variable "length" is not 0-indexet but the list is.
-                    Assert.AreEqual(length - i - 1, bfs.CheckParent(hexes[i]));
+                    Assert.AreEqual(length - i - 1, initializer.bfs.CheckParent(hexes[i]));
                 }
             }
         }
@@ -156,9 +157,9 @@ namespace Unittest
         [TestCase(13,13)]
         public void FindPath_FindsMouseButtonsNextHexTile_FindTileNextToMouse(int x, int y)
         {
-            InitializeMap(x);
+            initializer.InitializeMap(x);
             
-            HexagonButton nextTile = pathfinding.FindPath(Map.hexMap, Map.hexMap[x / 2, y / 2]);
+            HexagonButton nextTile = initializer.pathfinding.FindPath(Map.hexMap, Map.hexMap[x / 2, y / 2]);
 
             Assert.IsTrue(x/2 - 1 <= nextTile.XCoordinate && nextTile.XCoordinate <= x/2 + 1);
             Assert.IsTrue(y/2 - 1 <= nextTile.YCoordinate && nextTile.YCoordinate <= y/2 + 1);
