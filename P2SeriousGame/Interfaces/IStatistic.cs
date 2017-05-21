@@ -7,7 +7,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace P2SeriousGame
 {
-    interface IStatistic
+    public interface IStatistic
     {
         void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType);
         void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval = 1, int yAxisMin = 0, SeriesChartType chartType = SeriesChartType.Line);

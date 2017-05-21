@@ -44,16 +44,17 @@ namespace P2SeriousGame
             CloseMenuButton(menuPanel);
         }
 
+        public static TextBox nameBox;
+
         private void UsernameBox(Panel panel)
         {
             Label userNameLbl = new Label();
             userNameLbl.Text = "Brugernavn:";
-            TextBox nameBox = new TextBox();
+            nameBox = new TextBox();
             nameBox.Size = new Size(300, 50);
-            nameBox.Text = "Skriv navn Her";
+            nameBox.Text = "Skriv navn her";
             panel.Controls.Add(userNameLbl);
             panel.Controls.Add(nameBox);
-
         }
 
         private void StartGameButton(Panel panel)
@@ -133,7 +134,7 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="xCoordinate"></param>
         /// <param name="yCoordinate"></param>
-        /// <returns></returns>
+        /// <returns name="width"></returns>
         private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
         {
             int width = formatting.WidthStart;
@@ -150,7 +151,7 @@ namespace P2SeriousGame
         /// Converts a coordinate into a position in a hexgrid.
         /// </summary>
         /// <param name="yCoordinate"></param>
-        /// <returns></returns>
+        /// <returns name="height"></returns>
 		private int CalculateButtonHeightOffset(int yCoordinate)
         {
             int height = formatting._heightStart;

@@ -33,9 +33,9 @@ namespace Unittest
                 IPathfinding a = null;
                 Map map = new Map(tester, x, a);
             }
-            catch (MapDimensionsMustBeHigher e)
+            catch (MapDimensionsMustBeHigherException e)
             {
-                Assert.AreEqual(typeof(MapDimensionsMustBeHigher), e.GetType());
+                Assert.AreEqual(typeof(MapDimensionsMustBeHigherException), e.GetType());
             }
         }
 
@@ -49,9 +49,9 @@ namespace Unittest
                 IPathfinding a = null;
                 Map map = new Map(tester, x, a);
             }
-            catch (MapDimensionsMustBeOdd e)
+            catch (MapDimensionsMustBeOddException e)
             {
-                Assert.AreEqual(typeof(MapDimensionsMustBeOdd), e.GetType());
+                Assert.AreEqual(typeof(MapDimensionsMustBeOddException), e.GetType());
             }
         }
 

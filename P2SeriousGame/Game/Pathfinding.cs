@@ -21,6 +21,7 @@ namespace P2SeriousGame
         public HexagonButton FirstButtonInPath;
 
         public static int gameTotalWins;
+        public static int gameTotalLosses;
         public static bool gameRoundWin;
 
         GameForm game;
@@ -49,12 +50,12 @@ namespace P2SeriousGame
             catch (GameWonException e)
             {
                 Map.ResetMouse();
-                YouWin();
+                WinNotification();
             }
             catch (LostTheGameException e)
             {
                 Map.ResetMouse();
-                YouLose();
+                LoseNotification();
             }
         }   
 
@@ -106,25 +107,35 @@ namespace P2SeriousGame
 			}
 		}
 
-        public void YouWin()
+        /// <summary>
+        /// Opens a new window with the message that you won the game.
+        /// </summary>
+        public void WinNotification()
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You won", "Win", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You won the round.", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
-                    game.ResetButtonClick(null, null);
+                    gameRoundWin = true;
+                    game.ResetByWinningOrLosing();
                 }
             }
         }
-        public void YouLose()
+
+        /// <summary>
+        /// Opens a new window with the message that you have lost the game.
+        /// </summary>
+        public void LoseNotification()
         {
             using (Form form = new Form())
             {
-                DialogResult dr = MessageBox.Show(" You lose", "Lose", MessageBoxButtons.OK);
+                DialogResult dr = MessageBox.Show(" You lose the round.", "Round notification", MessageBoxButtons.OK);
                 if (dr == DialogResult.OK)
                 {
-                    game.ResetButtonClick(null, null);
+                    gameRoundWin = false;
+                    game.ResetByWinningOrLosing();
+
                 }
             }
         }

@@ -16,8 +16,8 @@ namespace P2SeriousGame
                 
         }
 
-        public int ButtonWidth;
-        public int ButtonHeight;
+        public int ButtonWidth = 0;
+        public int ButtonHeight = 0;
         public int ButtonHeightOffset => (3 * (ButtonHeight / 4));
 
         public int SmallBtnSpacing = 30;

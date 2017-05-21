@@ -134,11 +134,14 @@ namespace P2SeriousGame
                 this.dataGridView1.DataSource = roundsTable;
                 
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
-
-                /*
+                foreach (var item in ValueList)
+                {
+                    Console.WriteLine(item);
+                }
+                
                 // --------------------------------------
-                Console.WriteLine(PersonTable.Rows.Count);
-
+                //Console.WriteLine(PersonTable.Rows.Count);
+                /*
                 for (int i = 0; i < PersonTable.Rows.Count; i++)
                 {
                     *Console.WriteLine(PersonTable.Rows[i]["Id"]);
@@ -146,6 +149,7 @@ namespace P2SeriousGame
             }
         }
 
+        //...
         private List<float> GetValueList()
         {
             List<float> list = new List<float>();
@@ -210,7 +214,7 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
-            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 2, 0, SeriesChartType.FastLine);
+            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 1, 0, SeriesChartType.FastLine);
         }
     }
 }

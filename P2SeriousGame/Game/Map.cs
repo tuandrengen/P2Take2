@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace P2SeriousGame
 {
@@ -27,11 +22,11 @@ namespace P2SeriousGame
                 }
                 else if (value % 2 == 0 && value >= 5)
                 {
-                    throw new MapDimensionsMustBeOdd(value, "Dimension must be odd");
+                    throw new MapDimensionsMustBeOddException(value, "Dimension must be odd");
                 }
                 else if (value < 5)
                 {
-                    throw new MapDimensionsMustBeHigher(value, "Dimension must atleast be 5");
+                    throw new MapDimensionsMustBeHigherException(value, "Dimension must atleast be 5");
                 }
             }
         }
@@ -51,11 +46,11 @@ namespace P2SeriousGame
                 }
                 else if (value % 2 == 0 && value >= 5)
                 {
-                    throw new MapDimensionsMustBeOdd(value, "Dimension must be odd");
+                    throw new MapDimensionsMustBeOddException(value, "Dimension must be odd");
                 }
                 else if (value < 5)
                 {
-                    throw new MapDimensionsMustBeHigher(value, "Dimension must atleast be 5");
+                    throw new MapDimensionsMustBeHigherException(value, "Dimension must atleast be 5");
                 }
             }
         }
@@ -150,7 +145,7 @@ namespace P2SeriousGame
                     _firstButtonInPath = hexMap[StartMouseXCoordinate, StartMouseYCoordinate];
                 }
             }
-            //Nye position.
+            /// New position.
             MouseXCoordinate = _firstButtonInPath.XCoordinate;
             MouseYCoordinate = _firstButtonInPath.YCoordinate;
             hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.Aqua;
