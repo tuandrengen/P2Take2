@@ -222,18 +222,17 @@ namespace P2SeriousGame
 
         public void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in Map.hexMap)
-            {
-                hex.Visited = false;
-                hex.Passable = true;
-                hex.Enabled = true;
-                PlaceHexagonButton(hex);
-            }
-            Map.ResetMouse();
+            ResetHex();
             SQL.ResetGameToListFromReset();
         }
 
         public void ResetByWinningOrLosing()
+        {
+            ResetHex();
+            SQL.ResetGameToList();
+        }
+
+        private void ResetHex()
         {
             foreach (HexagonButton hex in Map.hexMap)
             {
@@ -243,7 +242,6 @@ namespace P2SeriousGame
                 PlaceHexagonButton(hex);
             }
             Map.ResetMouse();
-            SQL.ResetGameToList();
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch

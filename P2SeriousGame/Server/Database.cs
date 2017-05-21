@@ -186,9 +186,8 @@ namespace P2SeriousGame
                         Win = row.Win,
                         Loss = row.Loss,
                         Time_Used = row.TimeUsed,
-                        SessionID = row.SessionID
+                        RoundID = row.RoundID
                     });
-
                 }
                 context.SaveChanges();
             }
