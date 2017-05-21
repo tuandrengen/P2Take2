@@ -20,7 +20,6 @@ namespace Unittest
             System.Drawing.Drawing2D.GraphicsPath buttonPath;
             PointF[] expectedPoints = P2SeriousGame.Math.GetPoints(x, y);
             
-            //Inserted some part of the code from the method ButtonPainter.
             buttonPath = new System.Drawing.Drawing2D.GraphicsPath();
             buttonPath.AddPolygon(P2SeriousGame.Math.GetPoints(x, y));
             Region region = new Region(buttonPath);

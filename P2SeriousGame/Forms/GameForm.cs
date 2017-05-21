@@ -13,6 +13,10 @@ namespace P2SeriousGame
 
         Formatting formatting;
 
+        /// <summary>
+        /// Creates the Game Window
+        /// </summary>
+        /// <param name="mapSize"></param>
         public GameForm(int mapSize)
         {
             formatting = new Formatting(this);
@@ -22,6 +26,9 @@ namespace P2SeriousGame
             SQL.StartStopwatch();
         }
 
+        /// <summary>
+        /// Sets Game Panel size and buttons inside.
+        /// </summary>
         private void InitializePanels()
         {
             this.Controls.Add(gamePanel);
@@ -45,7 +52,7 @@ namespace P2SeriousGame
         }
 
         /// <summary>
-        /// Calculates the button size based on scren heigth.
+        /// Calculates the button size based on screen height.
         /// </summary>
         private void CalculateButtonDimensionBasedOnScreenHeight()
         {
@@ -94,7 +101,11 @@ namespace P2SeriousGame
             formatting.ButtonWidth = (int)buttonWidthTemp;
         }
 
-
+        /// <summary>
+        /// Sets propeties of Game Window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
@@ -104,7 +115,7 @@ namespace P2SeriousGame
 
         /// <summary>
         /// Initialises and draws a hexagon button, 
-        /// and adds a click event calculates a new route when an HexButton is clicked.
+        /// and adds a click event which calculates a new route when an HexButton is clicked.
         /// </summary>
         /// <param name="button"></param>
         /// <param name="map"></param>
@@ -171,6 +182,10 @@ namespace P2SeriousGame
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
+        /// <summary>
+        /// Creates a button, which resets the game
+        /// </summary>
+        /// <param name="panel"></param>
         private void AddResetButton(Panel panel)
         {
             Button ResetButton = new Button();
@@ -179,6 +194,10 @@ namespace P2SeriousGame
             panel.Controls.Add(ResetButton);
         }
 
+        /// <summary>
+        /// Creates a button, which resets the game
+        /// </summary>
+        /// <param name="panel"></param>
         private void AddExitButton(Panel panel)
         {
             Button ExitButton = new Button();
@@ -219,13 +238,7 @@ namespace P2SeriousGame
 
             return height;
         }
-
-        //public void ExitButtonClick(object sender, MouseEventArgs e)
-        //{
-        //    Close();
-        //}
-
-        
+               
         /// <summary>
         /// MouseClickEvent for resetting the game.
         /// </summary>
