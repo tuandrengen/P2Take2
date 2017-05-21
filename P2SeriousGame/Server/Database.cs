@@ -188,7 +188,6 @@ namespace P2SeriousGame
                         Time_Used = row.TimeUsed,
                         RoundID = row.RoundID
                     });
-
                 }
                 context.SaveChanges();
             }
