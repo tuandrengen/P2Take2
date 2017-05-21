@@ -20,7 +20,6 @@ namespace P2SeriousGame
         }
 
         public List<Round> roundList = new List<Round>();
-        private int _resetCounter;
         private int _roundNumber;
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace P2SeriousGame
                 roundList.Add(round);
 
                 /// Increments the reset counter.
-                _resetCounter++;
+                ResetCounter();
             }
             /// Resets the amount of hex clicked, so it's ready to 
             /// count the number of clicks in the next round.
@@ -185,7 +184,7 @@ namespace P2SeriousGame
                 {
                     context.Rounds.Add(new Rounds
                     {
-                        Round_Number = _resetCounter,
+                        Round_Number = row.RoundNumber,
                         Clicks = row.NumberOfClicks,
                         AVG_Clicks = row.ClicksPerMinute,
                         Win = row.Win,
@@ -209,7 +208,7 @@ namespace P2SeriousGame
                 {
                     Clicks = _clickedTotal,
                     AVG_Clicks = AverageClickPerMinute(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter,
+                    Rounds = _roundNumber,
                     Wins = Pathfinding.gameTotalWins,
                     Losses = _totalLoss,
                     Time_Used = _secondsTotal
@@ -234,6 +233,13 @@ namespace P2SeriousGame
         public void StartStopwatch()
         {
             stopwatchRound.Start();
+        }
+
+        private int _resetCounter;
+
+        private void ResetCounter()
+        {
+            _resetCounter++;
         }
 
         /// <summary>
