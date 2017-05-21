@@ -8,8 +8,8 @@ namespace Unittest
     [TestFixture]
     public class HexagonButtonTester
     {
-
         Initializer initializer = new Initializer();
+
         //Burde man gører sådan, at man ikke kan sætte koordinaterne en negativværdi.
         [TestCase(-1, -1, false)]
         [TestCase(0, 0, true)]
