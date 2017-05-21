@@ -78,6 +78,55 @@ namespace Unittest
             }
         }
 
+        [TestCase(11, 11)]
+        [TestCase(13, 13)]
+        [TestCase(15, 15)]
+        public void FindNeighbours_CorrectDimensionRightAmountOfNeighbours_RightCoordinatesForTheFoundNeighbours(int x, int y)
+        {
+            initializer.InitializeMap(x);
+                        
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (!Map.hexMap[i, j].IsEdgeTile)
+                    {
+                        //Always got theses neighbours. 
+                        Assert.AreEqual(i - 1, Map.hexMap[i, j].neighbourList[0].XCoordinate);
+                        Assert.AreEqual(j, Map.hexMap[i, j].neighbourList[0].YCoordinate);
+                        Assert.AreEqual(i + 1, Map.hexMap[i, j].neighbourList[1].XCoordinate);
+                        Assert.AreEqual(j, Map.hexMap[i, j].neighbourList[1].YCoordinate);
+
+                        if (j % 2 == 1)
+                        {
+                            // odd numbered rows do also have these neighbours 
+                            Assert.AreEqual(i, Map.hexMap[i, j].neighbourList[2].XCoordinate);
+                            Assert.AreEqual(j - 1, Map.hexMap[i, j].neighbourList[2].YCoordinate);
+                            Assert.AreEqual(i + 1, Map.hexMap[i, j].neighbourList[3].XCoordinate);
+                            Assert.AreEqual(j - 1, Map.hexMap[i, j].neighbourList[3].YCoordinate);
+                            Assert.AreEqual(i, Map.hexMap[i, j].neighbourList[4].XCoordinate);
+                            Assert.AreEqual(j + 1, Map.hexMap[i, j].neighbourList[4].YCoordinate);
+                            Assert.AreEqual(i + 1, Map.hexMap[i, j].neighbourList[5].XCoordinate);
+                            Assert.AreEqual(j + 1, Map.hexMap[i, j].neighbourList[5].YCoordinate);
+                        }
+                        else if (j % 2 == 0)
+                        {
+                            // even numbered rows do also have these neighbours 
+                            Assert.AreEqual(i, Map.hexMap[i, j].neighbourList[2].XCoordinate);
+                            Assert.AreEqual(j - 1, Map.hexMap[i, j].neighbourList[2].YCoordinate);
+                            Assert.AreEqual(i - 1, Map.hexMap[i, j].neighbourList[3].XCoordinate);
+                            Assert.AreEqual(j - 1, Map.hexMap[i, j].neighbourList[3].YCoordinate);
+                            Assert.AreEqual(i, Map.hexMap[i, j].neighbourList[4].XCoordinate);
+                            Assert.AreEqual(j + 1, Map.hexMap[i, j].neighbourList[4].YCoordinate);
+                            Assert.AreEqual(i - 1, Map.hexMap[i, j].neighbourList[5].XCoordinate);
+                            Assert.AreEqual(j + 1, Map.hexMap[i, j].neighbourList[5].YCoordinate);
+                        }
+                    }
+                }
+            }
+        }
+
+
         [TestCase(13, 13, 11, 11)]
         [TestCase(9, 9, 7, 7)]
         [TestCase(7, 7, 2, 2)]

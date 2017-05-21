@@ -166,6 +166,7 @@ namespace P2SeriousGame
                     {
                         hexMap[i, j].neighbourList.Add(hexMap[i - 1, j]);
                         hexMap[i, j].neighbourList.Add(hexMap[i + 1, j]);
+
                         if (j % 2 == 1)
                         {
                             hexMap[i, j].neighbourList.Add(hexMap[i, j - 1]);
@@ -173,7 +174,8 @@ namespace P2SeriousGame
                             hexMap[i, j].neighbourList.Add(hexMap[i, j + 1]);
                             hexMap[i, j].neighbourList.Add(hexMap[i + 1, j + 1]);
                         }
-                        if (j % 2 == 0)
+
+                        else if (j % 2 == 0)
                         {
                             hexMap[i, j].neighbourList.Add(hexMap[i, j - 1]);
                             hexMap[i, j].neighbourList.Add(hexMap[i - 1, j - 1]);

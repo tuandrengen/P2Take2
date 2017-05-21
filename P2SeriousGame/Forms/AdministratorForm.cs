@@ -59,13 +59,13 @@ namespace P2SeriousGame
 			int margin = 50;
 
             graph.Size = new Size(300, 400);
-			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * (graphCount - 1) + margin;
+			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount - 1) % 2) + margin;
+			int height = graphCount > 1 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
 			Console.WriteLine($"Width: {administratorPanel.Width}");
 			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
+			Console.WriteLine($"Positiony: {height}");
 
-			//(administratorPanel.Right / 5 - graph.Width / 2) * graphCount
-
-			graph.Location = new Point(alreadyOccupiedWidth, this.Bounds.Top + 300);
+			graph.Location = new Point(alreadyOccupiedWidth, height);
 
             administratorPanel.Controls.Add(graph);
 
@@ -133,7 +133,7 @@ namespace P2SeriousGame
         }
 
         /// <summary>
-        /// Finds the max value in the list.
+        /// Finds the max value in a list.
         /// </summary>
         /// <param name="valueList"></param>
         /// <returns></returns>
@@ -178,7 +178,7 @@ namespace P2SeriousGame
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //PopulateRounds();
+            
         }
 
         // When a letter is writing it finds the best match in the database and shows the data in listboxes and datagrid...
@@ -218,7 +218,6 @@ namespace P2SeriousGame
             }
         }
 
-        
         private void PopulateSession()
         {
             string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
@@ -234,16 +233,12 @@ namespace P2SeriousGame
             }
         }
 
-        // Når en person er fundet, men man sletter søgningen, så vil personens session og runde stadig stå der...
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            
+        {    
         }
 
 		private void AdministratorForm_Load(object sender, EventArgs e)
 		{
-
 		}
 	}
 }
