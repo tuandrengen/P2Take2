@@ -233,12 +233,12 @@ namespace Unittest
             Map.newGame = true;
 
             initializer.map.MousePositioner(onlyForParameter, initializer.mouseArg);
-            //Assert.AreEqual(false, Map.newGame);
-            //Assert.AreEqual(Color.LightGray, Map.hexMap[startX, startY].BackColor);
-            //Assert.AreEqual(true, Map.hexMap[startX, startY].Enabled);
-            //Assert.AreEqual(Color.Aqua, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].BackColor);
-            //Assert.AreEqual(false, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].Enabled);
-            
+            Assert.AreEqual(false, Map.newGame);
+            Assert.AreEqual(Color.LightGray, Map.hexMap[startX, startY].BackColor);
+            Assert.AreEqual(true, Map.hexMap[startX, startY].Enabled);
+            Assert.AreEqual(Color.Aqua, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].BackColor);
+            Assert.AreEqual(false, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].Enabled);
+
             /* Saves the current mouseposition before it gets overriden in the next call. 
              * They are going to be used to check if the current mouseposition will be colored grey and enabled after next call.
              * Because MouseX and MouseY are equal the coordinates of the first hex in the path. 
