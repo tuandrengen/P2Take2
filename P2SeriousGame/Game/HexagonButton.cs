@@ -19,8 +19,8 @@ namespace P2SeriousGame
         /// <param name="isEdgeTile"></param>
         public HexagonButton(int xCoordinate, int yCoordinate, bool isEdgeTile)
         {
-            _xCoordinate = xCoordinate;
-            _yCoordinate = yCoordinate;
+            XCoordinate = xCoordinate;
+            YCoordinate = yCoordinate;
 			_isEdgeTile = isEdgeTile;
         }
 
@@ -55,12 +55,26 @@ namespace P2SeriousGame
         public int XCoordinate
         {
             get { return _xCoordinate; }
+            private set
+            {
+                if (value >= 0)
+                    _xCoordinate = value;
+                else
+                    throw new MustBePositiveException("XCoordinate value is not valid");
+            }
         }
 
         private int _yCoordinate;
         public int YCoordinate
         {
             get { return _yCoordinate; }
+            private set
+            {
+                if (value >= 0)
+                    _yCoordinate = value;
+                else
+                    throw new MustBePositiveException("YCoordinate value is not valid");
+            }
         }
 
 		private bool _isEdgeTile;
