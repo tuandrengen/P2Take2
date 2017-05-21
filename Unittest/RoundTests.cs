@@ -15,7 +15,7 @@ namespace Unittest
         public void WinOrLoss_None_AssignsRight(int win)
         {
             //Values doesn't matter at this point.
-            Round round = new Round(1, 1, 1, 1);
+            Round round = new Round(1, 1, 1, 1, 1);
             round.WinOrLoss(win);
             if (win == 1)
             {
@@ -36,16 +36,8 @@ namespace Unittest
         [TestCase(5, 500, 165, 1, 900)]
         public void Round_ValuesOfRightFormat_ContructedRight(int roundID, float clicks, float clicksAVG, int win, float timeUsed)
         {
-           
-            Round notFullRound = new Round(clicks, clicksAVG, win, timeUsed);
-            Round fullRound = new Round(roundID, clicks, clicksAVG, win, timeUsed);
-
-            notFullRound.WinOrLoss(win);
-            Assert.AreEqual(clicks, fullRound.NumberOfClicks);
-            Assert.AreEqual(clicksAVG, fullRound.ClicksPerMinute);
-            Assert.AreEqual(win, fullRound.Win);
-            Assert.AreEqual(timeUsed, fullRound.TimeUsed);
-
+            Round fullRound = new Round(clicks, clicksAVG, win, timeUsed, roundID);
+            
             fullRound.WinOrLoss(win);
             Assert.AreEqual(roundID, fullRound.RoundID);
             Assert.AreEqual(clicks, fullRound.NumberOfClicks);

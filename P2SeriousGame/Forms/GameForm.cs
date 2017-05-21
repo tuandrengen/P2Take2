@@ -215,10 +215,10 @@ namespace P2SeriousGame
             return height;
         }
 
-        public void ExitButtonClick(object sender, MouseEventArgs e)
-        {
-            Close();
-        }
+        //public void ExitButtonClick(object sender, MouseEventArgs e)
+        //{
+        //    Close();
+        //}
 
         public void ResetButtonClick(object sender, MouseEventArgs e)
         {

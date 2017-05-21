@@ -19,8 +19,6 @@ namespace P2SeriousGame
             this.value = value;
         }
 
-        public MapDimensionsMustBeOddException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+        public MapDimensionsMustBeOddException(string message, Exception innerException) : base(message, innerException) { }
     }
 }
