@@ -45,7 +45,7 @@
     <Compile Include="GameFormTester.cs" />
     <Compile Include="HexagonButtonTester.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="IStatisticTests.cs" />
+    <Compile Include="GraphPanelTests.cs" />
     <Compile Include="MapTester.cs" />
     <Compile Include="MathTester.cs" />
     <Compile Include="PathfindingTests.cs" />

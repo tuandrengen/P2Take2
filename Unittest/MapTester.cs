@@ -13,7 +13,7 @@ namespace Unittest
         [TestCase(11, 11)]
         [TestCase(13, 13)]
         [TestCase(21, 21)]
-        public void MapTest_PositiveOddValue_HexmapRightSize(int x, int y)
+        public void MapTest_ValidDimension_HexmapRightSize(int x, int y)
         {
             initializer.InitializeMap(x);
             Assert.AreEqual(x, Map.hexMap.GetLength(0));
@@ -37,7 +37,7 @@ namespace Unittest
 
         [TestCase(6, 6)]
         [TestCase(10, 10)]
-        public void MapTest_WrongDimensions_ThrowMapDimensionsMustBeOdd(int x, int y)
+        public void MapTest_WrongDimension_ThrowMapDimensionsMustBeOdd(int x, int y)
         {
             try
             {
@@ -48,18 +48,18 @@ namespace Unittest
                 Assert.AreEqual(typeof(MapDimensionsMustBeOddException), e.GetType());
             }
         }
+
         [TestCase(11, 11)]
         [TestCase(13, 13)]
-
-        public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
+        public void FindNeighbours_ValidDimension_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
         {
             initializer.InitializeMap(x);
             initializer.InitializeMouseEventArgs();
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int numberOfTilesOnRute = (x / 2);
-                           
+
             //To indicate its a newgame.
-            Map.ResetMouse();
+            Map.newGame = true;
                         
             for (int i = 0; i < numberOfTilesOnRute; i++)
             {
@@ -85,7 +85,7 @@ namespace Unittest
         [TestCase(9, 9, 7, 7)]
         [TestCase(7, 7, 2, 2)]
         [TestCase(5, 5, 3, 3)]
-        public void FindNeighbours_CoordinatesOfNonEdgeTile_RightAmountOfNeighboursForNonEdgeTile(int x, int y, int buttomX, int buttomY)
+        public void FindNeighbours_CoordinatesOfNonEdgeTileAndValidDimension_RightAmountOfNeighboursForNonEdgeTile(int x, int y, int buttomX, int buttomY)
         {
             initializer.InitializeMap(x);
             
@@ -97,18 +97,18 @@ namespace Unittest
         [TestCase(9, 9, 8, 8)]
         [TestCase(7, 7, 6, 6)]
         [TestCase(5, 5, 4, 4)]
-        public void FindNeighbours_CoordinatesOfEdgeTile_RightAmountOfNeighboursForEdgeTile(int x, int y, int buttomX, int buttomY)
+        public void FindNeighbours_CoordinatesOfEdgeTileAndValidDimension_RightAmountOfNeighboursForEdgeTile(int x, int y, int buttomX, int buttomY)
         {
             initializer.InitializeMap(x);
 
-            //All non-edgetiles got 6 neighbours.
+            //All edgetiles got 0 neighbours.
             Assert.AreEqual(0, Map.hexMap[buttomX, buttomY].neighbourList.Count);
         }
 
         [TestCase(11, 11)]
         [TestCase(13,13)]
         [TestCase(15,15)]
-        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinates(int x, int y)
+        public void CreateMap_CalculateButtonDimensionWorksAndValidDimension_RightCoordinates(int x, int y)
         {
 
             initializer.InitializeMap(x);
@@ -167,7 +167,7 @@ namespace Unittest
         [TestCase(5, 5)]
         [TestCase(11, 11)]
         [TestCase(21, 21)]
-        public void MousePositioner_CalculateRoutesWorks_ColorsAndDisablesRightFollowsRightPath(int x, int y)
+        public void MousePositioner_CalculateRoutesWorksAndValidDimensions_ColorsAndDisablesRight(int x, int y)
         {
             initializer.InitializeMap(x);
             initializer.InitializeMouseEventArgs();
@@ -185,10 +185,11 @@ namespace Unittest
             Assert.AreEqual(true, Map.hexMap[startX, startY].Enabled);
             Assert.AreEqual(Color.Aqua, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].BackColor);
             Assert.AreEqual(false, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].Enabled);
-            //Saves the current mouseposition before it gets overriden in the next call. 
-            //They are going to be used to tjeck if the current mouseposition will be colored grey and enabled after next call.
-            //Because MouseX and MouseY are equal the coordinates of the first hex in the path. 
-            //In that way we kinda test that the mouse will move along the path. 
+            
+            /* Saves the current mouseposition before it gets overriden in the next call. 
+             * They are going to be used to tjeck if the current mouseposition will be colored grey and enabled after next call.
+             * Because MouseX and MouseY are equal the coordinates of the first hex in the path. 
+             * In that way we kinda test that the mouse will move along the path. */
             LastX = initializer.map.MouseXCoordinate;
             LastY = initializer.map.MouseYCoordinate;
 
