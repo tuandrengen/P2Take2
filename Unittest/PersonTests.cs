@@ -9,7 +9,11 @@ namespace Unittest
     [TestFixture]
     public class PersonTests
     {
-        //[TestCase()]
-        //public void Person_ValueGotRightFormat_ConstructedRight()
+        [TestCase("Player1")]
+        public void Person_ValueGotRightFormat_ConstructedRight(string name)
+        {
+            Persons person = new Persons(name);
+            Assert.AreEqual(name, person.Name);
+        }
     }
 }
