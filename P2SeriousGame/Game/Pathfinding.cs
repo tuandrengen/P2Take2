@@ -85,7 +85,6 @@ namespace P2SeriousGame
             {
                 throw new LostTheGameException("You lost the game");
             }
-
 			routeByRand.Reverse();
 			
 			return routeByRand;
@@ -107,7 +106,5 @@ namespace P2SeriousGame
 				}
 			}
 		}
-
-      
     }
 }

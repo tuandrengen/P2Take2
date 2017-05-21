@@ -18,7 +18,9 @@ namespace P2SeriousGame
         SqlConnection connection = new SqlConnection();
         List<float> ValueList = new List<float>();
 
-        // ConnectionString that makes it possible to communicate to the database
+        /// <summary>
+        /// ConnectionString that makes it possible to communicate to the database
+        /// </summary>
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
             DataSource = "p2-avengers.database.windows.net",
@@ -176,20 +178,15 @@ namespace P2SeriousGame
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-        // When a letter is writing it finds the best match in the database and shows the data in listboxes and datagrid...
         /// <summary>
-        /// When there is input it will search the database and if succesfull, then the person will be found.
+        /// When there is input it will then search the database for the desired person,
+        /// if succesfull, then listBox1, DataGrid1 and DataGrid 2 will be populated with relevant data.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string searchString = textBox1.Text;
+            string searchString = textBox1.Text; // Every letter input equals Text
 
             if (searchString.Length != 0)
             {
@@ -206,9 +203,19 @@ namespace P2SeriousGame
                     listBox1.DisplayMember = "Name";
                     listBox1.ValueMember = "Id";
                     listBox1.DataSource = personTable;
+
+                    if (personTable.Rows.Count != 0)
+                    {
+                        PopulateSession();
+                        PopulateRounds();
+                    }
+                    else
+                    {
+                        listBox1.DataSource = null;
+                        dataGridView1.DataSource = null;
+                        dataGridView2.DataSource = null;
+                    }
                 }
-                PopulateSession(); // filling datagrid 2
-                PopulateRounds(); // filling datagrid 1
             }
             else
             {
@@ -218,6 +225,9 @@ namespace P2SeriousGame
             }
         }
 
+        /// <summary>
+        /// Populates the second datagrid for a Session containing data of all Rounds of the given ID
+        /// </summary>
         private void PopulateSession()
         {
             string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
@@ -233,12 +243,15 @@ namespace P2SeriousGame
             }
         }
 
+        #region Excess code
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {    
-        }
-
+        {}
 		private void AdministratorForm_Load(object sender, EventArgs e)
-		{
-		}
-	}
+		{}
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {}
+        private void label1_Click(object sender, EventArgs e)
+        {}
+        #endregion
+    }
 }
