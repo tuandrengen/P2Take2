@@ -61,11 +61,14 @@ namespace P2SeriousGame
             Controls.Add(chart);
         }
 
+        /// <summary>
+        /// Adds IEnumerable<float> to chart graph.
+        /// </summary>
+        /// <param name="roundList"></param>
         public void AddSeriesToGraph(IEnumerable<float> roundList)
         {
             Series series = new Series
             {
-                //Name = "Some name",
                 Color = System.Drawing.Color.Red,
                 BorderWidth = 5,
                 IsVisibleInLegend = true,

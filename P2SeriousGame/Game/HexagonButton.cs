@@ -84,26 +84,21 @@ namespace P2SeriousGame
 			get { return _isEdgeTile; }
 		}
 
+        /// <summary>
+        /// MouseClickEvent for changin the HexagonButton state to not pasable. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HexClicked(object sender, MouseEventArgs e)
         {
-			//Console.WriteLine($"You pressed on tile: ({XCoordinate}, {YCoordinate}) {IsEdgeTile}");
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.Enabled = false;
             sender_Button.Passable = false;
-            //PrintNeighbours();
         }
 
 		public HexagonButton parent;
 		public List<HexagonButton> neighbourList = new List<HexagonButton>();
 
         public int CostToStart;
-
-        private void PrintNeighbours()
-        {
-            foreach (HexagonButton hex in neighbourList)
-            {
-                Console.WriteLine($"{ hex.XCoordinate}, { hex.YCoordinate} { hex.IsEdgeTile}");
-            }
-        }
     }
 }

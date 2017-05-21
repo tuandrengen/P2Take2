@@ -11,22 +11,27 @@ namespace Unittest
     public class RoundTests
     {
         [TestCase(1)]
-        [TestCase(0)]
-        public void WinOrLoss_None_AssignsRight(int win)
+        public void WinOrLoss_WinIs1_AssignsRight(int win)
         {
             //Values doesn't matter at this point.
             Round round = new Round(1, 1, 1, 1, 1, 1);
             round.WinOrLoss(win);
-            if (win == 1)
-            {
-                Assert.AreEqual(1, round.Win);
-                Assert.AreEqual(0, round.Loss);
-            }
-            else if (win == 0)
-            {
-                Assert.AreEqual(0, round.Win);
-                Assert.AreEqual(1, round.Loss);
-            }
+
+            Assert.AreEqual(1, round.Win);
+            Assert.AreEqual(0, round.Loss);
+        }
+
+        [TestCase(0)]
+        public void WinOrLoss_WinIs0_AssignsRight(int win)
+        {
+            //Values doesn't matter at this point.
+            Round round = new Round(1, 1, 1, 1, 1, 1);
+            round.WinOrLoss(win);
+
+
+            Assert.AreEqual(0, round.Win);
+            Assert.AreEqual(1, round.Loss);
+
         }
 
         [TestCase(1, 1, 100, 33, 1, 500)]

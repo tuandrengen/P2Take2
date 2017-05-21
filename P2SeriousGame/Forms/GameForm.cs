@@ -277,6 +277,40 @@ namespace P2SeriousGame
             SQL.ExitGameToDatabase();
             Close();
         }
+
+
+        /// <summary>
+        /// Opens a new window with the message that you won the game.
+        /// </summary>
+        public void WinNotification()
+        {
+            using (Form form = new Form())
+            {
+                DialogResult dr = MessageBox.Show(" You won the round.", "Round notification", MessageBoxButtons.OK);
+                if (dr == DialogResult.OK)
+                {
+                    Pathfinding.gameRoundWin = true;
+                    ResetByWinningOrLosing();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens a new window with the message that you have lost the game.
+        /// </summary>
+        public void LoseNotification()
+        {
+            using (Form form = new Form())
+            {
+                DialogResult dr = MessageBox.Show(" You lose the round.", "Round notification", MessageBoxButtons.OK);
+                if (dr == DialogResult.OK)
+                {
+                    Pathfinding.gameRoundWin = false;
+                    ResetByWinningOrLosing();
+
+                }
+            }
+        }
     }
 }
 

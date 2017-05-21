@@ -56,8 +56,16 @@ namespace P2SeriousGame
             GraphPanel graph = graphList[graphCount - 1];
             graph.AddSeriesToGraph(valueList);
 
+			int margin = 50;
+
             graph.Size = new Size(300, 400);
-            graph.Location = new Point((administratorPanel.Right / 5 - graph.Width / 2) * graphCount, this.Bounds.Top + 300);
+			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * (graphCount - 1) + margin;
+			Console.WriteLine($"Width: {administratorPanel.Width}");
+			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
+
+			//(administratorPanel.Right / 5 - graph.Width / 2) * graphCount
+
+			graph.Location = new Point(alreadyOccupiedWidth, this.Bounds.Top + 300);
 
             administratorPanel.Controls.Add(graph);
 
@@ -155,8 +163,24 @@ namespace P2SeriousGame
                 DataTable roundsTable = new DataTable();
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
-                
+
+				graphCount = 0;
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
+                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+                drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+
+                // not good yet gives nothing
+                /*
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
+                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
+                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+                */
+
+
                 foreach (var item in ValueList)
                 {
                     Console.WriteLine(item);
@@ -212,7 +236,7 @@ namespace P2SeriousGame
 
         private void PopulateSession()
         {
-            string query = "SELECT s.Id FROM [Session] s " +
+            string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
                 "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
@@ -221,6 +245,8 @@ namespace P2SeriousGame
             {
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
+                this.dataGridView2.DataSource = sessionTable;
+
 
                 listBox2.DisplayMember = "Id"; 
                 listBox2.ValueMember = "Id";
@@ -233,7 +259,12 @@ namespace P2SeriousGame
         {
             PopulateSession(); // filling listbox 2
             PopulateRounds(); // filling datagrid
-            drawGraph(ValueList, "xAxisTitle", "yAxisTitle", "graphTitle", 1, 0, SeriesChartType.FastLine);
+            
         }
-    }
+
+		private void AdministratorForm_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

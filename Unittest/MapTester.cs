@@ -48,18 +48,20 @@ namespace Unittest
                 Assert.AreEqual(typeof(MapDimensionsMustBeOddException), e.GetType());
             }
         }
-
         [TestCase(11, 11)]
-        [TestCase(13,13)]
+        [TestCase(13, 13)]
+
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
         {
             initializer.InitializeMap(x);
             initializer.InitializeMouseEventArgs();
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int numberOfTilesOnRute = (x / 2);
-            
-
-            for (int i = 0; i <= numberOfTilesOnRute; i++)
+                           
+            //To indicate its a newgame.
+            Map.ResetMouse();
+                        
+            for (int i = 0; i < numberOfTilesOnRute; i++)
             {
                 initializer.map.MousePositioner(onlyForParameter, initializer.mouseArg);
 
@@ -73,27 +75,6 @@ namespace Unittest
                     //Åbenbart har alle edgetiles 0 neighbours.
                     //Det er fordi, at vi bare sætter neightbours til 0 for edgetiles, da vi ikke skal gå videre når vi når en edgetile og det er derfor ikke nødvendigt at udregne antal naboer.
                     Assert.AreEqual(0, Map.hexMap[initializer.map.MouseXCoordinate, initializer.map.MouseYCoordinate].neighbourList.Count);
-                    
-                    //The different amount of neighbours a edgetile can have.
-                    //int n = Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count;
-                    //switch (n)
-                    //{
-                    //    case 0:
-                    //    case 1:
-                    //    case 2:
-                    //    case 3:
-                    //    case 4:
-                    //    case 5:
-                    //        {
-                    //            Assert.AreEqual(true, true);
-                    //            break;
-                    //        }
-                    //    default:
-                    //        {
-                    //            Assert.AreEqual(1, n);
-                    //            break;
-                    //        }
-                    //}
                 }
             }
         }
@@ -101,27 +82,57 @@ namespace Unittest
         //Burde nok gøre sådan, at man ikke kan lave mappen 0,0.
         //tror ikke knappen med koordinaterne 0,0 er en edgetile.
         [TestCase(13, 13, 11, 11)]
-        [TestCase(9, 9, 8, 8)]
+        [TestCase(9, 9, 7, 7)]
         [TestCase(7, 7, 2, 2)]
+        [TestCase(5, 5, 3, 3)]
+        public void FindNeighbours_CoordinatesOfNonEdgeTile_RightAmountOfNeighboursForNonEdgeTile(int x, int y, int buttomX, int buttomY)
+        {
+            initializer.InitializeMap(x);
+            
+            //All non-edgetiles got 6 neighbours.
+            Assert.AreEqual(6, Map.hexMap[buttomX, buttomY].neighbourList.Count);
+
+        }
+        [TestCase(13, 13, 12, 12)]
+        [TestCase(9, 9, 8, 8)]
+        [TestCase(7, 7, 6, 6)]
         [TestCase(5, 5, 4, 4)]
-        public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForNonEdgeTile(int x, int y, int buttomX, int buttomY)
+        public void FindNeighbours_CoordinatesOfEdgeTile_RightAmountOfNeighboursForEdgeTile(int x, int y, int buttomX, int buttomY)
         {
             initializer.InitializeMap(x);
 
-            if (!Map.hexMap[buttomX, buttomY].IsEdgeTile)
-            {
-                //All non-edgetiles got 6 neighbours.
-                Assert.AreEqual(6, Map.hexMap[buttomX, buttomY].neighbourList.Count);
-            }
+            //All non-edgetiles got 6 neighbours.
+            Assert.AreEqual(0, Map.hexMap[buttomX, buttomY].neighbourList.Count);
         }
 
         [TestCase(11, 11)]
-        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
+        [TestCase(13,13)]
+        [TestCase(15,15)]
+        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinates(int x, int y)
         {
 
             initializer.InitializeMap(x);
             //Double for-loop is used to run throw all coordinates on a 2-Dimensional map.
             //varible i represents x-coordinate, and j represents y-coordinate.
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    Assert.AreEqual(i, Map.hexMap[i, j].XCoordinate);
+                    Assert.AreEqual(j, Map.hexMap[i, j].YCoordinate);
+                }
+            }
+        }
+
+        [TestCase(11, 11)]
+        [TestCase(13, 13)]
+        [TestCase(15, 15)]
+        public void CreateMap_ValidMapDimension_RightEdgeTiles(int x, int y)
+        {
+            initializer.InitializeMap(x);
+            //Double for-loop is used to run throw all coordinates on a 2-Dimensional map.
+            //varible i represents x-coordinate, and j represents y-coordinate.
+
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -135,13 +146,10 @@ namespace Unittest
                     {
                         Assert.AreEqual(false, Map.hexMap[i, j].IsEdgeTile);
                     }
-
-                    Assert.AreEqual(i, Map.hexMap[i, j].XCoordinate);
-                    Assert.AreEqual(j, Map.hexMap[i, j].YCoordinate);
                 }
             }
         }
-        
+
         [TestCase(5, 5)]
         [TestCase(11, 11)]
         [TestCase(21, 21)]
