@@ -171,6 +171,10 @@ namespace P2SeriousGame
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
+        /// <summary>
+        /// Creates a button, which resets the game
+        /// </summary>
+        /// <param name="panel"></param>
         private void AddResetButton(Panel panel)
         {
             Button ResetButton = new Button();
@@ -179,6 +183,10 @@ namespace P2SeriousGame
             panel.Controls.Add(ResetButton);
         }
 
+        /// <summary>
+        /// Creates a button, which resets the game
+        /// </summary>
+        /// <param name="panel"></param>
         private void AddExitButton(Panel panel)
         {
             Button ExitButton = new Button();

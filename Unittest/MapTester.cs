@@ -126,10 +126,8 @@ namespace Unittest
                 }
             }
         }
-
-
-
-
+        
+        
         //Burde nok gøre sådan, at man ikke kan lave mappen 0,0.
         //tror ikke knappen med koordinaterne 0,0 er en edgetile.
         [TestCase(13, 13, 11, 11)]
