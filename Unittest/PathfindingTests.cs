@@ -35,7 +35,7 @@ namespace Unittest
             }
             initializer.bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
 
-            //Makes sure, that FindTheRoutes wont find any of the dissabled edgetiles.
+            //Makes sure that FindTheRoutes wont find any of the dissabled edgetiles.
             Assert.AreNotEqual(edgeTiles, initializer.bfs.FindTheRoutes());
             foreach (HexagonButton hex in initializer.bfs.FindLongestRoutes())
             {
@@ -68,7 +68,7 @@ namespace Unittest
             initializer.InitializeMap(x);
             initializer.InitializeBFS();
             initializer.bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
-            
+                        
             //Check if each route has the lowest and the same cost.
             foreach (HexagonButton hex in initializer.bfs.FindShortestRoutes())
             {
@@ -80,15 +80,16 @@ namespace Unittest
         [TestCase(13, 13)]
         [TestCase(15, 15)]
         [TestCase(17, 17)]
-        public void FindShortestRoutes_HexMapWithEdges_FindsRightAmountOfEndTiles(int x, int y)
+        public void FindShortestRoutes_HexMapWithEdges_FindsRightAmountOfEndTilesFromStart(int x, int y)
         {
             initializer.InitializeMap(x);
             initializer.InitializeBFS();
-
             initializer.bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
 
+            int count = initializer.bfs.FindShortestRoutes().Count;
+
             //Check if each endtile if found from startpoint.
-            Assert.AreEqual(x + 5, initializer.bfs.FindShortestRoutes().Count);
+            Assert.AreEqual(x + 5, count);
             //x + 5 different edgetiles the mouse can go to from startpoint.
         }
 
@@ -152,7 +153,7 @@ namespace Unittest
         [TestCase(9, 9)]
         [TestCase(11, 11)]
         [TestCase(13,13)]
-        public void FindPath_FindsMouseButtonsNextHexTile_FindTileNextToMouse(int x, int y)
+        public void FindPath_ValidDimension_FindTileNextToMouseFromStart(int x, int y)
         {
             initializer.InitializeMap(x);
             
