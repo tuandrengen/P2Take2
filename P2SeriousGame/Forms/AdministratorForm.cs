@@ -209,7 +209,7 @@ namespace P2SeriousGame
 				drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
 
 				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
-				drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+				drawGraph(ValueList, "Title X", "Title Y", "Win / loss rating", 1, 0, SeriesChartType.Pie);
 			}
         }
 
