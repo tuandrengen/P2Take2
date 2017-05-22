@@ -61,7 +61,11 @@ namespace P2SeriousGame
 			int margin = 50;
 
             graph.Size = new Size(300, 400);
+
+			// Places the graphs next to each other
 			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount - 1) % 2) + margin;
+
+			// Stacks the graphs, with the first two graphs on top, and the next two below.
 			int height = graphCount > 1 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
 
 			graph.Location = new Point(alreadyOccupiedWidth, height);
