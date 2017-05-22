@@ -122,7 +122,11 @@ namespace P2SeriousGame
             };
 
 			graphList[graphCount] = newGraph;
-			graphCount++;
+
+			if (graphCount == 4)
+				graphCount = 0;
+			else
+				graphCount++;
 
             newGraph.UpdateChartLook();
             InitializeGraph(valueList);
