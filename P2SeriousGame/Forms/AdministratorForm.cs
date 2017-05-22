@@ -56,20 +56,23 @@ namespace P2SeriousGame
         /// <returns></returns>
         private double InitializeGraph(List<float> valueList)
         {
-            GraphPanel graph = graphList[graphCount - 1];
+            GraphPanel graph = graphList[graphCount];
             graph.AddSeriesToGraph(valueList);
+
+			if (graphCount == 3)
+				graphCount = 0;
+			else
+				graphCount++;
 
 			int margin = 50;
 
-            graph.Size = new Size(300, 400);
+            graph.Size = new Size(300, 300);
 
 			// Places the graphs next to each other
-			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount - 1) % 2) + margin;
+			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount) % 2) + margin;
 
 			// Stacks the graphs, with the first two graphs on top, and the next two below.
-			int height = graphCount > 2 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
-
-			Console.WriteLine($"x: {alreadyOccupiedWidth}. y: {height}");
+			int height = graphCount < 2 ? Bounds.Top + 150 : Bounds.Top + 190 + graph.Height;
 
 			graph.Location = new Point(alreadyOccupiedWidth, height);
 
@@ -125,11 +128,6 @@ namespace P2SeriousGame
             };
 
 			graphList[graphCount] = newGraph;
-
-			if (graphCount == 4)
-				graphCount = 0;
-			else
-				graphCount++;
 
             newGraph.UpdateChartLook();
             InitializeGraph(valueList);
@@ -208,7 +206,19 @@ namespace P2SeriousGame
 				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Clicks"])).ToList();
 				drawGraph(ValueList, "Rounds", "Clicks", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
 
-				
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Win"])).ToList();
+				float wins = 0;
+				foreach (var item in ValueList)
+				{
+					wins += item;
+				}
+
+				ValueList.Clear();
+				//ValueList.Add(wins);
+				//ValueList.Add(ValueList.Count - wins);
+				ValueList.Add(2);
+				ValueList.Add(4);
+				drawGraph(ValueList, "Losses", "Win", "Win / loss rating", 1, 0, SeriesChartType.Pie);
 			}
         }
 
@@ -285,11 +295,7 @@ namespace P2SeriousGame
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
                 this.dataGridView2.DataSource = sessionTable;
-
-                ValueList = (from row in sessionTable.AsEnumerable() select Convert.ToSingle(row["Wins"])).ToList();
-                ValueList.Add((from row in sessionTable.AsEnumerable() select Convert.ToSingle(row["Losses"])).First());
-                drawGraph(ValueList, "Losses", "Win", "Win / loss rating", 1, 0, SeriesChartType.Pie);
-            }
+			}
         }
 
         #region Excess code
