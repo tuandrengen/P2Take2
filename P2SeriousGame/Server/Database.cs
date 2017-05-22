@@ -203,7 +203,7 @@ namespace P2SeriousGame
                     {
                         Round_Number = row.RoundNumber,
                         Clicks = row.NumberOfClicks,
-                        AVG_Clicks = row.ClicksPerMinute,
+                        Avg__Clicks_Per_Minute = row.ClicksPerMinute,
                         Win = row.Win,
                         Loss = row.Loss,
                         Time_Used = row.TimeUsed,
@@ -224,7 +224,7 @@ namespace P2SeriousGame
                 context.Session.Add(new Session
                 {
                     Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClickPerMinute(_clickedTotal, _secondsTotal),
+                    Avg__Clicks_Per_Minute = AverageClickPerMinute(_clickedTotal, _secondsTotal),
                     Rounds = _roundNumber,
                     Wins = Pathfinding.gameTotalWins,
                     Losses = _totalLoss,

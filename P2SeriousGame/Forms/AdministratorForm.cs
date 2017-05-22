@@ -154,7 +154,7 @@ namespace P2SeriousGame
         /// </summary>
         private void PopulateRounds()
         {
-            string query = "SELECT r.[Round Number], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
+            string query = "SELECT r.[Round Number], r.[Avg. Clicks Per Minute], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
                 "INNER JOIN ForeignKeys fk ON fk.RoundsId = r.RoundID " +
                 "WHERE fk.PersonId = " + listBox1.SelectedValue;
 
@@ -167,8 +167,8 @@ namespace P2SeriousGame
                 this.dataGridView1.DataSource = roundsTable;
 
 				graphCount = 0;
-                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
-                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Avg. Clicks Per Minute"])).ToList();
+                drawGraph(ValueList, "Rounds", "Avg. Clicks Per Minute", "Avg. Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
 
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
                 drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
@@ -227,7 +227,7 @@ namespace P2SeriousGame
         /// </summary>
         private void PopulateSession()
         {
-            string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
+            string query = "SELECT s.Rounds, s.Clicks, s.[Avg. Clicks Per Minute], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
                 "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))

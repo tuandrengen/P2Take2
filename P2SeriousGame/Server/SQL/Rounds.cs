@@ -18,7 +18,7 @@ namespace P2SeriousGame.Server.SQL
         public int RoundID { get; set; }
         public int Round_Number { get; set; }
         public Nullable<double> Clicks { get; set; }
-        public Nullable<double> AVG_Clicks { get; set; }
+        public Nullable<double> Avg__Clicks_Per_Minute { get; set; }
         public Nullable<int> Win { get; set; }
         public Nullable<int> Loss { get; set; }
         public Nullable<double> Time_Used { get; set; }

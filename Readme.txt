@@ -2,6 +2,10 @@ To run the program execute the .exe file.
 NOTE: A stable internet connection is required, since it can not send data to
 the database otherwise.
 
+NOTE: Don't play the game by clicking on one field then restarting in under a second.
+This will cause an error in the database, since it can't calculate the average clicks
+per minute.
+
 ---------------------------------------------------------------------------------------
 
 To view the tables in the database via Visual Studio:
