@@ -58,7 +58,7 @@ namespace Unittest
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int numberOfTilesOnRute = (x / 2);
 
-            //To indicate its a newgame.
+            //To indicate it's a newgame.
             Map.newGame = true;
                         
             for (int i = 0; i < numberOfTilesOnRute; i++)
