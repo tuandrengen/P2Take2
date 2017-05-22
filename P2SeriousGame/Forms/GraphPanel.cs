@@ -23,11 +23,6 @@ namespace P2SeriousGame
         public string YAxisTitle { get; set; }
         public string GraphTitle { get; set; }
 
-        private void GraphPanel_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public void UpdateChartLook()
         {
             Axis xAxis = new Axis
@@ -88,5 +83,11 @@ namespace P2SeriousGame
 
             chart.Series.Add(series);
         }
+
+        #region Excess code
+        private void GraphPanel_Load(object sender, EventArgs e)
+        {
+        }
+        #endregion
     }
 }

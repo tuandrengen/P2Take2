@@ -299,7 +299,6 @@ namespace P2SeriousGame
             {
                 DataTable personTable = new DataTable();
                 adapter.Fill(personTable);
-                Console.WriteLine(personTable.Rows.Count);
                 return personTable.Rows.Count;
             }
         }
