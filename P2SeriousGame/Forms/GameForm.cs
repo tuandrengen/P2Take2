@@ -151,7 +151,7 @@ namespace P2SeriousGame
         /// <param name="button"></param>
         public void PlaceHexagonButton(HexagonButton button)
         {
-            //For at farve midten før man har klikket på skærmen.
+            /// Colors the center of the map
             if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;

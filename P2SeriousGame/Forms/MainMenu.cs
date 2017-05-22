@@ -49,8 +49,8 @@ namespace P2SeriousGame
         }
 
         public static TextBox nameBox;
-
         const string defaultNameboxText = "Please insert your name here..";
+
         /// <summary>
         /// This method gets called in MenuPanel.
         /// This box is made from a Label and a Textbox.
