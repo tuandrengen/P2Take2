@@ -175,7 +175,7 @@ namespace P2SeriousGame
         /// </summary>
         private void PopulateRounds()
         {
-            string query = "SELECT r.[Round Number], r.[Avg. Clicks Per Minute], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
+            string query = "SELECT r.[Round Number], r.Clicks, r.[Avg. Clicks Per Minute], r.Win, r.Loss, r.[Time Used] FROM Rounds r " +
                 "INNER JOIN ForeignKeys fk ON fk.RoundsId = r.RoundID " +
                 "WHERE fk.PersonId = " + listBox1.SelectedValue;
 
@@ -205,11 +205,10 @@ namespace P2SeriousGame
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
                 drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
 
-				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
-				drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Clicks"])).ToList();
+				drawGraph(ValueList, "Rounds", "Clicks", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
 
-				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
-				drawGraph(ValueList, "Title X", "Title Y", "Win / loss rating", 1, 0, SeriesChartType.Pie);
+				
 			}
         }
 
@@ -276,7 +275,7 @@ namespace P2SeriousGame
         /// </summary>
         private void PopulateSession()
         {
-            string query = "SELECT s.Rounds, s.Clicks, s.[Avg. Clicks Per Minute], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
+            string query = "SELECT s.Rounds, s.Clicks, s.[Avg. Clicks Per Minute], s.Wins, s.Losses, s.[Time Used]  FROM [Session] s " +
                 "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
@@ -286,6 +285,10 @@ namespace P2SeriousGame
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
                 this.dataGridView2.DataSource = sessionTable;
+
+                ValueList = (from row in sessionTable.AsEnumerable() select Convert.ToSingle(row["Wins"])).ToList();
+                ValueList.Add((from row in sessionTable.AsEnumerable() select Convert.ToSingle(row["Losses"])).First());
+                drawGraph(ValueList, "Losses", "Win", "Win / loss rating", 1, 0, SeriesChartType.Pie);
             }
         }
 
