@@ -214,10 +214,8 @@ namespace P2SeriousGame
 				}
 
 				ValueList.Clear();
-				//ValueList.Add(wins);
-				//ValueList.Add(ValueList.Count - wins);
-				ValueList.Add(2);
-				ValueList.Add(4);
+				ValueList.Add(wins);
+				ValueList.Add(ValueList.Count - wins);
 				drawGraph(ValueList, "Losses", "Win", "Win / loss rating", 1, 0, SeriesChartType.Pie);
 			}
         }
