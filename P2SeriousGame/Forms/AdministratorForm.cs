@@ -17,6 +17,7 @@ namespace P2SeriousGame
 		public int graphCount = 0;
         SqlConnection connection = new SqlConnection();
         List<float> ValueList = new List<float>();
+		bool firstRun = true;
 
         /// <summary>
         /// ConnectionString that makes it possible to communicate to the database
@@ -66,7 +67,9 @@ namespace P2SeriousGame
 			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount - 1) % 2) + margin;
 
 			// Stacks the graphs, with the first two graphs on top, and the next two below.
-			int height = graphCount > 1 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
+			int height = graphCount > 2 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
+
+			Console.WriteLine($"x: {alreadyOccupiedWidth}. y: {height}");
 
 			graph.Location = new Point(alreadyOccupiedWidth, height);
 
@@ -186,12 +189,28 @@ namespace P2SeriousGame
 
 				// Instantiates the graphs that should be shown.
 				graphCount = 0;
-                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Avg. Clicks Per Minute"])).ToList();
+				if(!firstRun)
+				{
+					foreach (var item in graphList)
+					{
+						item.Visible = false;
+					}
+				}
+
+				firstRun = false;
+
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Avg. Clicks Per Minute"])).ToList();
                 drawGraph(ValueList, "Rounds", "Avg. Clicks Per Minute", "Avg. Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
 
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
                 drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
-            }
+
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+				drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
+				drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+			}
         }
 
         /// <summary>
