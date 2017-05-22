@@ -17,8 +17,11 @@ namespace P2SeriousGame
 		public int graphCount = 0;
         SqlConnection connection = new SqlConnection();
         List<float> ValueList = new List<float>();
+		bool firstRun = true;
 
-        // ConnectionString that makes it possible to communicate to the database
+        /// <summary>
+        /// ConnectionString that makes it possible to communicate to the database
+        /// </summary>
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
             DataSource = "p2-avengers.database.windows.net",
@@ -59,11 +62,14 @@ namespace P2SeriousGame
 			int margin = 50;
 
             graph.Size = new Size(300, 400);
+
+			// Places the graphs next to each other
 			int alreadyOccupiedWidth = ((administratorPanel.Right / 4) - margin) * ((graphCount - 1) % 2) + margin;
-			int height = graphCount > 1 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
-			Console.WriteLine($"Width: {administratorPanel.Width}");
-			Console.WriteLine($"Positionx: {alreadyOccupiedWidth}");
-			Console.WriteLine($"Positiony: {height}");
+
+			// Stacks the graphs, with the first two graphs on top, and the next two below.
+			int height = graphCount > 2 ? Bounds.Top + 150 : Bounds.Top + 100 + graph.Height;
+
+			Console.WriteLine($"x: {alreadyOccupiedWidth}. y: {height}");
 
 			graph.Location = new Point(alreadyOccupiedWidth, height);
 
@@ -94,18 +100,18 @@ namespace P2SeriousGame
             Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="valueList"></param>
-        /// <param name="xAxisTitle"></param>
-        /// <param name="yAxisTitle"></param>
-        /// <param name="graphTitle"></param>
-        /// <param name="xAxisInterval"></param>
-        /// <param name="yAxisMin"></param>
-        /// <param name="yAxisMax"></param>
-        /// <param name="chartType"></param>
-        public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
+		/// <summary>
+		/// Draws a graph on the administratorform
+		/// </summary>
+		/// <param name="valueList">The list values, plotted on the y-axis</param>
+		/// <param name="xAxisTitle"></param>
+		/// <param name="yAxisTitle"></param>
+		/// <param name="graphTitle"></param>
+		/// <param name="xAxisInterval">The interval that should be shown between the values on the x-axis</param>
+		/// <param name="yAxisMin">The minimum value of the y-axis</param>
+		/// <param name="yAxisMax">The maximum value of the y-axis</param>
+		/// <param name="chartType">The type of chart that should be displayed</param>
+		public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
         {
 			GraphPanel newGraph = new GraphPanel
             {
@@ -119,13 +125,27 @@ namespace P2SeriousGame
             };
 
 			graphList[graphCount] = newGraph;
-			graphCount++;
+
+			if (graphCount == 4)
+				graphCount = 0;
+			else
+				graphCount++;
 
             newGraph.UpdateChartLook();
             InitializeGraph(valueList);
         }
 
-        public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
+		/// <summary>
+		/// Draws a graph on the administratorform. 
+		/// </summary>
+		/// <param name="valueList">The list values, plotted on the y-axis</param>
+		/// <param name="xAxisTitle"></param>
+		/// <param name="yAxisTitle"></param>
+		/// <param name="graphTitle"></param>
+		/// <param name="xAxisInterval">The interval that should be shown between the values on the x-axis</param>
+		/// <param name="yAxisMin">The maximum value of the y-axis</param>
+		/// <param name="chartType">The type of chart that should be displayed</param>
+		public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
         {
             double yMaxDouble = GetMaxValue(valueList) + 1 * 1.7;
 			int yMax = Convert.ToInt32(yMaxDouble);
@@ -155,7 +175,7 @@ namespace P2SeriousGame
         /// </summary>
         private void PopulateRounds()
         {
-            string query = "SELECT r.[Round Number], r.[AVG Clicks], r.Loss, r.Win, r.[Time Used] FROM Rounds r " +
+            string query = "SELECT r.[Round Number], r.Clicks, r.[Avg. Clicks Per Minute], r.Win, r.Loss, r.[Time Used] FROM Rounds r " +
                 "INNER JOIN ForeignKeys fk ON fk.RoundsId = r.RoundID " +
                 "WHERE fk.PersonId = " + listBox1.SelectedValue;
 
@@ -167,29 +187,40 @@ namespace P2SeriousGame
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
 
+				// Instantiates the graphs that should be shown.
 				graphCount = 0;
-                ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
-                drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
+				if(!firstRun)
+				{
+					foreach (var item in graphList)
+					{
+						item.Visible = false;
+					}
+				}
+
+				firstRun = false;
+
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Avg. Clicks Per Minute"])).ToList();
+                drawGraph(ValueList, "Rounds", "Avg. Clicks Per Minute", "Avg. Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
 
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Time Used"])).ToList();
                 drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
-            }
+
+				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Clicks"])).ToList();
+				drawGraph(ValueList, "Rounds", "Clicks", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+
+				
+			}
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-        // When a letter is writing it finds the best match in the database and shows the data in listboxes and datagrid...
         /// <summary>
-        /// When there is input it will search the database and if succesfull, then the person will be found.
+        /// When there is input it will then search the database for the desired person,
+        /// if succesfull, then listBox1, DataGrid1 and DataGrid 2 will be populated with relevant data.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string searchString = textBox1.Text;
+            string searchString = textBox1.Text; // Every letter input equals Text
 
             if (searchString.Length != 0)
             {
@@ -206,9 +237,19 @@ namespace P2SeriousGame
                     listBox1.DisplayMember = "Name";
                     listBox1.ValueMember = "Id";
                     listBox1.DataSource = personTable;
+
+                    if (personTable.Rows.Count != 0)
+                    {
+                        PopulateSession();
+                        PopulateRounds();
+                    }
+                    else
+                    {
+                        listBox1.DataSource = null;
+                        dataGridView1.DataSource = null;
+                        dataGridView2.DataSource = null;
+                    }
                 }
-                PopulateSession(); // filling datagrid 2
-                PopulateRounds(); // filling datagrid 1
             }
             else
             {
@@ -218,9 +259,23 @@ namespace P2SeriousGame
             }
         }
 
+        /// <summary>
+        /// Called when another person is chosen in listBox1 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateRounds();
+            PopulateSession();
+        }
+
+        /// <summary>
+        /// Populates the second datagrid for a Session containing data of all Rounds of the given ID
+        /// </summary>
         private void PopulateSession()
         {
-            string query = "SELECT s.Rounds, s.Clicks, s.[AVG Clicks], s.Losses, s.Wins, s.[Time Used]  FROM [Session] s " +
+            string query = "SELECT s.Rounds, s.Clicks, s.[Avg. Clicks Per Minute], s.Wins, s.Losses, s.[Time Used]  FROM [Session] s " +
                 "WHERE  s.Id = " + listBox1.SelectedValue;
 
             using (connection = new SqlConnection(builder.ConnectionString))
@@ -230,15 +285,20 @@ namespace P2SeriousGame
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
                 this.dataGridView2.DataSource = sessionTable;
+
+                ValueList = (from row in sessionTable.AsEnumerable() select Convert.ToSingle(row["Wins"])).ToList();
+                ValueList.Add((from row in sessionTable.AsEnumerable() select Convert.ToSingle(row["Losses"])).First());
+                drawGraph(ValueList, "Losses", "Win", "Win / loss rating", 1, 0, SeriesChartType.Pie);
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {    
-        }
-
+        #region Excess code
 		private void AdministratorForm_Load(object sender, EventArgs e)
-		{
-		}
-	}
+		{}
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {}
+        private void label1_Click(object sender, EventArgs e)
+        {}
+        #endregion
+    }
 }

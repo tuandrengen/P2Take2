@@ -78,7 +78,6 @@ namespace P2SeriousGame
                 do
                 {
                     routeByRand.Add(currentHex);
-                    currentHex.BackColor = System.Drawing.Color.FromArgb(50, 205, 50);
                     currentHex = currentHex.parent;
                 } while (currentHex.parent != null);
             }
@@ -86,7 +85,6 @@ namespace P2SeriousGame
             {
                 throw new LostTheGameException("You lost the game");
             }
-
 			routeByRand.Reverse();
 			
 			return routeByRand;
@@ -108,7 +106,5 @@ namespace P2SeriousGame
 				}
 			}
 		}
-
-      
     }
 }

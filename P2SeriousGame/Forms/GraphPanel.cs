@@ -23,11 +23,6 @@ namespace P2SeriousGame
         public string YAxisTitle { get; set; }
         public string GraphTitle { get; set; }
 
-        private void GraphPanel_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public void UpdateChartLook()
         {
             Axis xAxis = new Axis
@@ -64,7 +59,7 @@ namespace P2SeriousGame
         /// <summary>
         /// Adds IEnumerable<float> to chart graph.
         /// </summary>
-        /// <param name="roundList"></param>
+        /// <param name="roundList">The list of values to be added to the graph</param>
         public void AddSeriesToGraph(IEnumerable<float> roundList)
         {
             Series series = new Series
@@ -88,5 +83,11 @@ namespace P2SeriousGame
 
             chart.Series.Add(series);
         }
+
+        #region Excess code
+        private void GraphPanel_Load(object sender, EventArgs e)
+        {
+        }
+        #endregion
     }
 }

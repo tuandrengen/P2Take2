@@ -38,16 +38,8 @@ namespace P2SeriousGame
                 AddToTotal();
                 RoundVariables();
 
-                if (GetNextID() != 0)
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
-                    roundList.Add(round);
-                }
-                else
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
-                    roundList.Add(round);
-                }
+                Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
+                roundList.Add(round);
 
                 /// Increments the reset counter.
                 ResetCounter();
@@ -63,26 +55,6 @@ namespace P2SeriousGame
         public void ExitGameToDatabase()
         {
             stopwatchRound.Stop();
-
-            if (GameForm.hexClickedRound != 0)
-            {
-                _roundNumber++;
-                ConvertSeconds();
-                AddToTotal();
-                RoundVariables();
-
-                if (GetNextID() != 0)
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
-                    roundList.Add(round);
-                }
-                else
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
-                    roundList.Add(round);
-                }
-                
-            }
 
             /// If the game gets finished without any entries 
             /// there's no reason to save the data.
@@ -203,7 +175,7 @@ namespace P2SeriousGame
                     {
                         Round_Number = row.RoundNumber,
                         Clicks = row.NumberOfClicks,
-                        AVG_Clicks = row.ClicksPerMinute,
+                        Avg__Clicks_Per_Minute = row.ClicksPerMinute,
                         Win = row.Win,
                         Loss = row.Loss,
                         Time_Used = row.TimeUsed,
@@ -224,7 +196,7 @@ namespace P2SeriousGame
                 context.Session.Add(new Session
                 {
                     Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClickPerMinute(_clickedTotal, _secondsTotal),
+                    Avg__Clicks_Per_Minute = AverageClickPerMinute(_clickedTotal, _secondsTotal),
                     Rounds = _roundNumber,
                     Wins = Pathfinding.gameTotalWins,
                     Losses = _totalLoss,
@@ -299,7 +271,6 @@ namespace P2SeriousGame
             {
                 DataTable personTable = new DataTable();
                 adapter.Fill(personTable);
-                Console.WriteLine(personTable.Rows.Count);
                 return personTable.Rows.Count;
             }
         }

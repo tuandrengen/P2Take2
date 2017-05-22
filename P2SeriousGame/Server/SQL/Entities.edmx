@@ -29,7 +29,7 @@
           <Property Name="RoundID" Type="int" Nullable="false" />
           <Property Name="Round Number" Type="int" Nullable="false" />
           <Property Name="Clicks" Type="float" />
-          <Property Name="AVG Clicks" Type="float" />
+          <Property Name="Avg. Clicks Per Minute" Type="float" />
           <Property Name="Win" Type="int" />
           <Property Name="Loss" Type="int" />
           <Property Name="Time Used" Type="float" />
@@ -40,7 +40,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="float" />
-          <Property Name="AVG Clicks" Type="float" />
+          <Property Name="Avg. Clicks Per Minute" Type="float" />
           <Property Name="Rounds" Type="int" />
           <Property Name="Wins" Type="int" />
           <Property Name="Losses" Type="int" />
@@ -81,7 +81,7 @@
           <Property Name="RoundID" Type="Int32" Nullable="false" />
           <Property Name="Round_Number" Type="Int32" Nullable="false" />
           <Property Name="Clicks" Type="Double" />
-          <Property Name="AVG_Clicks" Type="Double" />
+          <Property Name="Avg__Clicks_Per_Minute" Type="Double" />
           <Property Name="Win" Type="Int32" />
           <Property Name="Loss" Type="Int32" />
           <Property Name="Time_Used" Type="Double" />
@@ -92,7 +92,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Double" />
-          <Property Name="AVG_Clicks" Type="Double" />
+          <Property Name="Avg__Clicks_Per_Minute" Type="Double" />
           <Property Name="Rounds" Type="Int32" />
           <Property Name="Wins" Type="Int32" />
           <Property Name="Losses" Type="Int32" />
@@ -135,7 +135,7 @@
                 <ScalarProperty Name="RoundID" ColumnName="RoundID" />
                 <ScalarProperty Name="Round_Number" ColumnName="Round Number" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
-                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
+                <ScalarProperty Name="Avg__Clicks_Per_Minute" ColumnName="Avg. Clicks Per Minute" />
                 <ScalarProperty Name="Win" ColumnName="Win" />
                 <ScalarProperty Name="Loss" ColumnName="Loss" />
                 <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
@@ -147,7 +147,7 @@
               <MappingFragment StoreEntitySet="Session">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
-                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
+                <ScalarProperty Name="Avg__Clicks_Per_Minute" ColumnName="Avg. Clicks Per Minute" />
                 <ScalarProperty Name="Rounds" ColumnName="Rounds" />
                 <ScalarProperty Name="Wins" ColumnName="Wins" />
                 <ScalarProperty Name="Losses" ColumnName="Losses" />
