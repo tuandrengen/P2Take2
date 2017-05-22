@@ -261,6 +261,17 @@ namespace P2SeriousGame
         }
 
         /// <summary>
+        /// Called when another person is chosen in listBox1 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateRounds();
+            PopulateSession();
+        }
+
+        /// <summary>
         /// Populates the second datagrid for a Session containing data of all Rounds of the given ID
         /// </summary>
         private void PopulateSession()
@@ -279,8 +290,6 @@ namespace P2SeriousGame
         }
 
         #region Excess code
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {}
 		private void AdministratorForm_Load(object sender, EventArgs e)
 		{}
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
