@@ -64,7 +64,7 @@ namespace P2SeriousGame
         /// <summary>
         /// Adds IEnumerable<float> to chart graph.
         /// </summary>
-        /// <param name="roundList"></param>
+        /// <param name="roundList">The list of values to be added to the graph</param>
         public void AddSeriesToGraph(IEnumerable<float> roundList)
         {
             Series series = new Series

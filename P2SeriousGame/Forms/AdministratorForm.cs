@@ -96,18 +96,18 @@ namespace P2SeriousGame
             Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="valueList"></param>
-        /// <param name="xAxisTitle"></param>
-        /// <param name="yAxisTitle"></param>
-        /// <param name="graphTitle"></param>
-        /// <param name="xAxisInterval"></param>
-        /// <param name="yAxisMin"></param>
-        /// <param name="yAxisMax"></param>
-        /// <param name="chartType"></param>
-        public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
+		/// <summary>
+		/// Draws a graph on the administratorform
+		/// </summary>
+		/// <param name="valueList">The list values, plotted on the y-axis</param>
+		/// <param name="xAxisTitle"></param>
+		/// <param name="yAxisTitle"></param>
+		/// <param name="graphTitle"></param>
+		/// <param name="xAxisInterval">The interval that should be shown between the values on the x-axis</param>
+		/// <param name="yAxisMin">The minimum value of the y-axis</param>
+		/// <param name="yAxisMax">The maximum value of the y-axis</param>
+		/// <param name="chartType">The type of chart that should be displayed</param>
+		public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
         {
 			GraphPanel newGraph = new GraphPanel
             {
@@ -127,7 +127,17 @@ namespace P2SeriousGame
             InitializeGraph(valueList);
         }
 
-        public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
+		/// <summary>
+		/// Draws a graph on the administratorform. 
+		/// </summary>
+		/// <param name="valueList">The list values, plotted on the y-axis</param>
+		/// <param name="xAxisTitle"></param>
+		/// <param name="yAxisTitle"></param>
+		/// <param name="graphTitle"></param>
+		/// <param name="xAxisInterval">The interval that should be shown between the values on the x-axis</param>
+		/// <param name="yAxisMin">The maximum value of the y-axis</param>
+		/// <param name="chartType">The type of chart that should be displayed</param>
+		public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
         {
             double yMaxDouble = GetMaxValue(valueList) + 1 * 1.7;
 			int yMax = Convert.ToInt32(yMaxDouble);
@@ -169,6 +179,7 @@ namespace P2SeriousGame
                 adapter.Fill(roundsTable);
                 this.dataGridView1.DataSource = roundsTable;
 
+				// Instantiates the graphs that should be shown.
 				graphCount = 0;
                 ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["AVG Clicks"])).ToList();
                 drawGraph(ValueList, "Rounds", "AVG Clicks", "AVG Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
