@@ -38,16 +38,8 @@ namespace P2SeriousGame
                 AddToTotal();
                 RoundVariables();
 
-                if (GetNextID() != 0)
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
-                    roundList.Add(round);
-                }
-                else
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
-                    roundList.Add(round);
-                }
+                Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
+                roundList.Add(round);
 
                 /// Increments the reset counter.
                 ResetCounter();
@@ -63,26 +55,6 @@ namespace P2SeriousGame
         public void ExitGameToDatabase()
         {
             stopwatchRound.Stop();
-
-            if (GameForm.hexClickedRound != 0)
-            {
-                _roundNumber++;
-                ConvertSeconds();
-                AddToTotal();
-                RoundVariables();
-
-                if (GetNextID() != 0)
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID());
-                    roundList.Add(round);
-                }
-                else
-                {
-                    Round round = new Round(_roundNumber, GameForm.hexClickedRound, _roundAverage, _roundResult, _secondsRound, GetNextID() + 1);
-                    roundList.Add(round);
-                }
-                
-            }
 
             /// If the game gets finished without any entries 
             /// there's no reason to save the data.
