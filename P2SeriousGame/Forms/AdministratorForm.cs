@@ -17,7 +17,8 @@ namespace P2SeriousGame
 		public int graphCount = 0;
         SqlConnection connection = new SqlConnection();
         List<float> ValueList = new List<float>();
-		bool firstRun = true;
+        List<float> ValueList1 = new List<float>();
+        bool firstRun = true;
 
         /// <summary>
         /// ConnectionString that makes it possible to communicate to the database
@@ -213,9 +214,16 @@ namespace P2SeriousGame
 					wins += item;
 				}
 
+                ValueList1 = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Loss"])).ToList();
+                float losses = 0;
+                foreach (var item in ValueList1)
+                {
+                    losses += item;
+                }
+
 				ValueList.Clear();
 				ValueList.Add(wins);
-				ValueList.Add(ValueList.Count - wins);
+                ValueList.Add(losses);
 				drawGraph(ValueList, "Losses", "Win", "Win / loss rating", 1, 0, SeriesChartType.Pie);
 			}
         }
