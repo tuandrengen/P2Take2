@@ -205,7 +205,7 @@ namespace P2SeriousGame
                 drawGraph(ValueList, "Rounds", "Time Used", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
 
 				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Clicks"])).ToList();
-				drawGraph(ValueList, "Rounds", "Clicks", "Time Used over Rounds", 1, 0, SeriesChartType.FastLine);
+				drawGraph(ValueList, "Rounds", "Clicks", "Clicks over Rounds", 1, 0, SeriesChartType.FastLine);
 
 				ValueList = (from row in roundsTable.AsEnumerable() select Convert.ToSingle(row["Win"])).ToList();
 				float wins = 0;
